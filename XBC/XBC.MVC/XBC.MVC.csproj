@@ -246,6 +246,16 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XBC.Repository\XBC.Repository.csproj">
+      <Project>{3134897e-bf92-4af6-8a77-10374f6d1675}</Project>
+      <Name>XBC.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XBC.ViewModel\XBC.ViewModel.csproj">
+      <Project>{939efc57-5c89-4a99-bf96-671a6989a632}</Project>
+      <Name>XBC.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
