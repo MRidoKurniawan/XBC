@@ -9,7 +9,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.role_id, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.role_id, new { htmlAttributes = new { @class = "form-control", @placeholder = "Role Id" } })
+                @Html.DropDownListFor(model => model.role_id, (IEnumerable<SelectListItem>)ViewBag.RoleList, "Select Role", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.role_id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,8 +59,10 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save Successfull\nName" + result.entity.Name);
+                    //alert("Save Successfull\nName" + result.entity.Name);
                     $(".modal").modal("hide");
+                    $('.tx-info').html("Data successfully saved !")
+                    $(".alert").show();
                     GetList();
                 }
                 else {

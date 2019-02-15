@@ -31,12 +31,18 @@
     </div><!-- /.modal-dialog -->
 </div>
 
+<div class='alert alert-success fade in col-md-3' style="position:fixed; top:9.5rem; left:50rem;">
+    <a href='#' class='close alert-close'>&times;</a> <strong>Message Info !</strong><hr />
+    <p class="tx-info">Data successfully saved !</p>
+</div>
+
 @section Scripts{
     <script type="text/javascript">
         $(document).ready(function () {
             //$(".panel-body").html("<h4>Selesai</h4>");
             //$(".panel-body2").append("<h4>Selesai2</h4>");
             ////$("#data-list").html("<h4>List ada disini</h4>");
+            $('.alert-success').hide();
             GetList();
         });
         function GetList() {
@@ -48,16 +54,8 @@
                 }
             })
         }
-        $("#btn-create-new").click(function () {
-            $.ajax({
-                url: '@Url.Action("Create","User")',
-                type: 'get',
-                success: function (result) {
-                    $(".modal-body").html(result);
-                    $(".modal-title").html("Create New");
-                    $(".modal").modal("show");
-                }
-            })
+        $(".alert-close").click(function () {
+            $('.alert-success').hide();
         })
     </script>
 }

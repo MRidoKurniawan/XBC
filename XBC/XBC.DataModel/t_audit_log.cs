@@ -8,7 +8,7 @@ namespace XBC.DataModel
 
     public partial class t_audit_log
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long id { get; set; }
 
         [Required]

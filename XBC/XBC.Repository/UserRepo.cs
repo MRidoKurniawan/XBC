@@ -11,16 +11,17 @@ namespace XBC.Repository
 {
     public class UserRepo
     {
-        public static List<UserViewModel> All()
+        public static List<MenuViewModel> All()
         {
 
-            List<UserViewModel> result = new List<UserViewModel>();
+            List<MenuViewModel> result = new List<MenuViewModel>();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           join
-      r in db.t_role on u.role_id equals r.id
-                          select new UserViewModel
+                          r in db.t_role on u.role_id equals r.id
+                          where u.is_delete == false
+                          select new MenuViewModel
                           {
                               id = u.id,
                               username = u.username,
@@ -33,19 +34,19 @@ namespace XBC.Repository
 
                           }).ToList();
             }
-            return result == null ? new List<UserViewModel>() : result;
+            return result == null ? new List<MenuViewModel>() : result;
         }
-        public static List<UserViewModel> Search(string cari)
+        public static List<MenuViewModel> Search(string cari)
         {
 
-            List<UserViewModel> result = new List<UserViewModel>();
+            List<MenuViewModel> result = new List<MenuViewModel>();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           join
                           r in db.t_role on u.role_id equals r.id
                           where u.username.Contains(cari) || u.email.Contains(cari)
-                          select new UserViewModel
+                          select new MenuViewModel
                           {
                               id = u.id,
                               username = u.username,
@@ -58,17 +59,17 @@ namespace XBC.Repository
 
                           }).ToList();
             }
-            return result == null ? new List<UserViewModel>() : result;
+            return result == null ? new List<MenuViewModel>() : result;
         }
-        public static UserViewModel ById(long id)
+        public static MenuViewModel ById(long id)
         {
 
-            UserViewModel result = new UserViewModel();
+            MenuViewModel result = new MenuViewModel();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           where u.id == id
-                          select new UserViewModel
+                          select new MenuViewModel
                           {
                               id = u.id,
                               username = u.username,
@@ -80,18 +81,18 @@ namespace XBC.Repository
 
                           }).FirstOrDefault();
             }
-            return result == null ? new UserViewModel() : result;
+            return result == null ? new MenuViewModel() : result;
         }
 
         public static bool GetMobile_flag(long id)
         {
 
-            UserViewModel result = new UserViewModel();
+            MenuViewModel result = new MenuViewModel();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           where u.id == id
-                          select new UserViewModel
+                          select new MenuViewModel
                           {
                               mobile_flag = u.mobile_flag
                           }).FirstOrDefault();
@@ -99,7 +100,7 @@ namespace XBC.Repository
             return result == null ? false : result.mobile_flag;
         }
 
-        public static ResponseResult Update(UserViewModel entity)
+        public static ResponseResult Update(MenuViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
@@ -145,8 +146,17 @@ namespace XBC.Repository
                         t_user user = db.t_user.Where(o => o.id == entity.id).FirstOrDefault();
                         if (user != null)
                         {
-                            object data = entity;
-                            var json = new JavaScriptSerializer().Serialize(data);
+                            var Serial = new JavaScriptSerializer();
+                            object data = new
+                            {
+                                user.username,
+                                user.email,
+                                user.role_id,
+                                user.mobile_flag,
+                                user.mobile_token
+                            };
+                            var json = Serial.Serialize(data);
+
                             user.username = entity.username;
                             user.email = entity.email;
                             user.role_id = entity.role_id;
@@ -160,14 +170,21 @@ namespace XBC.Repository
                             db.SaveChanges();
 
 
-                            object data2 = user;
+                            object data2 = new
+                            {
+                                user.username,
+                                user.email,
+                                user.role_id,
+                                user.mobile_flag,
+                                user.mobile_token
+                            };
 
                             t_audit_log log = new t_audit_log();
                             log.type = "Edit";
                             log.json_before = json;
-                            json = new JavaScriptSerializer().Serialize(data2);
-                            //log.json_after = json2;
-                            
+                            json = Serial.Serialize(data2);
+                            log.json_after = json;
+
 
                             log.created_by = 1;
                             log.created_on = DateTime.Now;
@@ -194,6 +211,123 @@ namespace XBC.Repository
             return result;
         }
 
+        public static ResponseResult ResetPassword(MenuViewModel entity)
+        {
+            ResponseResult result = new ResponseResult();
+            try
+            {
+                using (var db = new XBC_Context())
+                {
+                    t_user user = db.t_user.Where(o => o.id == entity.id).FirstOrDefault();
+                    if (user != null)
+                    {
+                        var Serial = new JavaScriptSerializer();
+                        object data = new
+                        {
+                            user.password
+                        };
+                        var json = Serial.Serialize(data);
 
+                        user.password = entity.password;
+
+                        user.modified_by = 1;
+                        user.modified_on = DateTime.Now;
+                        db.SaveChanges();
+                        result.Entity = entity;
+                        db.SaveChanges();
+
+                        object data2 = new
+                        {
+                            user.password
+                        };
+
+                        t_audit_log log = new t_audit_log();
+                        log.type = "Edit";
+                        log.json_before = json;
+                        json = Serial.Serialize(data2);
+                        log.json_after = json;
+
+                        log.created_by = 1;
+                        log.created_on = DateTime.Now;
+
+                        db.t_audit_log.Add(log);
+
+                        db.SaveChanges();
+
+                        result.Entity = entity;
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.ErrorMessage = "Category not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
+        public static ResponseResult Delete(MenuViewModel entity)
+        {
+            ResponseResult result = new ResponseResult();
+            try
+            {
+                using (var db = new XBC_Context())
+                {
+                    t_user user = db.t_user.Where(o => o.id == entity.id).FirstOrDefault();
+                    if (user != null)
+                    {
+                        var Serial = new JavaScriptSerializer();
+                        object data = new
+                        {
+                            user.username,
+                            user.email,
+                            user.role_id,
+                            user.mobile_flag,
+                            user.mobile_token
+                        };
+                        var json = Serial.Serialize(data);
+
+                        user.is_delete = true;
+                        
+                        user.modified_by = 1;
+                        user.modified_on = DateTime.Now;
+                        db.SaveChanges();
+
+                        result.Entity = entity;
+                        db.SaveChanges();
+
+
+                        t_audit_log log = new t_audit_log();
+                        log.type = "Edit";
+                        log.json_delete = json;
+
+                        log.created_by = 1;
+                        log.created_on = DateTime.Now;
+
+                        db.t_audit_log.Add(log);
+
+                        db.SaveChanges();
+
+                        result.Entity = entity;
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.ErrorMessage = "Category not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
     }
 }

@@ -26,12 +26,13 @@ namespace XBC.MVC.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.RoleList = new SelectList(RoleRepo.All(), "Id", "Name");
             return PartialView("_Create");
         }
 
         [HttpPost]
 
-        public ActionResult Create(UserViewModel model)
+        public ActionResult Create(MenuViewModel model)
         {
             ResponseResult result = UserRepo.Update(model);
             return Json(new
@@ -43,6 +44,7 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult Edit(long id)
         {
+            ViewBag.RoleList = new SelectList(RoleRepo.All(), "Id", "Name");
             ViewBag.rdyes = null;
             ViewBag.rdno = null;
             if (UserRepo.GetMobile_flag(id))
@@ -56,9 +58,43 @@ namespace XBC.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(UserViewModel model)
+        public ActionResult Edit(MenuViewModel model)
         {
             ResponseResult result = UserRepo.Update(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ResetPassword(long id)
+        {
+            return PartialView("_ResetPassword", UserRepo.ById(id));
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(MenuViewModel model)
+        {
+            ResponseResult result = UserRepo.ResetPassword(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Delete(long id)
+        {
+            return PartialView("_Delete", UserRepo.ById(id));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(MenuViewModel model)
+        {
+            ResponseResult result = UserRepo.Delete(model);
             return Json(new
             {
                 success = result.Success,

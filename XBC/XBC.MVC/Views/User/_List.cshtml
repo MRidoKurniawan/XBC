@@ -38,7 +38,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.email)
             </td>
-            
+
             <td>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,12 +57,12 @@
 
 </table>
 <script type="text/javascript">
-    $(".btn-edit").click(function(){
+    $(".btn-edit").click(function () {
         $.ajax({
-            url : '@Url.Action("Edit","user")',
+            url: '@Url.Action("Edit","user")',
             type: 'get',
-            data : {id : $(this).attr("data-id")},
-            success : function(result){
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
                 $(".modal-body").html(result);
                 $(".modal-title").html("<h4>Edit Data</h4>");
                 $(".modal").modal("show");
@@ -71,7 +71,7 @@
     });
     $(".btn-delete").click(function () {
         $.ajax({
-            url: '@Url.Action("Delete","Variant")',
+            url: '@Url.Action("Delete","User")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
@@ -81,6 +81,20 @@
             }
         });
     });
+
+    $(".btn-reset").click(function () {
+        $.ajax({
+            url: '@Url.Action("ResetPassword","User")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-body").html(result);
+                $(".modal-title").html("<h4>Delete Data</h4>");
+                $(".modal").modal("show");
+            }
+        });
+    });
+
     $("#btn-create-new").click(function () {
         $.ajax({
             url: '@Url.Action("Create","User")',
@@ -89,18 +103,19 @@
                 $(".modal-body").html(result);
                 $(".modal-title").html("Create New");
                 $(".modal").modal("show");
+
             }
         })
     })
     $("#btn-cari").click(function () {
         var cari
-         $.ajax({
-                url: '@Url.Action("search","user")',
-             type: 'get',
-             data: { search: $("#tcari").val() },
-                success: function (result) {
-                    $("#data-list").html(result);
-                }
-            })
+        $.ajax({
+            url: '@Url.Action("search","user")',
+            type: 'get',
+            data: { search: $("#tcari").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        })
     });
 </script>
