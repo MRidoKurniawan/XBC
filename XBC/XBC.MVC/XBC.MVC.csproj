@@ -245,6 +245,9 @@
     <Content Include="Views\Category\_Delete.cshtml" />
     <Content Include="Views\Document_Test\Index.cshtml" />
     <Content Include="Views\Document_Test\_List.cshtml" />
+    <Content Include="Views\Document_Test\_Create.cshtml" />
+    <Content Include="Views\Document_Test\_Delete.cshtml" />
+    <Content Include="Views\Document_Test\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

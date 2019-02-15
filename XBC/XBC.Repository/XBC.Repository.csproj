@@ -53,6 +53,8 @@
     <Compile Include="CategoryRepo.cs" />
     <Compile Include="Document_TestRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestRepo.cs" />
+    <Compile Include="Test_TypeRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

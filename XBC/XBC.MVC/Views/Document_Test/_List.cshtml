@@ -13,7 +13,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Test)
         </th>
-        <th></th>
+        <th>#</th>
     </tr>
 
     @foreach (var item in Model)
@@ -36,6 +36,8 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
+                        <a class="dropdown-item btn-copydocument" href="#" data-id="@item.id"><div class="col-lg-12">Copy Document</div></a>
+                        <a class="dropdown-item btn-viewtest" href="#" data-id="@item.id"><div class="col-lg-12">View Test</div></a>
                         <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
                     </div>
                 </div>
@@ -44,3 +46,42 @@
     }
 
 </table>
+
+<script type="text/javascript">
+    $("#btn-search").click(function () {
+        $.ajax({
+            url: '@Url.Action("List","Document_Test")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+
+    $(".btn-edit").click(function () {
+        $.ajax({
+            url: '@Url.Action("Edit", "Document_Test")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Edit Category");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("Delete", "Document_Test")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete Category");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+</script>

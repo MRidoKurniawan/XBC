@@ -71,5 +71,10 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
+
+        //public ActionResult GetToken()
+        //{
+        //    return Json(ra);
+        //}
     }
 }
