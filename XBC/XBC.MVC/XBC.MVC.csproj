@@ -171,7 +171,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
+    <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -258,6 +260,15 @@
     <Content Include="Views\User\_Search.cshtml" />
     <Content Include="Views\User\_ResetPassword.cshtml" />
     <Content Include="Views\User\_Delete.cshtml" />
+    <Content Include="Views\Trainer\Index.cshtml" />
+    <Content Include="Views\Trainer\_List.cshtml" />
+    <Content Include="Views\Trainer\_Create.cshtml" />
+    <Content Include="Views\Trainer\_Edit.cshtml" />
+    <Content Include="Views\Trainer\_Delete.cshtml" />
+    <Content Include="Views\Trainer\_Search.cshtml" />
+    <Content Include="Views\Technology\Index.cshtml" />
+    <Content Include="Views\Technology\_List.cshtml" />
+    <Content Include="Views\Technology\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
