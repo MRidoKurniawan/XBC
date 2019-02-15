@@ -170,8 +170,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,6 +240,26 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\_List.cshtml" />
+    <Content Include="Views\Test\_Create.cshtml" />
+    <Content Include="Views\Office\Index.cshtml" />
+    <Content Include="Views\Office\_Edit.cshtml" />
+    <Content Include="Views\Office\_Delete.cshtml" />
+    <Content Include="Views\Office\_List.cshtml" />
+    <Content Include="Views\Room\Index.cshtml" />
+    <Content Include="Views\Room\_List.cshtml" />
+    <Content Include="Views\Room\_Create.cshtml" />
+    <Content Include="Views\Room\_Edit.cshtml" />
+    <Content Include="Views\Room\_Delete.cshtml" />
+    <Content Include="Views\Office\_Create.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\_List.cshtml" />
+    <Content Include="Views\User\_Create.cshtml" />
+    <Content Include="Views\User\_Edit.cshtml" />
+    <Content Include="Views\User\_Search.cshtml" />
+    <Content Include="Views\User\_ResetPassword.cshtml" />
+    <Content Include="Views\User\_Delete.cshtml" />
     <Content Include="Views\Trainer\Index.cshtml" />
     <Content Include="Views\Trainer\_List.cshtml" />
     <Content Include="Views\Trainer\_Create.cshtml" />
