@@ -53,8 +53,6 @@
     <Compile Include="ResponseResult.cs" />
     <Compile Include="TechnologyViewModel.cs" />
     <Compile Include="TrainerViewModel.cs" />
-    <Compile Include="ResponseResult.cs" />
-    <Compile Include="TestViewModel.cs" />
     <Compile Include="Test_TypeViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
