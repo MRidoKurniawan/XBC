@@ -32,7 +32,7 @@ namespace XBC.MVC.Controllers
 
         [HttpPost]
 
-        public ActionResult Create(MenuViewModel model)
+        public ActionResult Create(UserViewModel model)
         {
             ResponseResult result = UserRepo.Update(model);
             return Json(new
@@ -58,7 +58,7 @@ namespace XBC.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(MenuViewModel model)
+        public ActionResult Edit(UserViewModel model)
         {
             ResponseResult result = UserRepo.Update(model);
             return Json(new
@@ -75,7 +75,7 @@ namespace XBC.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ResetPassword(MenuViewModel model)
+        public ActionResult ResetPassword(UserViewModel model)
         {
             ResponseResult result = UserRepo.ResetPassword(model);
             return Json(new
@@ -92,7 +92,7 @@ namespace XBC.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(MenuViewModel model)
+        public ActionResult Delete(UserViewModel model)
         {
             ResponseResult result = UserRepo.Delete(model);
             return Json(new
