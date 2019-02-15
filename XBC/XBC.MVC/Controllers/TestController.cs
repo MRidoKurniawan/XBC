@@ -40,7 +40,40 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        // Search
+        // Edit
+        public ActionResult Edit(long id)
+        {
+            return PartialView("_Edit", TestRepo.ById(id));
+        }
 
+        [HttpPost]
+        public ActionResult Edit(TestViewModel model)
+        {
+            ResponseResult result = TestRepo.Update(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        // Delete
+        public ActionResult Delete(long id)
+        {
+            return PartialView("_Delete", TestRepo.ById(id));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(TestViewModel model)
+        {
+            ResponseResult result = TestRepo.Delete(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -238,6 +238,8 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\_List.cshtml" />
     <Content Include="Views\Test\_Create.cshtml" />
+    <Content Include="Views\Test\_Edit.cshtml" />
+    <Content Include="Views\Test\_Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
