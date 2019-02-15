@@ -1,0 +1,108 @@
+﻿@model IEnumerable<XBC.ViewModel.OfficeViewModel>
+
+<div class="col-lg-5">
+    <input type="text" id="txt-search" class="form-control" placeholder="search..." />
+
+</div>
+<div class="col-lg-3">
+    <button type="button" id="btn-search" class="btn btn-success">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    </button>
+</div>
+<div>
+    <button id="btn-create-new" type="button" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+</div>
+<h1> </h1>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.contact)
+        </th>
+        
+        <th>
+            @Html.DisplayName("#")
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contact)
+            </td>
+            
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon-bar"></span>                        
+                        <span class="icon-bar"></span>
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
+                        <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
+                    </div>
+                </div>
+                
+            </td>
+        </tr>
+    }
+
+</table>
+<script type="text/javascript">
+    $("#btn-search").click(function () {
+        $.ajax({
+            url: '@Url.Action("List", "Office")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                //console.log("1");
+                $("#data-list").html(result);
+            }
+        });
+    });
+    $("#btn-create-new").click(function () {
+        $.ajax({
+            url: '@Url.Action("Create","Office")',
+            type: 'get',
+            success: function (result) {
+                $(".modal-body").html(result);
+                $(".modal").modal('show');
+            }
+        })
+    })
+    $(".btn-edit").click(function () {
+        $.ajax({
+            url: '@Url.Action("Edit", "Office")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-body").html(result);
+                $(".modal").modal('show');
+            }
+        });
+
+    });
+
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("Delete", "Office")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-body").html(result);
+                $(".modal").modal('show');
+            }
+        });
+
+    });
+</script>
