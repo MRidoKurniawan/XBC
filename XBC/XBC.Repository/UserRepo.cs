@@ -11,17 +11,17 @@ namespace XBC.Repository
 {
     public class UserRepo
     {
-        public static List<MenuViewModel> All()
+        public static List<UserViewModel> All()
         {
 
-            List<MenuViewModel> result = new List<MenuViewModel>();
+            List<UserViewModel> result = new List<UserViewModel>();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           join
                           r in db.t_role on u.role_id equals r.id
                           where u.is_delete == false
-                          select new MenuViewModel
+                          select new UserViewModel
                           {
                               id = u.id,
                               username = u.username,
@@ -34,19 +34,19 @@ namespace XBC.Repository
 
                           }).ToList();
             }
-            return result == null ? new List<MenuViewModel>() : result;
+            return result == null ? new List<UserViewModel>() : result;
         }
-        public static List<MenuViewModel> Search(string cari)
+        public static List<UserViewModel> Search(string cari)
         {
 
-            List<MenuViewModel> result = new List<MenuViewModel>();
+            List<UserViewModel> result = new List<UserViewModel>();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           join
                           r in db.t_role on u.role_id equals r.id
                           where u.username.Contains(cari) || u.email.Contains(cari)
-                          select new MenuViewModel
+                          select new UserViewModel
                           {
                               id = u.id,
                               username = u.username,
@@ -59,17 +59,17 @@ namespace XBC.Repository
 
                           }).ToList();
             }
-            return result == null ? new List<MenuViewModel>() : result;
+            return result == null ? new List<UserViewModel>() : result;
         }
-        public static MenuViewModel ById(long id)
+        public static UserViewModel ById(long id)
         {
 
-            MenuViewModel result = new MenuViewModel();
+            UserViewModel result = new UserViewModel();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           where u.id == id
-                          select new MenuViewModel
+                          select new UserViewModel
                           {
                               id = u.id,
                               username = u.username,
@@ -81,18 +81,18 @@ namespace XBC.Repository
 
                           }).FirstOrDefault();
             }
-            return result == null ? new MenuViewModel() : result;
+            return result == null ? new UserViewModel() : result;
         }
 
         public static bool GetMobile_flag(long id)
         {
 
-            MenuViewModel result = new MenuViewModel();
+            UserViewModel result = new UserViewModel();
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
                           where u.id == id
-                          select new MenuViewModel
+                          select new UserViewModel
                           {
                               mobile_flag = u.mobile_flag
                           }).FirstOrDefault();
@@ -100,7 +100,7 @@ namespace XBC.Repository
             return result == null ? false : result.mobile_flag;
         }
 
-        public static ResponseResult Update(MenuViewModel entity)
+        public static ResponseResult Update(UserViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
@@ -211,7 +211,7 @@ namespace XBC.Repository
             return result;
         }
 
-        public static ResponseResult ResetPassword(MenuViewModel entity)
+        public static ResponseResult ResetPassword(UserViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
@@ -271,7 +271,7 @@ namespace XBC.Repository
             return result;
         }
 
-        public static ResponseResult Delete(MenuViewModel entity)
+        public static ResponseResult Delete(UserViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
