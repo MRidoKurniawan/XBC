@@ -14,7 +14,6 @@ namespace XBC.DataModel
             t_batch = new HashSet<t_batch>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long id { get; set; }
 
         [Required]
