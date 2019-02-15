@@ -13,6 +13,7 @@ namespace XBC.DataModel
         {
             t_batch = new HashSet<t_batch>();
         }
+
         public long id { get; set; }
 
         [Required]
