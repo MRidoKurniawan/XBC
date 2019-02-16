@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Category";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+    <div >
+        <div class="btn-group col-lg-8">
+        <div class="col-lg-4">
+            <input type="text" id="txt-search" class="form-control" placeholder="Search..." />
+        </div>
+            <div class="col-lg-1">
+                <button type="button" id="btn-search" class="btn btn-success">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-1">
+            <button type="button" id="btn-Create" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+
+    <div id="data-list">
+        <h4>Loading....</h4>
+    </div>
+</div>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetList();
+        });
+
+        function GetList() {
+            $.ajax({
+                url: '@Url.Action("List","Category")',
+                type: 'get',
+                success: function (result) {
+                    $("#data-list").html(result);
+                }
+
+            });
+
+        }
+
+        $("#btn-Create").click(function () {
+            $.ajax({
+                url: '@Url.Action("create","Category")',
+                type: 'get',
+                success: function (result) {
+                    $(".modal-title").html("Add Category");
+                    $(".modal-body").html(result);
+
+                    $('.modal').modal('show');
+                }
+            });
+        });
+
+    </script>
+}
+

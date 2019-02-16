@@ -1,0 +1,70 @@
+﻿@model XBC.ViewModel.Document_TestViewModel
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Document_TestViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div>
+            <div class="form-group col-lg-6">
+                @*@Html.LabelFor(model => model.test_id, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.test_id, (IEnumerable<SelectListItem>)ViewBag.TestList, "Choose Test", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.test_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-lg-6">
+                @*@Html.LabelFor(model => model.test_type_id, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.test_type_id, (IEnumerable<SelectListItem>)ViewBag.Test_TypeList, "Choose Test Type", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.test_type_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-lg-6">
+                @*@Html.LabelFor(model => model.version, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.version, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @*@Html.ValidationMessageFor(model => model.version, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+
+            <div class="form-group col-lg-6">
+                @*@Html.LabelFor(model => model.token, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.token, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @*@Html.ValidationMessageFor(model => model.token, "", new { @class = "text-danger" })*@
+                    @*<div class="col-md-2">
+                            <button>generate</button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+        <div id="list-question">
+            <h4>Loading ......</h4>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
+                <input type="submit" value="Save Change" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
