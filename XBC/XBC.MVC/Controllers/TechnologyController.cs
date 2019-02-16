@@ -8,30 +8,25 @@ using XBC.ViewModel;
 
 namespace XBC.MVC.Controllers
 {
-    public class TestController : Controller
+    public class TechnologyController : Controller
     {
-        // GET: Test
+        // GET: Technology
         public ActionResult Index()
         {
             return View();
         }
-
-        // List & Search
-        public ActionResult List(string search = "")
+        public ActionResult List()
         {
-            return PartialView("_List", TestRepo.All(search));
+            return PartialView("_List", TechnologyRepo.All());
         }
-
-        // Create
         public ActionResult Create()
         {
             return PartialView("_Create");
         }
-
         [HttpPost]
-        public ActionResult Create(TestViewModel model)
+        public ActionResult Create(TechnologyViewModel model)
         {
-            ResponseResult result = TestRepo.Update(model);
+            ResponseResult result = TechnologyRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -39,17 +34,14 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-
-        // Edit
         public ActionResult Edit(long id)
         {
-            return PartialView("_Edit", TestRepo.ById(id));
+            return PartialView("_Edit", TechnologyRepo.ById(id));
         }
-
         [HttpPost]
-        public ActionResult Edit(TestViewModel model)
+        public ActionResult Edit(TechnologyViewModel model)
         {
-            ResponseResult result = TestRepo.Update(model);
+            ResponseResult result = TechnologyRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -57,23 +49,25 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-
-        // Delete
         public ActionResult Delete(long id)
         {
-            return PartialView("_Delete", TestRepo.ById(id));
+            return PartialView("_Delete", TechnologyRepo.ById(id));
         }
-
         [HttpPost]
-        public ActionResult Delete(TestViewModel model)
+        public ActionResult Delete(TechnologyViewModel model)
         {
-            ResponseResult result = TestRepo.Delete(model);
+            ResponseResult result = TechnologyRepo.Delete(model);
             return Json(new
             {
                 success = result.Success,
                 message = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Search(string search = "")
+        {
+            return PartialView("_Search", TechnologyRepo.GetBySearch(search));
         }
     }
 }

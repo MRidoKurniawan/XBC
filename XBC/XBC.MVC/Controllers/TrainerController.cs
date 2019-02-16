@@ -8,30 +8,27 @@ using XBC.ViewModel;
 
 namespace XBC.MVC.Controllers
 {
-    public class TestController : Controller
+    public class TrainerController : Controller
     {
-        // GET: Test
+        // GET: Trainer
         public ActionResult Index()
         {
             return View();
         }
 
-        // List & Search
-        public ActionResult List(string search = "")
+        public ActionResult List()
         {
-            return PartialView("_List", TestRepo.All(search));
+            return PartialView("_List", TrainerRepo.All());
         }
 
-        // Create
         public ActionResult Create()
         {
             return PartialView("_Create");
         }
-
         [HttpPost]
-        public ActionResult Create(TestViewModel model)
+        public ActionResult Create(TrainerViewModel model)
         {
-            ResponseResult result = TestRepo.Update(model);
+            ResponseResult result = TrainerRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -39,17 +36,14 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-
-        // Edit
         public ActionResult Edit(long id)
         {
-            return PartialView("_Edit", TestRepo.ById(id));
+            return PartialView("_Edit", TrainerRepo.ById(id));
         }
-
         [HttpPost]
-        public ActionResult Edit(TestViewModel model)
+        public ActionResult Edit(TrainerViewModel model)
         {
-            ResponseResult result = TestRepo.Update(model);
+            ResponseResult result = TrainerRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -57,23 +51,25 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-
-        // Delete
         public ActionResult Delete(long id)
         {
-            return PartialView("_Delete", TestRepo.ById(id));
+            return PartialView("_Delete", TrainerRepo.ById(id));
         }
-
         [HttpPost]
-        public ActionResult Delete(TestViewModel model)
+        public ActionResult Delete(TrainerViewModel model)
         {
-            ResponseResult result = TestRepo.Delete(model);
+            ResponseResult result = TrainerRepo.Delete(model);
             return Json(new
             {
                 success = result.Success,
                 message = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Search (string search ="")
+        {
+            return PartialView("_Search", TrainerRepo.GetBySearch(search));
         }
     }
 }

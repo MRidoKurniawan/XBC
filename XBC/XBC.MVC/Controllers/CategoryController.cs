@@ -8,72 +8,73 @@ using XBC.ViewModel;
 
 namespace XBC.MVC.Controllers
 {
-    public class TestController : Controller
+    public class CategoryController : Controller
     {
-        // GET: Test
+        // GET: Category
         public ActionResult Index()
         {
             return View();
         }
 
-        // List & Search
-        public ActionResult List(string search = "")
+        public ActionResult List(string search ="")
         {
-            return PartialView("_List", TestRepo.All(search));
+            return PartialView("_List", CategoryRepo.GetBySearch(search));
         }
 
-        // Create
         public ActionResult Create()
         {
             return PartialView("_Create");
         }
 
         [HttpPost]
-        public ActionResult Create(TestViewModel model)
+        public ActionResult Create(CategoryViewModel model)
         {
-            ResponseResult result = TestRepo.Update(model);
+            ResponseResult result = CategoryRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
-                message = result.ErrorMessage,
+                messgae = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
 
-        // Edit
         public ActionResult Edit(long id)
         {
-            return PartialView("_Edit", TestRepo.ById(id));
+            return PartialView("_Edit", CategoryRepo.ById(id));
         }
 
         [HttpPost]
-        public ActionResult Edit(TestViewModel model)
+        public ActionResult Edit(CategoryViewModel model)
         {
-            ResponseResult result = TestRepo.Update(model);
+            ResponseResult result = CategoryRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
-                message = result.ErrorMessage,
+                messgae = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
 
-        // Delete
         public ActionResult Delete(long id)
         {
-            return PartialView("_Delete", TestRepo.ById(id));
+            return PartialView("_Delete", CategoryRepo.ById(id));
         }
 
         [HttpPost]
-        public ActionResult Delete(TestViewModel model)
+        public ActionResult Delete(CategoryViewModel model)
         {
-            ResponseResult result = TestRepo.Delete(model);
+            ResponseResult result = CategoryRepo.Delete(model);
             return Json(new
             {
                 success = result.Success,
-                message = result.ErrorMessage,
+                messgae = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
+
+        //public ActionResult GetToken()
+        //{
+        //    return Json(ra);
+        //}
     }
 }

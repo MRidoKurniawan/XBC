@@ -168,10 +168,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\Document_TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
+    <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -203,7 +208,10 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="bg.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -216,7 +224,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -250,6 +257,35 @@
     <Content Include="Views\Room\_Edit.cshtml" />
     <Content Include="Views\Room\_Delete.cshtml" />
     <Content Include="Views\Office\_Create.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\_List.cshtml" />
+    <Content Include="Views\User\_Create.cshtml" />
+    <Content Include="Views\User\_Edit.cshtml" />
+    <Content Include="Views\User\_Search.cshtml" />
+    <Content Include="Views\User\_ResetPassword.cshtml" />
+    <Content Include="Views\User\_Delete.cshtml" />
+    <Content Include="Views\Trainer\Index.cshtml" />
+    <Content Include="Views\Trainer\_List.cshtml" />
+    <Content Include="Views\Trainer\_Create.cshtml" />
+    <Content Include="Views\Trainer\_Edit.cshtml" />
+    <Content Include="Views\Trainer\_Delete.cshtml" />
+    <Content Include="Views\Trainer\_Search.cshtml" />
+    <Content Include="Views\Technology\Index.cshtml" />
+    <Content Include="Views\Technology\_List.cshtml" />
+    <Content Include="Views\Technology\_Create.cshtml" />
+    <Content Include="Views\Test\_Edit.cshtml" />
+    <Content Include="Views\Test\_Delete.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\_List.cshtml" />
+    <Content Include="Views\Category\_Create.cshtml" />
+    <Content Include="Views\Category\_Edit.cshtml" />
+    <Content Include="Views\Category\_Delete.cshtml" />
+    <Content Include="Views\Document_Test\Index.cshtml" />
+    <Content Include="Views\Document_Test\_List.cshtml" />
+    <Content Include="Views\Document_Test\_Create.cshtml" />
+    <Content Include="Views\Document_Test\_Delete.cshtml" />
+    <Content Include="Views\Document_Test\_Edit.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Office\_ListRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
