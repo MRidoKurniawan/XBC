@@ -2,7 +2,7 @@
 @{
     ViewBag.id = Session["id"];
 }
-@using (Html.BeginForm("Create", "User", FormMethod.Post, new { id = "form-create", name = "form-create" })) 
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" })) 
 {
     @Html.AntiForgeryToken()
     <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
@@ -25,7 +25,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
+                @*@Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username", @pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" } })*@
+                <input type="text" class="username form-control" id="username" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}" data-bv-regexp-message="Username minimal 8 karakter dan terdiri dari huruf dan angka"/> 
                 @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,14 +34,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                <input type="password" name="password" class="form-control" placeholder="Password" id="pw-main" />
+                <input type="password" name="password" class="form-control" placeholder="Password" id="pw-main" required/>
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-2"> </label>
             <div class="col-md-10">
-                <input type="password" name="password" class="form-control" placeholder="Re-type Password" id="pw-second" />
+                <input type="password" name="password" class="form-control" placeholder="Re-type Password" id="pw-second" required/>
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,6 +55,9 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#form-create").removeAttr("novalidate");
+    });
     $("#form-create").submit(function () {
         $.ajax({
             url: this.action,

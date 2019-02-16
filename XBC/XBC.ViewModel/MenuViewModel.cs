@@ -31,5 +31,7 @@ namespace XBC.ViewModel
 
         [Display(Name = "menuUrl")]
         public string menu_url { get; set; }
+
+        public long UserId { get; set; }
     }
 }

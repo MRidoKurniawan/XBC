@@ -46,7 +46,6 @@
     <Compile Include="CategoryViewModel.cs" />
     <Compile Include="Document_TestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseResult.cs" />
     <Compile Include="TestViewModel.cs" />
     <Compile Include="RoomViewModel.cs" />
     <Compile Include="RoleViewModel.cs" />
