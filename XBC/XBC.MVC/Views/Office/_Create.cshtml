@@ -1,5 +1,7 @@
 ﻿@model XBC.ViewModel.OfficeViewModel
 
+<table class="table">
+    <thead>
 
 @using (Html.BeginForm("Create", "Office", FormMethod.Post, new { id = "form-create", name = "form-create" })) 
 {
@@ -63,6 +65,11 @@
         </div>
     </div>
 }
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
 
 
    
@@ -70,7 +77,7 @@
 <script type="text/javascript">
     $("#form-create").submit(function () {
         $.ajax({
-            url: this.action,
+            url: this.action + ("_ListRoom"),
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
