@@ -13,8 +13,8 @@
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog" role="document" style="position:absolute; left:25%; width:100%">
+        <div class="modal-content col-md-6">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Modal title</h4>
@@ -41,6 +41,7 @@
             //$(".panel-body").html("<h4>Selesai</h4>");
             //$(".panel-body2").append("<h4>Selesai2</h4>");
             ////$("#data-list").html("<h4>List ada disini</h4>");
+            $(".modal").modal("show");
             $('.alert-success').hide();
             GetList();
         });

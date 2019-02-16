@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XBC.Repository;
+using XBC.ViewModel;
 
 namespace XBC.MVC.Controllers
 {
@@ -26,15 +27,14 @@ namespace XBC.MVC.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.RoleList = new SelectList(RoleRepo.All(), "Id", "Name");
             return PartialView("_Create");
         }
 
         [HttpPost]
 
-        public ActionResult Create(UserViewModel model)
+        public ActionResult Create(MenuViewModel model)
         {
-            ResponseResult result = UserRepo.Update(model);
+            ResponseResult result = MenuRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
