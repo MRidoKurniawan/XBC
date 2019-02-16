@@ -245,11 +245,12 @@
     <Content Include="Views\Office\_Delete.cshtml" />
     <Content Include="Views\Office\_List.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
-    <Content Include="Views\Room\_List.cshtml" />
+    <Content Include="Views\Room\_ListRoom.cshtml" />
     <Content Include="Views\Room\_Create.cshtml" />
     <Content Include="Views\Room\_Edit.cshtml" />
     <Content Include="Views\Room\_Delete.cshtml" />
     <Content Include="Views\Office\_Create.cshtml" />
+    <Content Include="Views\Office\_ListRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -263,6 +264,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XBC.DataModel\XBC.DataModel.csproj">
+      <Project>{a9d1530e-cbcb-4c2f-a061-ed9fbf7a5de6}</Project>
+      <Name>XBC.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XBC.Repository\XBC.Repository.csproj">
       <Project>{3134897e-bf92-4af6-8a77-10374f6d1675}</Project>
       <Name>XBC.Repository</Name>
