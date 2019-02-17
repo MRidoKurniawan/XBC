@@ -33,5 +33,6 @@ namespace XBC.ViewModel
         public string menu_url { get; set; }
 
         public long UserId { get; set; }
+
     }
 }

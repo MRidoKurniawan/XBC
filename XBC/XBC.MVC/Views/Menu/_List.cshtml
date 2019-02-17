@@ -95,11 +95,10 @@
 
     $("#btn-create-new").click(function () {
         $.ajax({
-            url: '@Url.Action("Create","User")',
+            url: '@Url.Action("Create","Menu")',
             type: 'get',
             success: function (result) {
                 $(".modal-body").html(result);
-                $(".modal-dialog").addClass("col-md-12");
                 $(".modal-title").html("Create New");
                 $(".modal").modal("show");
 

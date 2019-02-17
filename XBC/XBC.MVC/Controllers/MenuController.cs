@@ -30,6 +30,11 @@ namespace XBC.MVC.Controllers
             return PartialView("_Create");
         }
 
+        public ActionResult sortMenu(long id=0)
+        {
+            return PartialView("_sortMenu",MenuRepo.sortChild(id));
+        }
+
         [HttpPost]
 
         public ActionResult Create(MenuViewModel model)

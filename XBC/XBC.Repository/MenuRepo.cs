@@ -22,11 +22,48 @@ namespace XBC.Repository
                           select new MenuViewModel
                           {
                               id = m.id,
-                              
+                              code = m.code,
+                              title = m.title,
+                              descriptoin = m.descriptoin,
+                              image_url = m.image_url,
+                              menu_order = m.menu_order,
+                              menu_parent = m.menu_parent,
+                              menu_url = m.menu_url
+
                           }).ToList();
             }
             return result == null ? new List<MenuViewModel>() : result;
         }
+
+        public static List<MenuViewModel> sortChild(long parent)
+        {
+            List<MenuViewModel> result = new List<MenuViewModel>();
+            try
+            {
+                using (var db = new XBC_Context())
+                {
+                    result = (from m in db.t_menu
+                              where m.is_delete == false && m.menu_parent == parent
+                              select new MenuViewModel
+                              {
+                                  id = m.id,
+                                  code = m.code,
+                                  title = m.title,
+                                  descriptoin = m.descriptoin,
+                                  image_url = m.image_url,
+                                  menu_order = m.menu_order,
+                                  menu_parent = m.menu_parent,
+                                  menu_url = m.menu_url
+
+                              }).ToList();
+                }
+            } catch(Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+            return result == null ? new List<MenuViewModel>() : result;
+        }
+
         public static ResponseResult Update(MenuViewModel entity)
         {
             ResponseResult result = new ResponseResult();
@@ -43,7 +80,11 @@ namespace XBC.Repository
                         menu.image_url = entity.image_url;
                         menu.menu_parent = entity.menu_parent;
                         menu.menu_url = entity.menu_url;
+                        menu.created_by = entity.UserId;
+                        menu.created_on = DateTime.Now;
+                        menu.is_delete = false;
 
+                        db.t_menu.Add(menu);
                         db.SaveChanges();
 
                         var json = new JavaScriptSerializer().Serialize(menu);
@@ -64,63 +105,63 @@ namespace XBC.Repository
                     }
                     else
                     {
-                //        t_user user = db.t_user.Where(o => o.id == entity.id).FirstOrDefault();
-                //        if (user != null)
-                //        {
-                //            var Serial = new JavaScriptSerializer();
-                //            object data = new
-                //            {
-                //                user.username,
-                //                user.email,
-                //                user.role_id,
-                //                user.mobile_flag,
-                //                user.mobile_token
-                //            };
-                //            var json = Serial.Serialize(data);
+                        //        t_user user = db.t_user.Where(o => o.id == entity.id).FirstOrDefault();
+                        //        if (user != null)
+                        //        {
+                        //            var Serial = new JavaScriptSerializer();
+                        //            object data = new
+                        //            {
+                        //                user.username,
+                        //                user.email,
+                        //                user.role_id,
+                        //                user.mobile_flag,
+                        //                user.mobile_token
+                        //            };
+                        //            var json = Serial.Serialize(data);
 
-                //            user.username = entity.username;
-                //            user.email = entity.email;
-                //            user.role_id = entity.role_id;
-                //            user.mobile_flag = entity.mobile_flag;
-                //            user.mobile_token = entity.mobile_token;
+                        //            user.username = entity.username;
+                        //            user.email = entity.email;
+                        //            user.role_id = entity.role_id;
+                        //            user.mobile_flag = entity.mobile_flag;
+                        //            user.mobile_token = entity.mobile_token;
 
-                //            user.modified_by = entity.UserId;
-                //            user.modified_on = DateTime.Now;
-                //            db.SaveChanges();
-                //            result.Entity = entity;
-                //            db.SaveChanges();
-
-
-                //            object data2 = new
-                //            {
-                //                user.username,
-                //                user.email,
-                //                user.role_id,
-                //                user.mobile_flag,
-                //                user.mobile_token
-                //            };
-
-                //            t_audit_log log = new t_audit_log();
-                //            log.type = "Edit";
-                //            log.json_before = json;
-                //            json = Serial.Serialize(data2);
-                //            log.json_after = json;
+                        //            user.modified_by = entity.UserId;
+                        //            user.modified_on = DateTime.Now;
+                        //            db.SaveChanges();
+                        //            result.Entity = entity;
+                        //            db.SaveChanges();
 
 
-                //            log.created_by = entity.UserId;
-                //            log.created_on = DateTime.Now;
+                        //            object data2 = new
+                        //            {
+                        //                user.username,
+                        //                user.email,
+                        //                user.role_id,
+                        //                user.mobile_flag,
+                        //                user.mobile_token
+                        //            };
 
-                //            db.t_audit_log.Add(log);
+                        //            t_audit_log log = new t_audit_log();
+                        //            log.type = "Edit";
+                        //            log.json_before = json;
+                        //            json = Serial.Serialize(data2);
+                        //            log.json_after = json;
 
-                //            db.SaveChanges();
 
-                //            result.Entity = entity;
-                //        }
-                //        else
-                //        {
-                //            result.Success = false;
-                //            result.ErrorMessage = "Category not found";
-                //        }
+                        //            log.created_by = entity.UserId;
+                        //            log.created_on = DateTime.Now;
+
+                        //            db.t_audit_log.Add(log);
+
+                        //            db.SaveChanges();
+
+                        //            result.Entity = entity;
+                        //        }
+                        //        else
+                        //        {
+                        //            result.Success = false;
+                        //            result.ErrorMessage = "Category not found";
+                        //        }
                     }
                 }
             }
@@ -142,7 +183,8 @@ namespace XBC.Repository
                               .FirstOrDefault();
                 if (result != null)
                 {
-                    newCode += (int.Parse(result.code) + 1).ToString("D4");
+                    string code = result.code.Substring(1);
+                    newCode += (int.Parse(code) + 1).ToString("D4");
                 }
                 else
                 {
