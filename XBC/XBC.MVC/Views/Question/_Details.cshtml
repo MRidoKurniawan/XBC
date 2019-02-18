@@ -1,0 +1,38 @@
+﻿@model XBC.ViewModel.QuestionViewModel
+
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.questionType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.questionType, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.EditorFor(model => model.questionType, new { htmlAttributes = new { @class = "form-control type", @readonly = "readonly" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.question, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.question, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+            <textarea class="form-control" name="notes" style="height:7rem; resize:none" readonly>@Model.question</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.imageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+           @*@Html.EditorFor(model => model.imageUrl, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+            <textarea class="form-control" name="notes" style="height:14rem; resize:none" readonly>@Model.imageUrl</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">CLOSE</button>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+</script>

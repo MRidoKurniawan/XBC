@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Office";
+}
+<div class="col-lg-8">
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3>Office</h3>
+    </div>
+    <div id="data-list" class="panel-body">
+        <h4>Loading...</h4>
+    </div>
+</div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetList();
+        });
+        function GetList() {
+            $.ajax({
+                url: '@Url.Action("List", "Office")',
+                type: 'get',
+                success: function (result) {
+                    $("#data-list").html(result);
+                }
+            })
+        }
+        
+    </script>
+}

@@ -1,0 +1,94 @@
+﻿@model XBC.ViewModel.UserViewModel
+@{
+    ViewBag.id = Session["id"];
+}
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.role_id, htmlAttributes: new { @class = "col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.role_id, (IEnumerable<SelectListItem>)ViewBag.RoleList, "Select Role", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.role_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username", @pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" } })*@
+                <input type="text" class="username form-control" id="username" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}" data-bv-regexp-message="Username minimal 8 karakter dan terdiri dari huruf dan angka" />
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "col-md-2" })
+            <div class="col-md-10">
+                <input type="password" name="password" class="form-control" onchange="cekPassword()" placeholder="Password" id="pw-main" required pattern="(?=.*\d)(?=.*[A-Z]).{6.}"/>
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2"> </label>
+            <div class="col-md-10">
+                <input type="password" name="password" class="form-control" placeholder="Re-type Password" id="pw-second" required onchange="cekPassword()" />
+                <span class="field-validation-valid text-danger" style="display:none;" id="valid-password">Password Tidak Sama</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    var cocok = false;
+    $(document).ready(function () {
+        $("#form-create").removeAttr("novalidate");
+    });
+    function cekPassword() {
+        if ($("#pw-main").val() == $("#pw-second").val() && $("#pw-second").val() !="") {
+            cocok = true;
+            $("#valid-password").hide();
+        } else if ($("#pw-second").val() != "") {
+            cocok = false;
+            $("#valid-password").show();
+        }
+    }
+    $("#form-create").submit(function () {
+        if (cocok) {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+                        //alert("Save Successfull\nName" + result.entity.Name);
+                        $(".modal").modal("hide");
+                        $('.tx-info').html("Data successfully saved !")
+                        $(".alert").show();
+                        GetList();
+                    }
+                    else {
+                        alert("Error\nName" + result.message);
+                    }
+                }
+            });
+        }
+
+        return false;
+    });
+</script>

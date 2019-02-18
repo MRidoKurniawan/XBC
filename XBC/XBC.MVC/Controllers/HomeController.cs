@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using XBC.Repository;
+using XBC.ViewModel;
 
 namespace XBC.MVC.Controllers
 {
@@ -12,19 +14,20 @@ namespace XBC.MVC.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Index(UserViewModel model)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            UserViewModel data = UserRepo.LogIn(model);
+            if (data.PassIsTrue)
+            {
+                Session["Username"] = data.username;
+                Session["id"] = data.id;
+                return RedirectToAction("Index", "user");
+            }else
+            {
+                return View();
+            }
+            
         }
     }
 }
