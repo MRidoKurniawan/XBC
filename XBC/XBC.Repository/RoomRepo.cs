@@ -68,7 +68,7 @@ namespace XBC.Repository
                     if (entity.id == 0)
                     {
                         t_room room = new t_room();
-                        room.office_id = entity.officeId;
+                        room.office_id = 1;
                         room.code = entity.code;
                         room.name = entity.name;
                         room.capacity = entity.capacity;
