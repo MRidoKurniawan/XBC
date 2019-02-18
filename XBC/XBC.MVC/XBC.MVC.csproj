@@ -312,6 +312,7 @@
     <Content Include="Views\IdleNews\_List.cshtml" />
     <Content Include="Views\Document_Test\_ListEdit.cshtml" />
     <Content Include="Views\Document_Test\_OrderByQuestion.cshtml" />
+    <Content Include="Views\Document_Test\_ListQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,7 +24,7 @@ namespace XBC.MVC.Controllers
         public ActionResult Create()
         {
             ViewBag.TestList = new SelectList(TestRepo.All(""), "id", "name");
-            ViewBag.Test_TypeList = new SelectList(Test_TypeRepo.All(""), "id", "name");
+            ViewBag.Test_TypeList = new SelectList(TestTypeRepo.GetBySearch(""), "id", "name");
             return PartialView("_Create");
         }
 
@@ -60,7 +60,7 @@ namespace XBC.MVC.Controllers
         public ActionResult Edit(long id)
         {
             ViewBag.TestList = new SelectList(TestRepo.All(""), "id", "name");
-            ViewBag.Test_TypeList = new SelectList(Test_TypeRepo.All(""), "id", "name");
+            ViewBag.Test_TypeList = new SelectList(TestTypeRepo.GetBySearch(""), "id", "name");
             return PartialView("_Edit", Document_TestRepo.ById(id));
         }
 
@@ -78,7 +78,12 @@ namespace XBC.MVC.Controllers
 
         public ActionResult ListEdit(long id)
         {
-            return PartialView("_ListEdit", Document_Test_DetailRepo.ById(id));
+            return PartialView("_ListEdit", Document_Test_DetailRepo.ByID(id));
+        }
+
+        public ActionResult ListQuestion(long id)
+        {
+            return PartialView("_ListQuestion", Document_Test_DetailRepo.ById(id));
         }
 
         public ActionResult OrderByQuestion(long id)
