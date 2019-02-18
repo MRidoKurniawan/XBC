@@ -6,27 +6,29 @@ using System.Web.Mvc;
 using XBC.Repository;
 using XBC.ViewModel;
 
+
 namespace XBC.MVC.Controllers
 {
-    public class OfficeController : Controller
+    public class BootcampTestTypeController : Controller
     {
-        // GET: Office
+        // GET: Room
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult List(string search = "")
         {
-            return PartialView("_List", OfficeRepo.All(search));
+            return PartialView("_List", BootcampTestTypeRepo.All(search));
         }
+
         public ActionResult Create()
         {
             return PartialView("_Create");
         }
         [HttpPost]
-        public ActionResult Create(OfficeViewModel model)
+        public ActionResult Create(BootcampTestTypeViewModel model)
         {
-            ResponseResult result = OfficeRepo.Update(model);
+            ResponseResult result = BootcampTestTypeRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -36,12 +38,12 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult Edit(long id)
         {
-            return PartialView("_Edit", OfficeRepo.ById(id));
+            return PartialView("_Edit", BootcampTestTypeRepo.ById(id));
         }
         [HttpPost]
-        public ActionResult Edit(OfficeViewModel model)
+        public ActionResult Edit(BootcampTestTypeViewModel model)
         {
-            ResponseResult result = OfficeRepo.Update(model);
+            ResponseResult result = BootcampTestTypeRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -51,12 +53,12 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult Delete(long id)
         {
-            return PartialView("_Delete", OfficeRepo.ById(id));
+            return PartialView("_Delete", BootcampTestTypeRepo.ById(id));
         }
         [HttpPost]
-        public ActionResult Delete(OfficeViewModel model)
+        public ActionResult Delete(BootcampTestTypeViewModel model)
         {
-            ResponseResult result = OfficeRepo.Delete(model);
+            ResponseResult result = BootcampTestTypeRepo.Delete(model);
             return Json(new
             {
                 success = result.Success,
@@ -64,6 +66,5 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

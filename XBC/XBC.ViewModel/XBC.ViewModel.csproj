@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BootcampTestTypeViewModel.cs" />
+    <Compile Include="ClazzViewModel.cs" />
     <Compile Include="OfficeViewModel.cs" />
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="CategoryViewModel.cs" />
@@ -51,7 +53,6 @@
     <Compile Include="RoomViewModel.cs" />
     <Compile Include="RoleViewModel.cs" />
     <Compile Include="UserViewModel.cs" />
-    <Compile Include="ResponseResult.cs" />
     <Compile Include="TechnologyViewModel.cs" />
     <Compile Include="TrainerViewModel.cs" />
     <Compile Include="Test_TypeViewModel.cs" />

@@ -77,8 +77,23 @@ namespace XBC.Repository
                         ofc.created_by = 1;
                         ofc.created_on = DateTime.Now;
                         ofc.is_delete = false;
-
                         db.t_office.Add(ofc);
+
+                        foreach (var item in entity.Room)
+                        {
+                            t_room room = new t_room();
+                            room.office_id = ofc.id;
+                            room.id = item.id;
+                            room.code = item.code;
+                            room.name = item.name;
+                            room.capacity = item.capacity;
+                            room.any_projector = item.any_projector;
+                            room.notes = item.notes;
+                            room.is_delete = item.isDelete;
+
+                            db.t_room.Add(room);
+                        }
+
                         db.SaveChanges();
                         var json = new JavaScriptSerializer().Serialize(ofc);
 
@@ -90,6 +105,7 @@ namespace XBC.Repository
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
+                        db.SaveChanges();
                         entity.id = ofc.id;
                         result.Entity = entity;
                     }
@@ -110,13 +126,14 @@ namespace XBC.Repository
                             var json = new JavaScriptSerializer().Serialize(ofc);
 
                             t_audit_log log = new t_audit_log();
-                            log.type = "Insert";
+                            log.type = "Edit";
                             log.json_insert = json;
 
                             log.created_by = 1;
                             log.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(log);
+                            db.SaveChanges();
                             result.Entity = entity;
                             ofc.is_delete = false;
                         }
@@ -146,18 +163,20 @@ namespace XBC.Repository
                     if (ofc != null)
                     {
                         ofc.is_delete = true;
+                        ofc.deleted_by = 1;
+                        ofc.deleted_on = DateTime.Now;
                         db.SaveChanges();
                         var json = new JavaScriptSerializer().Serialize(ofc);
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Insert";
+                        log.type = "Delete";
                         log.json_insert = json;
 
                         log.created_by = 1;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
-
+                        db.SaveChanges();
                         result.Entity = entity;
                     }
                     else

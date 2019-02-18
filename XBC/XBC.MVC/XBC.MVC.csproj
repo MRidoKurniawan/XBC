@@ -168,7 +168,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BootcampTestTypeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -287,6 +289,13 @@
     <Content Include="Views\Document_Test\_Edit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Office\_ListRoom.cshtml" />
+    <Content Include="Views\BootcampTestType\Index.cshtml" />
+    <Content Include="Views\BootcampTestType\_List.cshtml" />
+    <Content Include="Views\BootcampTestType\_Create.cshtml" />
+    <Content Include="Views\BootcampTestType\_Edit.cshtml" />
+    <Content Include="Views\BootcampTestType\_Delete.cshtml" />
+    <Content Include="Views\Class\_List.cshtml" />
+    <Content Include="Views\Class\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
