@@ -168,13 +168,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BootcampTypeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\TestTypeController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -194,6 +198,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="menu.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -208,6 +213,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="bg.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -223,7 +229,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -252,7 +257,7 @@
     <Content Include="Views\Office\_Delete.cshtml" />
     <Content Include="Views\Office\_List.cshtml" />
     <Content Include="Views\Room\Index.cshtml" />
-    <Content Include="Views\Room\_List.cshtml" />
+    <Content Include="Views\Room\_ListRoom.cshtml" />
     <Content Include="Views\Room\_Create.cshtml" />
     <Content Include="Views\Room\_Edit.cshtml" />
     <Content Include="Views\Room\_Delete.cshtml" />
@@ -285,6 +290,26 @@
     <Content Include="Views\Document_Test\_Create.cshtml" />
     <Content Include="Views\Document_Test\_Delete.cshtml" />
     <Content Include="Views\Document_Test\_Edit.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Office\_ListRoom.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\Menu\_List.cshtml" />
+    <Content Include="Views\Menu\_Create.cshtml" />
+    <Content Include="Views\Menu\_sortMenu.cshtml" />
+    <Content Include="Views\BootcampType\Index.cshtml" />
+    <Content Include="Views\BootcampType\_create.cshtml" />
+    <Content Include="Views\BootcampType\_Delete.cshtml" />
+    <Content Include="Views\BootcampType\_Edit.cshtml" />
+    <Content Include="Views\BootcampType\_List.cshtml" />
+    <Content Include="Views\BootcampType\_Search.cshtml" />
+    <Content Include="Views\TestType\Index.cshtml" />
+    <Content Include="Views\TestType\_Create.cshtml" />
+    <Content Include="Views\TestType\_Delete.cshtml" />
+    <Content Include="Views\TestType\_Edit.cshtml" />
+    <Content Include="Views\TestType\_List.cshtml" />
+    <Content Include="Views\TestType\_Search.cshtml" />
+    <Content Include="Views\IdleNews\Index.cshtml" />
+    <Content Include="Views\IdleNews\_List.cshtml" />
     <Content Include="Views\Document_Test\_ListEdit.cshtml" />
     <Content Include="Views\Document_Test\_OrderByQuestion.cshtml" />
   </ItemGroup>
@@ -300,6 +325,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XBC.DataModel\XBC.DataModel.csproj">
+      <Project>{a9d1530e-cbcb-4c2f-a061-ed9fbf7a5de6}</Project>
+      <Name>XBC.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XBC.Repository\XBC.Repository.csproj">
       <Project>{3134897e-bf92-4af6-8a77-10374f6d1675}</Project>
       <Name>XBC.Repository</Name>

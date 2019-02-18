@@ -6,29 +6,27 @@ using System.Web.Mvc;
 using XBC.Repository;
 using XBC.ViewModel;
 
-
 namespace XBC.MVC.Controllers
 {
-    public class RoomController : Controller
+    public class BootcampTypeController : Controller
     {
-        // GET: Room
+        // GET: BootcampType
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult ListRoom()
+        public ActionResult List()
         {
-            return PartialView("_ListRoom", RoomRepo.All());
+            return PartialView("_List", BootcampTypeRepo.All());
         }
-
-        public ActionResult Create()
+        public ActionResult create()
         {
             return PartialView("_Create");
         }
         [HttpPost]
-        public ActionResult Create(RoomViewModel model)
+        public ActionResult Create(BootcampTypeViewModel model)
         {
-            ResponseResult result = RoomRepo.Update(model);
+            ResponseResult result = BootcampTypeRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -36,14 +34,18 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Search(string search = "")
+        {
+            return PartialView("_Search", BootcampTypeRepo.GetBySearch(search));
+        }
         public ActionResult Edit(long id)
         {
-            return PartialView("_Edit", RoomRepo.ById(id));
+            return PartialView("_Edit", BootcampTypeRepo.ById(id));
         }
         [HttpPost]
-        public ActionResult Edit(RoomViewModel model)
+        public ActionResult Edit(BootcampTypeViewModel model)
         {
-            ResponseResult result = RoomRepo.Update(model);
+            ResponseResult result = BootcampTypeRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -53,12 +55,12 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult Delete(long id)
         {
-            return PartialView("_Delete", RoomRepo.ById(id));
+            return PartialView("_Delete", BootcampTypeRepo.ById(id));
         }
         [HttpPost]
-        public ActionResult Delete(RoomViewModel model)
+        public ActionResult Delete(BootcampTypeViewModel model)
         {
-            ResponseResult result = RoomRepo.Delete(model);
+            ResponseResult result = BootcampTypeRepo.Delete(model);
             return Json(new
             {
                 success = result.Success,

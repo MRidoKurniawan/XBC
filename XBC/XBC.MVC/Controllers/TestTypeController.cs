@@ -6,44 +6,46 @@ using System.Web.Mvc;
 using XBC.Repository;
 using XBC.ViewModel;
 
-
 namespace XBC.MVC.Controllers
 {
-    public class RoomController : Controller
+    public class TestTypeController : Controller
     {
-        // GET: Room
+        // GET: TestType
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult ListRoom()
+        public ActionResult List()
         {
-            return PartialView("_ListRoom", RoomRepo.All());
+            return PartialView("_List", TestTypeRepo.All());
         }
-
         public ActionResult Create()
         {
             return PartialView("_Create");
         }
         [HttpPost]
-        public ActionResult Create(RoomViewModel model)
+        public ActionResult Create(TestTypeViewModel model)
         {
-            ResponseResult result = RoomRepo.Update(model);
+            ResponseResult result = TestTypeRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
                 message = result.ErrorMessage,
                 entity = result.Entity
-            }, JsonRequestBehavior.AllowGet);
+            },JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Search (string search = "")
+        {
+            return PartialView("_Search", TestTypeRepo.GetBySearch(search));
         }
         public ActionResult Edit(long id)
         {
-            return PartialView("_Edit", RoomRepo.ById(id));
+            return PartialView("_Edit", TestTypeRepo.ById(id));
         }
         [HttpPost]
-        public ActionResult Edit(RoomViewModel model)
+        public ActionResult Edit(TestTypeViewModel model)
         {
-            ResponseResult result = RoomRepo.Update(model);
+            ResponseResult result = TestTypeRepo.Update(model);
             return Json(new
             {
                 success = result.Success,
@@ -53,12 +55,12 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult Delete(long id)
         {
-            return PartialView("_Delete", RoomRepo.ById(id));
+            return PartialView("_Delete", TestTypeRepo.ById(id));
         }
         [HttpPost]
-        public ActionResult Delete(RoomViewModel model)
+        public ActionResult Delete(TestTypeViewModel model)
         {
-            ResponseResult result = RoomRepo.Delete(model);
+            ResponseResult result = TestTypeRepo.Delete(model);
             return Json(new
             {
                 success = result.Success,
@@ -66,5 +68,5 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-    }
+    } 
 }

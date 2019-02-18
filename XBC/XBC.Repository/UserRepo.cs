@@ -83,7 +83,29 @@ namespace XBC.Repository
             }
             return result == null ? new UserViewModel() : result;
         }
+        public static UserViewModel LogIn(UserViewModel model)
+        {
 
+            UserViewModel result = new UserViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from u in db.t_user
+                          where u.username == model.username
+                          select new UserViewModel
+                          {
+                              id = u.id,
+                              username = u.username,
+                              email = u.email,
+                              password = u.password
+
+                          }).FirstOrDefault();
+            }
+            if (model.password == result.password)
+            {
+                result.PassIsTrue = true;
+            }
+            return result == null ? new UserViewModel() : result;
+        }
         public static bool GetMobile_flag(long id)
         {
 
@@ -118,8 +140,7 @@ namespace XBC.Repository
                         user.mobile_flag = false;
                         user.mobile_token = null;
                         user.is_delete = false;
-
-                        user.created_by = 1;
+                        user.created_by = entity.UserId;
                         user.created_on = DateTime.Now;
 
                         db.t_user.Add(user);
@@ -131,7 +152,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -163,7 +184,7 @@ namespace XBC.Repository
                             user.mobile_flag = entity.mobile_flag;
                             user.mobile_token = entity.mobile_token;
 
-                            user.modified_by = 1;
+                            user.modified_by = entity.UserId;
                             user.modified_on = DateTime.Now;
                             db.SaveChanges();
                             result.Entity = entity;
@@ -186,7 +207,7 @@ namespace XBC.Repository
                             log.json_after = json;
 
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(log);
@@ -230,7 +251,7 @@ namespace XBC.Repository
 
                         user.password = entity.password;
 
-                        user.modified_by = 1;
+                        user.modified_by = entity.UserId;
                         user.modified_on = DateTime.Now;
                         db.SaveChanges();
                         result.Entity = entity;
@@ -247,7 +268,7 @@ namespace XBC.Repository
                         json = Serial.Serialize(data2);
                         log.json_after = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -294,7 +315,7 @@ namespace XBC.Repository
 
                         user.is_delete = true;
                         
-                        user.modified_by = 1;
+                        user.deleted_by = entity.UserId;
                         user.modified_on = DateTime.Now;
                         db.SaveChanges();
 
@@ -306,7 +327,7 @@ namespace XBC.Repository
                         log.type = "Edit";
                         log.json_delete = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
