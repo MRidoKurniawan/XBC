@@ -56,23 +56,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="BatchRepo.cs" />
-=======
     <Compile Include="BootcampTypeRepo.cs" />
     <Compile Include="IdleNewsRepo.cs" />
     <Compile Include="Document_Test_DetailRepo.cs" />
->>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Compile Include="OfficeRepo.cs" />
     <Compile Include="MenuRepo.cs" />
     <Compile Include="CategoryRepo.cs" />
     <Compile Include="Document_TestRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
-    <Compile Include="QuestionRepo.cs" />
-    <Compile Include="TestRepo.cs" />
-=======
->>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />
     <Compile Include="TestRepo.cs" />
