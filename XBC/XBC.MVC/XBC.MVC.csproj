@@ -285,6 +285,8 @@
     <Content Include="Views\Document_Test\_Create.cshtml" />
     <Content Include="Views\Document_Test\_Delete.cshtml" />
     <Content Include="Views\Document_Test\_Edit.cshtml" />
+    <Content Include="Views\Document_Test\_ListEdit.cshtml" />
+    <Content Include="Views\Document_Test\_OrderByQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

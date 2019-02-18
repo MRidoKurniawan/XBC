@@ -65,6 +65,29 @@
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryval")
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetList();
+        });
+
+        function GetList() {
+            $.ajax({
+                url: '@Url.Action("ListEdit", "Document_Test")',
+                type: 'get',
+                success: function (result) {
+                    $("list-question").html(result);
+                }
+
+            });
+
+        }
+
+
+    </script>
 }
+
+
+
+

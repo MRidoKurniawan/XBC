@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Document_Test_DetailViewModel.cs" />
     <Compile Include="OfficeViewModel.cs" />
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="CategoryViewModel.cs" />
     <Compile Include="Document_TestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionViewModel.cs" />
     <Compile Include="TestViewModel.cs" />
     <Compile Include="RoomViewModel.cs" />
     <Compile Include="RoleViewModel.cs" />
@@ -53,8 +55,6 @@
     <Compile Include="ResponseResult.cs" />
     <Compile Include="TechnologyViewModel.cs" />
     <Compile Include="TrainerViewModel.cs" />
-    <Compile Include="ResponseResult.cs" />
-    <Compile Include="TestViewModel.cs" />
     <Compile Include="Test_TypeViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

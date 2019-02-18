@@ -76,5 +76,16 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult ListEdit(long id)
+        {
+            return PartialView("_ListEdit", Document_Test_DetailRepo.ById(id));
+        }
+
+        public ActionResult OrderByQuestion(long id)
+        {
+            //id => Product Id
+            return PartialView("_OrderByQuestion", Document_Test_DetailRepo.ByQuestion(id));
+        }
+
     }
 }
