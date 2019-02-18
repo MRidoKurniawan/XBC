@@ -55,9 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchRepo.cs" />
     <Compile Include="OfficeRepo.cs" />
     <Compile Include="MenuRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionRepo.cs" />
     <Compile Include="TestRepo.cs" />
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />

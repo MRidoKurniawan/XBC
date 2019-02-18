@@ -1,0 +1,161 @@
+﻿@model IEnumerable<XBC.ViewModel.QuestionViewModel>
+<div class="row">
+    <div class="col-lg-4">
+        <input type="text" id="txt-search" class="form-control" placeholder="Search by Name..." />
+    </div>
+    <div class="col-lg-2">
+        <button type="button" id="btn-search" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+    </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">
+        <button type="button" id="btn-create-new" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+<p> </p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.questionType)                
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody class="bdy">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.question)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.questionType)
+                </td>
+                <td>
+                    <!-- Single button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle btn-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-id="@item.questionType">
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="btn-set" href="#" data-id="@item.id">Set Choices</a></li>
+                            <li><a class="btn-view" href="#" data-id="@item.id">View Question</a></li>
+                            @*<li><a class="btn-edit" href="#" data-id="@item.id">Edit</a></li>*@
+                            <li><a class="btn-delete" href="#" data-id="@item.id">Delete</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $("#btn-create-new").click(function () {
+        $.ajax({
+            url: '@Url.Action("Create", "Question")',
+            type: 'get',
+            success: function (result) {
+                $(".modal-title").html("Question");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-set").click(function () {
+        $.ajax({
+            url: '@Url.Action("SetC", "Question")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("SET CHOICES");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    var typ;
+    $(".btn-action").click(function () {        
+        if ($(this).attr("data-id") == "ES") {
+            $(".btn-set").hide();
+            typ = "Essay";
+        } else {
+            $(".btn-set").show();
+            typ = "Multiple Choice"
+        }
+    });
+
+    @*$(".btn-edit").click(function () {
+        $.ajax({
+            url: '@Url.Action("Edit", "Question")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Question");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });*@
+
+    $(".btn-view").click(function () {
+
+        $.ajax({
+            url: '@Url.Action("Details", "Question")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Question");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+                $(".type").val(typ);
+            }
+        });
+    });
+
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("Delete", "Question")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $("#btn-search").click(function () {
+        $.ajax({
+            url: '@Url.Action("List", "Question")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+
+    $("#txt-search").change(function () {
+        $.ajax({
+            url: '@Url.Action("List", "Question")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+</script>

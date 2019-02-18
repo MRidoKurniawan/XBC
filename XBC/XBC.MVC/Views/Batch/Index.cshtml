@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Test";
+    ViewBag.Title = "Batch";
 }
 
 <div class="panel panel-primary">
@@ -36,7 +36,7 @@
 
         function GetList() {
             $.ajax({
-                url: '@Url.Action("List", "Test")',
+                url: '@Url.Action("List", "Batch")',
                 type: 'get',
                 success: function (result) {
                     $("#data-list").html(result);
@@ -45,4 +45,3 @@
         }
     </script>
 }
-
