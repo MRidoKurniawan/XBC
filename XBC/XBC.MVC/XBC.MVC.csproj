@@ -168,13 +168,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BootcampTypeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\TestTypeController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -286,6 +289,20 @@
     <Content Include="Views\Document_Test\_Delete.cshtml" />
     <Content Include="Views\Document_Test\_Edit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\BootcampType\Index.cshtml" />
+    <Content Include="Views\BootcampType\_create.cshtml" />
+    <Content Include="Views\BootcampType\_Delete.cshtml" />
+    <Content Include="Views\BootcampType\_Edit.cshtml" />
+    <Content Include="Views\BootcampType\_List.cshtml" />
+    <Content Include="Views\BootcampType\_Search.cshtml" />
+    <Content Include="Views\TestType\Index.cshtml" />
+    <Content Include="Views\TestType\_Create.cshtml" />
+    <Content Include="Views\TestType\_Delete.cshtml" />
+    <Content Include="Views\TestType\_Edit.cshtml" />
+    <Content Include="Views\TestType\_List.cshtml" />
+    <Content Include="Views\TestType\_Search.cshtml" />
+    <Content Include="Views\IdleNews\Index.cshtml" />
+    <Content Include="Views\IdleNews\_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

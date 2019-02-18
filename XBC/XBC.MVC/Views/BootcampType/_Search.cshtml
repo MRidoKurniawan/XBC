@@ -1,0 +1,120 @@
+﻿@model IEnumerable<XBC.ViewModel.BootcampTypeViewModel>
+
+<div class="col-lg-4">
+    <input type="text" id="txt-search" class="form-control" placeholder="Search by name" />
+</div>
+<div class="col-lg-1">
+    <button type="button" id="btn-search" class="btn btn-success">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    </button>
+</div>
+@*<div class="col-lg-5">
+
+    </div>*@
+<div class="col-lg-6">
+    <button type="button" id="btn-Create" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+</div>
+<p> </p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.notes)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.createdBy)
+            </th>
+            <th>#</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.notes)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdBy)
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
+                            <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
+                        </div>
+                    </div>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>
+
+
+<script type="text/javascript">
+    $("#btn-Create").click(function () {
+        $.ajax({
+            url: '@Url.Action("Create", "BootcampType")',
+            type: 'get',
+            success: function (result) {
+                $(".modal-title").html("Bootcamp Type");
+                $(".modal-body").html(result);
+                $(".modal").modal("show");
+            }
+        });
+    });
+    $("#btn-search").click(function () {
+
+        $.ajax({
+            url: '@Url.Action("Search", "BootcampType")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+    $(".btn-edit").click(function () {
+        $.ajax({
+            url: '@Url.Action("Edit", "BootcampType")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Bootcamp Type");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("Delete", "BootcampType")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+</script>
+
