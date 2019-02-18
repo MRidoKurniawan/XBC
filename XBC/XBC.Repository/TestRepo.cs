@@ -118,7 +118,7 @@ namespace XBC.Repository
                         else
                         {
                             result.Success = false;
-                            result.ErrorMessage = "Category Not Found";
+                            result.ErrorMessage = "Test Not Found";
                         }
                     }
                 }

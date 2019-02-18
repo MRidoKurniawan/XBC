@@ -168,14 +168,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+<<<<<<< HEAD
+    <Compile Include="Controllers\BatchController.cs" />
+=======
     <Compile Include="Controllers\BootcampTypeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
+>>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\TestTypeController.cs" />
@@ -280,6 +285,17 @@
     <Content Include="Views\Technology\_Create.cshtml" />
     <Content Include="Views\Test\_Edit.cshtml" />
     <Content Include="Views\Test\_Delete.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Question\Index.cshtml" />
+    <Content Include="Views\Question\_List.cshtml" />
+    <Content Include="Views\Question\_Create.cshtml" />
+    <Content Include="Views\Question\_Delete.cshtml" />
+    <Content Include="Views\Question\_Details.cshtml" />
+    <Content Include="Views\Question\_SetC.cshtml" />
+    <Content Include="Views\Batch\_List.cshtml" />
+    <Content Include="Views\Batch\Index.cshtml" />
+    <Content Include="Views\Batch\_Create.cshtml" />
+=======
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\_List.cshtml" />
     <Content Include="Views\Category\_Create.cshtml" />
@@ -312,6 +328,7 @@
     <Content Include="Views\IdleNews\_List.cshtml" />
     <Content Include="Views\Document_Test\_ListEdit.cshtml" />
     <Content Include="Views\Document_Test\_OrderByQuestion.cshtml" />
+>>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Content Include="Views\Document_Test\_ListQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>

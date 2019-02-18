@@ -41,15 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="BatchViewModel.cs" />
+=======
     <Compile Include="BootcampTypeViewModel.cs" />
     <Compile Include="IdleNewsViewModel.cs" />
     <Compile Include="Document_Test_DetailViewModel.cs" />
+>>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Compile Include="OfficeViewModel.cs" />
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="CategoryViewModel.cs" />
     <Compile Include="Document_TestViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
+=======
     <Compile Include="TestTypeViewModel.cs" />
+>>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Compile Include="QuestionViewModel.cs" />
     <Compile Include="TestViewModel.cs" />
     <Compile Include="RoomViewModel.cs" />
