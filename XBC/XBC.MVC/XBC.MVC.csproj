@@ -168,8 +168,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BiodataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +236,18 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\_List.cshtml" />
+    <Content Include="Views\Role\_Create.cshtml" />
+    <Content Include="Views\Role\_Edit.cshtml" />
+    <Content Include="Views\Role\_Delete.cshtml" />
+    <Content Include="Views\Role\_Search.cshtml" />
+    <Content Include="Views\Biodata\_List.cshtml" />
+    <Content Include="Views\Biodata\Index.cshtml" />
+    <Content Include="Views\Biodata\_Create.cshtml" />
+    <Content Include="Views\Biodata\_Delete.cshtml" />
+    <Content Include="Views\Biodata\_Search.cshtml" />
+    <Content Include="Views\Biodata\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

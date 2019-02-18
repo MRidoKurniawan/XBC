@@ -1,0 +1,38 @@
+﻿@model XBC.ViewModel.RoleViewModel
+
+<h3>Are you sure to delete this data?</h3>
+<div>
+
+    @using (Html.BeginForm("Delete", "Role", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
+    {
+        @Html.AntiForgeryToken()
+        
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.name)
+
+        <div class="form-actions no-color">
+            <input type="button" value="No" class="btn btn-default" data-dismiss="modal" />
+            <input type="submit" value="Yes" class="btn btn-default" />
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $("#form-delete").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Delete successful!\nName: " + result.entity.name);
+                    $(".modal").modal("hide");
+                    GetList();
+                } else {
+                    alert("Error!\n" + result.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>
