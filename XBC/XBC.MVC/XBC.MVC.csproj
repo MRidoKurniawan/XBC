@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AssignmentController.cs" />
     <Compile Include="Controllers\BootcampTypeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
@@ -310,6 +311,11 @@
     <Content Include="Views\TestType\_Search.cshtml" />
     <Content Include="Views\IdleNews\Index.cshtml" />
     <Content Include="Views\IdleNews\_List.cshtml" />
+    <Content Include="Views\Menu\_Search.cshtml" />
+    <Content Include="Views\Menu\_Delete.cshtml" />
+    <Content Include="Views\Menu\_Edit.cshtml" />
+    <Content Include="Views\Assignment\_List.cshtml" />
+    <Content Include="Views\Assignment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

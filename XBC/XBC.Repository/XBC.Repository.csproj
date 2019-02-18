@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignmentRepo.cs" />
     <Compile Include="BootcampTypeRepo.cs" />
     <Compile Include="IdleNewsRepo.cs" />
     <Compile Include="OfficeRepo.cs" />
