@@ -1,6 +1,5 @@
 ﻿@model XBC.ViewModel.OfficeViewModel
 
-
 @using (Html.BeginForm("Create", "Office", FormMethod.Post, new { id = "form-create", name = "form-create" })) 
 {
     @Html.AntiForgeryToken()
@@ -65,12 +64,14 @@
 }
 
 
+
    
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
     $("#form-create").submit(function () {
+        console.log("1");
         $.ajax({
-            url: this.action,
+            url: this.action + ("_ListRoom"),
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {

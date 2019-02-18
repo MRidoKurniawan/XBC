@@ -28,5 +28,13 @@ namespace XBC.ViewModel
         public bool mobile_flag { get; set; }
         [Display(Name = "mobileToken")]
         public long? mobile_token { get; set; }
+
+        public long UserId { get; set; }
+
+        public UserViewModel()
+        {
+            PassIsTrue = false;
+        }
+        public bool PassIsTrue { get; set; }
     }
 }

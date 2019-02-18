@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using XBC.Repository;
 using XBC.ViewModel;
 
+
 namespace XBC.MVC.Controllers
 {
     public class RoomController : Controller
@@ -15,10 +16,11 @@ namespace XBC.MVC.Controllers
         {
             return View();
         }
-        public ActionResult List()
+        public ActionResult ListRoom()
         {
-            return PartialView("_List", RoomRepo.All());
+            return PartialView("_ListRoom", RoomRepo.All());
         }
+
         public ActionResult Create()
         {
             return PartialView("_Create");

@@ -47,6 +47,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,17 +56,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="BatchRepo.cs" />
+=======
+    <Compile Include="BootcampTypeRepo.cs" />
+    <Compile Include="IdleNewsRepo.cs" />
+    <Compile Include="Document_Test_DetailRepo.cs" />
+>>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Compile Include="OfficeRepo.cs" />
     <Compile Include="MenuRepo.cs" />
+    <Compile Include="CategoryRepo.cs" />
+    <Compile Include="Document_TestRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="QuestionRepo.cs" />
     <Compile Include="TestRepo.cs" />
+=======
+>>>>>>> f77ab0dff2740a64a7fbe211cf9d91fdfe47415a
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />
+    <Compile Include="TestTypeRepo.cs" />
     <Compile Include="UserRepo.cs" />
     <Compile Include="TechnologyRepo.cs" />
     <Compile Include="TrainerRepo.cs" />
+    <Compile Include="Test_TypeRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
