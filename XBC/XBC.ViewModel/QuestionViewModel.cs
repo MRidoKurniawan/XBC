@@ -11,45 +11,45 @@ namespace XBC.ViewModel
     {
         public long id { get; set; }
 
-        [Required]
-        [StringLength(255)]
+        [Required, StringLength(5)]
+        public string questionType { get; set; }
+
+        [Required, StringLength(255)]
         public string question { get; set; }
 
-        [Required]
-        [StringLength(5)]
-        public string question_type { get; set; }
+        [StringLength(255)]
+        public string optionA { get; set; }
 
         [StringLength(255)]
-        public string option_a { get; set; }
+        public string optionB { get; set; }
 
         [StringLength(255)]
-        public string option_b { get; set; }
+        public string optionC { get; set; }
 
         [StringLength(255)]
-        public string option_c { get; set; }
+        public string optionD { get; set; }
 
         [StringLength(255)]
-        public string option_d { get; set; }
+        public string optionE { get; set; }
 
         [StringLength(255)]
-        public string option_e { get; set; }
+        public string imageUrl { get; set; }
 
         [StringLength(255)]
-        public string image_url { get; set; }
+        public string imageA { get; set; }
 
         [StringLength(255)]
-        public string image_a { get; set; }
+        public string imageB { get; set; }
 
         [StringLength(255)]
-        public string image_b { get; set; }
+        public string imageC { get; set; }
 
         [StringLength(255)]
-        public string image_c { get; set; }
+        public string imageD { get; set; }
 
         [StringLength(255)]
-        public string image_d { get; set; }
+        public string imageE { get; set; }
 
-        [StringLength(255)]
-        public string image_e { get; set; }
+        //public HttpPostedFileBase img { get; set; }
     }
 }

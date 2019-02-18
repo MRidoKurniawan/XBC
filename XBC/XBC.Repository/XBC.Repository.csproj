@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchRepo.cs" />
     <Compile Include="BootcampTypeRepo.cs" />
     <Compile Include="IdleNewsRepo.cs" />
     <Compile Include="Document_Test_DetailRepo.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="CategoryRepo.cs" />
     <Compile Include="Document_TestRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionRepo.cs" />
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />
     <Compile Include="TestRepo.cs" />
