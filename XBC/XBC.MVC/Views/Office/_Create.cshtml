@@ -68,10 +68,12 @@
 </table>
 
 
+
    
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
     $("#form-create").submit(function () {
+        console.log("1");
         $.ajax({
             url: this.action,
             type: this.method,

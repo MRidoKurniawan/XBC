@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace XBC.ViewModel
 {
-    public class Test_TypeViewModel
+    public class BootcampTypeViewModel
     {
         public long id { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required, StringLength(255)]
         public string name { get; set; }
 
         [StringLength(255)]
         public string notes { get; set; }
-
-        public long type_of_answer { get; set; }
+        public long createdBy { get; set; }
     }
 }
