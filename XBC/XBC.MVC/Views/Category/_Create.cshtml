@@ -15,10 +15,10 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group"id="text-deskripsi" style="height:100%">
             @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.description,  new { htmlAttributes = new { @class = "form-control", @cols = "500", @rows = "50", @style = "width:100;" } })
+                <textarea class="form-control" name="description" style="height:18rem; resize:none;" placeholder="Description"></textarea>
                 @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -46,9 +46,12 @@
                     @*<div class="col-md-2">
                             <button>generate</button>
                         </div>*@
+
                 </div>
             </div>
         </div>
+
+
 
         <div id="list-question">
             <h4>Loading ......</h4>
@@ -65,6 +68,30 @@
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetList();
+        });
+
+        function GetList() {
+            var id = model => model.id
+            $.ajax({
+                url: '@Url.Action("ListEdit", "Document_Test")',
+                type: 'get',
+                data: { id: @Model.id },
+                success: function (result) {
+                    $("#list-question").html(result);
+                }
+
+            });
+
+        }
+
+
+    </script>
+
+
+
+

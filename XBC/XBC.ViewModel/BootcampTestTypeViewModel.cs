@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace XBC.ViewModel
 {
-    public class Test_TypeViewModel
+    public class BootcampTestTypeViewModel
     {
         public long id { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required, StringLength(255)]
         public string name { get; set; }
-
-        [StringLength(255)]
+        [Required, StringLength(255)]
         public string notes { get; set; }
-
-        public long type_of_answer { get; set; }
+        public bool isDelete { get; set; }
     }
 }

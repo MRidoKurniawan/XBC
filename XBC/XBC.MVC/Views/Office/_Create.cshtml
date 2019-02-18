@@ -1,5 +1,7 @@
 ﻿@model XBC.ViewModel.OfficeViewModel
 
+<table class="table">
+
 @using (Html.BeginForm("Create", "Office", FormMethod.Post, new { id = "form-create", name = "form-create" })) 
 {
     @Html.AntiForgeryToken()
@@ -58,10 +60,12 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 }
+</table>
 
 
 
@@ -71,7 +75,7 @@
     $("#form-create").submit(function () {
         console.log("1");
         $.ajax({
-            url: this.action + ("_ListRoom"),
+            url: this.action,
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
