@@ -341,6 +341,14 @@
     <Content Include="Views\Biodata\_Delete.cshtml" />
     <Content Include="Views\Biodata\_Search.cshtml" />
     <Content Include="Views\Biodata\_Edit.cshtml" />
+    <Content Include="Views\Question\Index.cshtml" />
+    <Content Include="Views\Question\_Create.cshtml" />
+    <Content Include="Views\Question\_Delete.cshtml" />
+    <Content Include="Views\Question\_Details.cshtml" />
+    <Content Include="Views\Question\_List.cshtml" />
+    <Content Include="Views\Question\_SetC.cshtml" />
+    <Content Include="Views\Trainer\_ListByTechnology.cshtml" />
+    <Content Include="Views\Batch\_Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
