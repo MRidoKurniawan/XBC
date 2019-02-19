@@ -355,6 +355,7 @@
     <Content Include="Views\Question\_SetC.cshtml" />
     <Content Include="Views\Trainer\_ListByTechnology.cshtml" />
     <Content Include="Views\Batch\_Edit.cshtml" />
+    <Content Include="Views\Batch\_AddParticipant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
