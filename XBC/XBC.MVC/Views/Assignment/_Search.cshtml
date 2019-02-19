@@ -26,40 +26,39 @@
         <th>#</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TanggalMulai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TanggalSelesai)
-        </td>
-        <td>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-align-justify"></span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
-                    <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
-                    <a class="dropdown-item btn-hold" href="#" data-id="@item.id"><div class="col-lg-12">Hold</div></a>
-                    <a class="dropdown-item btn-done" href="#" data-id="@item.id"><div class="col-lg-12">Mark As Done</div></a>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TanggalMulai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TanggalSelesai)
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
+                        <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
+                    </div>
                 </div>
-            </div>
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
 
 <script type="text/javascript">
     $(".btn-edit").click(function () {
         $.ajax({
-            url: '@Url.Action("Edit","Assignment")',
+            url: '@Url.Action("Edit","Menu")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
@@ -71,38 +70,12 @@
     });
     $(".btn-delete").click(function () {
         $.ajax({
-            url: '@Url.Action("Delete","Assignment")',
+            url: '@Url.Action("Delete","Menu")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
                 $(".modal-title").html("<h4>Delete Data</h4>");
-                $(".modal").modal("show");
-            }
-        });
-    });
-
-    $(".btn-hold").click(function () {
-        $.ajax({
-            url: '@Url.Action("Hold","Assignment")',
-            type: 'get',
-            data: { id: $(this).attr("data-id") },
-            success: function (result) {
-                $(".modal-body").html(result);
-                $(".modal-title").html("<h4>Hold Data</h4>");
-                $(".modal").modal("show");
-            }
-        });
-    });
-
-    $(".btn-done").click(function () {
-        $.ajax({
-            url: '@Url.Action("Done","Assignment")',
-            type: 'get',
-            data: { id: $(this).attr("data-id") },
-            success: function (result) {
-                $(".modal-body").html(result);
-                $(".modal-title").html("<h4>Hold Data</h4>");
                 $(".modal").modal("show");
             }
         });

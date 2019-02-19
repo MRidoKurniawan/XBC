@@ -347,6 +347,12 @@
     <Content Include="Views\Menu\_Edit.cshtml" />
     <Content Include="Views\Assignment\_List.cshtml" />
     <Content Include="Views\Assignment\Index.cshtml" />
+    <Content Include="Views\Assignment\_Create.cshtml" />
+    <Content Include="Views\Assignment\_Search.cshtml" />
+    <Content Include="Views\Assignment\_Edit.cshtml" />
+    <Content Include="Views\Assignment\_Delete.cshtml" />
+    <Content Include="Views\Assignment\_Hold.cshtml" />
+    <Content Include="Views\Assignment\_Done.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
