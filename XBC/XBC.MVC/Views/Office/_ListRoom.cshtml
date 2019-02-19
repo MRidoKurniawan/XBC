@@ -1,0 +1,18 @@
+﻿@model XBC.ViewModel.RoomViewModel
+<tr>
+    <td>
+        @Html.HiddenFor(model => model.officeId)
+        @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control text-right", @readonly = "readonly" } })
+    </td>
+    <td>
+        @Html.EditorFor(model => model.capacity, new { htmlAttributes = new { @class = "form-control text-right", @readonly = "readonly" } })
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger btn-remove" onclick="RemoveOrder(this)" title="Remove">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+    </td>
+</tr>

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<XBC.ViewModel.TrainerViewModel>
+
+<option value="">- Choose Trainer -</option>
+
+@foreach (var item in Model)
+{
+    <option value="@item.id">@item.name</option>
+}
+

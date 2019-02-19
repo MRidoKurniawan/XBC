@@ -10,36 +10,51 @@
     <meta name="description" content="The description of my page" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+    <div style="height:10vh; background:#2c3e50; width:100%; padding:1.5vh; position:fixed; top:0; z-index:999;">
+        <button type="button" id="sidebarCollapse" class="btn btn-info" style="height:100%; background:#fff; padding : 5px;">
+            <i class="fas fa-align-left"></i>
+            <image src="menu.png" style="height:100%; width : auto">
+        </button>
+    </div>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <img src="images/logo.png" class="col-sm-12" style="margin-top:2rem;">
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="input_barang.php">Input Barang</a>
+                </li>
+                <li>
+                    <a href="#"><div style="">Data Barang</div></a>
+                </li>
+                <li>
+                    <a href="eoq.php">EOQ</a>
+                </li>
+                <li>
+                    <a href="logout.php">Log Out</a>
+                </li>
+            </ul>
+        </nav>
+        <div id="content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - A-Team Application</p>
+            </footer>
         </div>
+        
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
 </body>
 </html>

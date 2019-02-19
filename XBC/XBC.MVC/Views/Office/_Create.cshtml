@@ -1,5 +1,6 @@
 ﻿@model XBC.ViewModel.OfficeViewModel
 
+<table class="table">
 
 @using (Html.BeginForm("Create", "Office", FormMethod.Post, new { id = "form-create", name = "form-create" })) 
 {
@@ -59,16 +60,20 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
 }
+</table>
+
 
 
    
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
     $("#form-create").submit(function () {
+        console.log("1");
         $.ajax({
             url: this.action,
             type: this.method,
