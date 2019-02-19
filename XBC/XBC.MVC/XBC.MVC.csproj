@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BatchController.cs" />
     <Compile Include="Controllers\BootcampTestTypeController.cs" />
+    <Compile Include="Controllers\AssignmentController.cs" />
     <Compile Include="Controllers\BootcampTypeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
@@ -341,6 +342,11 @@
     <Content Include="Views\Biodata\_Delete.cshtml" />
     <Content Include="Views\Biodata\_Search.cshtml" />
     <Content Include="Views\Biodata\_Edit.cshtml" />
+    <Content Include="Views\Menu\_Search.cshtml" />
+    <Content Include="Views\Menu\_Delete.cshtml" />
+    <Content Include="Views\Menu\_Edit.cshtml" />
+    <Content Include="Views\Assignment\_List.cshtml" />
+    <Content Include="Views\Assignment\Index.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
     <Content Include="Views\Question\_Create.cshtml" />
     <Content Include="Views\Question\_Delete.cshtml" />

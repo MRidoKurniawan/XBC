@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BatchViewModel.cs" />
+    <Compile Include="AssignmentViewModel.cs" />
     <Compile Include="BootcampTypeViewModel.cs" />
     <Compile Include="IdleNewsViewModel.cs" />
     <Compile Include="Document_Test_DetailViewModel.cs" />
