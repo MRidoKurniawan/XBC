@@ -1,7 +1,6 @@
-﻿@model XBC.ViewModel.TrainerViewModel
+﻿@model XBC.ViewModel.TestimonyViewModel
 
-
-@using (Html.BeginForm("Edit", "Trainer", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
+@using (Html.BeginForm("Edit", "Testimony", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -12,8 +11,8 @@
                 <td>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <textarea class="form-control" name="name" style="max-width:100%; height:5rem; resize:none;" placeholder="Name">@Model.name</textarea>
-                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                            <textarea class="form-control" name="title" style="max-width:100%; height:5rem; resize:none;" placeholder="Title">@Model.title</textarea>
+                            @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </td>
@@ -22,8 +21,8 @@
                 <td>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <textarea class="form-control" name="notes" style="max-width:100%; height:15rem; resize:none;" placeholder="Notes">@Model.notes</textarea>
-                            @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                            <textarea class="form-control" name="content" style="max-width:100%; height:25rem; resize:none;" placeholder="Content">@Model.content</textarea>
+                            @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </td>
@@ -51,8 +50,8 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save Successfull!\nName: " + result.entity.name + "\nNotes: " +
-                    result.entity.notes);
+                    alert("Save Successfull!\nTitle: " + result.entity.title + "\nContent: " +
+                    result.entity.content);
                     $(".modal").modal("hide");
                     GetList();
                 } else {

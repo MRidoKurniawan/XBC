@@ -58,6 +58,7 @@
     <Compile Include="OfficeRepo.cs" />
     <Compile Include="MenuRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestimonyRepo.cs" />
     <Compile Include="TestRepo.cs" />
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />

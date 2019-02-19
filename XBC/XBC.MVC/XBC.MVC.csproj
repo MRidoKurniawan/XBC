@@ -173,6 +173,7 @@
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\TestimonyController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -269,6 +270,15 @@
     <Content Include="Views\Technology\Index.cshtml" />
     <Content Include="Views\Technology\_List.cshtml" />
     <Content Include="Views\Technology\_Create.cshtml" />
+    <Content Include="Views\Technology\_Edit.cshtml" />
+    <Content Include="Views\Technology\_Delete.cshtml" />
+    <Content Include="Views\Technology\_Search.cshtml" />
+    <Content Include="Views\Testimony\Index.cshtml" />
+    <Content Include="Views\Testimony\_List.cshtml" />
+    <Content Include="Views\Testimony\_Create.cshtml" />
+    <Content Include="Views\Testimony\_Edit.cshtml" />
+    <Content Include="Views\Testimony\_Delete.cshtml" />
+    <Content Include="Views\Testimony\_Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
