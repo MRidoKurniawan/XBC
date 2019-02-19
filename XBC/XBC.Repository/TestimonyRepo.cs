@@ -9,51 +9,49 @@ using System.Web.Script.Serialization;
 
 namespace XBC.Repository
 {
-    public class TechnologyRepo
+    public class TestimonyRepo
     {
         //GetAll
-        public static List<TechnologyViewModel> All()
+
+        public static List<TestimonyViewModel> All()
         {
-            List<TechnologyViewModel> result = new List<TechnologyViewModel>();
+            List<TestimonyViewModel> result = new List<TestimonyViewModel>();
             using (var db = new XBC_Context())
             {
-                result = (from tec in db.t_technology
-                          where tec.is_delete == false
-                          select new TechnologyViewModel
+                result = (from tes in db.t_testimony where tes.is_delete == false
+                          select new TestimonyViewModel
                           {
-                              id = tec.id,
-                              name = tec.name,
-                              notes = tec.notes,
-                              created_by = tec.created_by,
-                              is_delete = tec.is_delete
+                              id = tes.id,
+                              title = tes.title,
+                              content = tes.content,
+                              is_delete = tes.is_delete
                           }).ToList();
                 if (result == null)
-                    result = new List<TechnologyViewModel>();
+                    result = new List<TestimonyViewModel>();
             }
             return result;
         }
         //GetById
-        public static TechnologyViewModel ById(long id)
+        public static TestimonyViewModel ById(long id)
         {
-            TechnologyViewModel result = new TechnologyViewModel();
+            TestimonyViewModel result = new TestimonyViewModel();
             using (var db = new XBC_Context())
             {
-                result = (from tec in db.t_technology
-                          where tec.id == id && tec.is_delete == false
-                          select new TechnologyViewModel
+                result = (from tes in db.t_testimony
+                          where tes.id == id && tes.is_delete == false
+                          select new TestimonyViewModel
                           {
-                              id = tec.id,
-                              name = tec.name,
-                              notes = tec.notes,
-                              created_by = tec.created_by,
-                              is_delete = tec.is_delete
+                              id = tes.id,
+                              title = tes.title,
+                              content = tes.content,
+                              is_delete = tes.is_delete
                           }).FirstOrDefault();
                 if (result == null)
-                    result = new TechnologyViewModel();
+                    result = new TestimonyViewModel();
                 return result;
             }
         }
-        public static ResponseResult Update(TechnologyViewModel entity)
+        public static ResponseResult Update(TestimonyViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
@@ -63,53 +61,48 @@ namespace XBC.Repository
                     //Create
                     if (entity.id == 0)
                     {
-                        t_technology tec = new t_technology();
-                        tec.name = entity.name;
-                        tec.notes = entity.notes;
-                        tec.is_delete = entity.is_delete;
-                        tec.created_by = 1;
-                        tec.created_on = DateTime.Now;
-                        db.t_technology.Add(tec);
+                        t_testimony tes = new t_testimony();
+                        tes.title = entity.title;
+                        tes.content = entity.content;
+                        tes.is_delete = entity.is_delete;
+                        tes.created_by = 1;
+                        tes.created_on = DateTime.Now;
+                        db.t_testimony.Add(tes);
                         db.SaveChanges();
 
-                        var json = new JavaScriptSerializer().Serialize(tec);
-
+                        var json = new JavaScriptSerializer().Serialize(tes);
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
-
                         log.created_by = 1;
                         log.created_on = DateTime.Now;
-
                         db.t_audit_log.Add(log);
-
                         db.SaveChanges();
-                        entity.id = tec.id;
+                        entity.id = tes.id;
                         result.Entity = entity;
                     }
-                    //Edit
+                    //edit
                     else
                     {
-                        t_technology tec = db.t_technology
+                        t_testimony tes = db.t_testimony
                             .Where(t => t.id == entity.id)
                             .FirstOrDefault();
 
-                        if (tec != null)
+                        if (tes != null)
                         {
-                            var json = new JavaScriptSerializer().Serialize(tec);
+                            var json = new JavaScriptSerializer().Serialize(tes);
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
-
                             log.created_by = 1;
                             log.created_on = DateTime.Now;
 
-                            tec.name = entity.name;
-                            tec.notes = entity.notes;
-                            tec.modified_by = 1;
-                            tec.modified_on = DateTime.Now;
+                            tes.title = entity.title;
+                            tes.content = entity.content;
+                            tes.modified_by = 1;
+                            tes.modified_on = DateTime.Now;
 
-                            var json2 = new JavaScriptSerializer().Serialize(tec);
+                            var json2 = new JavaScriptSerializer().Serialize(tes);
                             log.json_after = json2;
                             db.t_audit_log.Add(log);
                             db.SaveChanges();
@@ -119,7 +112,7 @@ namespace XBC.Repository
                         else
                         {
                             result.Success = false;
-                            result.ErrorMessage = "Technology Not Found!";
+                            result.ErrorMessage = "Testimony Not Found!";
                         }
                     }
                 }
@@ -131,32 +124,31 @@ namespace XBC.Repository
             }
             return result;
         }
-
-        public static ResponseResult Delete(TechnologyViewModel entity)
+        public static ResponseResult Delete(TestimonyViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
             {
                 using (var db = new XBC_Context())
                 {
-                    t_technology tec = db.t_technology
+                    t_testimony tes = db.t_testimony
                         .Where(t => t.id == entity.id)
                         .FirstOrDefault();
 
-                    if (tec != null)
+                    if (tes != null)
                     {
-                        var json = new JavaScriptSerializer().Serialize(tec);
+                        var json = new JavaScriptSerializer().Serialize(tes);
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
                         log.created_by = 1;
                         log.created_on = DateTime.Now;
 
-                        tec.is_delete = true;
-                        tec.deleted_by = 1;
-                        tec.deleted_on = DateTime.Now;
+                        tes.is_delete = true;
+                        tes.deleted_by = 1;
+                        tes.deleted_on = DateTime.Now;
 
-                        var json2 = new JavaScriptSerializer().Serialize(tec);
+                        var json2 = new JavaScriptSerializer().Serialize(tes);
                         log.json_after = json2;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -166,7 +158,7 @@ namespace XBC.Repository
                     else
                     {
                         result.Success = false;
-                        result.ErrorMessage = "Technology Not Found";
+                        result.ErrorMessage = "Testimony Not Found";
                     }
                 }
             }
@@ -178,22 +170,21 @@ namespace XBC.Repository
             return result;
         }
 
-        public static List<TechnologyViewModel> GetBySearch(String search)
+        public static List<TestimonyViewModel> GetBySearch(String search)
         {
-            List<TechnologyViewModel> result = new List<TechnologyViewModel>();
+            List<TestimonyViewModel> result = new List<TestimonyViewModel>();
             using (var db = new XBC_Context())
             {
-                result = (from tec in db.t_technology
-                          where tec.name.Contains(search) && tec.is_delete == false
-                          select new TechnologyViewModel
+                result = (from tes in db.t_testimony
+                          where tes.title.Contains(search) && tes.is_delete == false
+                          select new TestimonyViewModel
                           {
-                              id = tec.id,
-                              name = tec.name,
-                              notes = tec.notes,
-                              created_by = tec.created_by
+                              id = tes.id,
+                              title = tes.title,
+                              content = tes.content
                           }).ToList();
             }
-            return result == null ? new List<TechnologyViewModel>() : result;
+            return result == null ? new List<TestimonyViewModel>() : result;
         }
     }
 }

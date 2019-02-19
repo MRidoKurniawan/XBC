@@ -42,13 +42,22 @@ namespace XBC.Repository
                 result = (from b in db.t_batch
                           join tc in db.t_technology on b.technology_id equals tc.id
                           join tr in db.t_trainer on b.trainer_id equals tr.id
+                          join bt in db.t_bootcamp_type on b.bootcamp_type_id equals bt.id
+                          join rm in db.t_room on b.room_id equals rm.id
                           where b.id == id && b.is_delete == false
                           select new BatchViewModel
                           {
                               id = b.id,
                               technologyName = tc.name,
                               name = b.name,
-                              trainerName = tr.name
+                              trainerName = tr.name,
+                              technologyId = tc.id,
+                              periodFrom = b.period_from,
+                              bootcampTypeId = bt.id,
+                              roomId = rm.id,
+                              trainerId = tr.id,
+                              periodTo = b.period_to,
+                              notes = b.notes
                           }).FirstOrDefault();
             }
 
@@ -99,7 +108,8 @@ namespace XBC.Repository
                         t_batch bt = db.t_batch.Where(o => o.id == entity.id).FirstOrDefault();
                         if (bt != null)
                         {
-                            var jsonBefore = new JavaScriptSerializer().Serialize(bt); // Mengambil Json Before
+                            //var jsonBefore = new JavaScriptSerializer().Serialize(bt); // Mengambil Json Before
+                            var jsonBefore = new JavaScriptSerializer().Serialize(bt);
 
                             bt.name = entity.name;
                             bt.technology_id = entity.technologyId;

@@ -79,7 +79,7 @@
         });
     });
 
-    @*$(".btn-edit").click(function () {
+    $(".btn-edit").click(function () {
         $.ajax({
             url: '@Url.Action("Edit", "Batch")',
             type: 'get',
@@ -90,7 +90,7 @@
                 $('.modal').modal('show');
             }
         });
-    });*@
+    });
 
     $("#btn-search").click(function () {
         $.ajax({

@@ -72,6 +72,8 @@
     <Compile Include="BiodataRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionRepo.cs" />
+    <Compile Include="TestimonyRepo.cs" />
+    <Compile Include="TestRepo.cs" />
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />
     <Compile Include="TestRepo.cs" />
