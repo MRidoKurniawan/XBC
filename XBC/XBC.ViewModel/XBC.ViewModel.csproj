@@ -57,6 +57,8 @@
     <Compile Include="ResponseResult.cs" />
     <Compile Include="TestTypeViewModel.cs" />
     <Compile Include="QuestionViewModel.cs" />
+    <Compile Include="TechnologyTrainerViewModel.cs" />
+    <Compile Include="TestimonyViewModel.cs" />
     <Compile Include="TestViewModel.cs" />
     <Compile Include="RoomViewModel.cs" />
     <Compile Include="RoleViewModel.cs" />

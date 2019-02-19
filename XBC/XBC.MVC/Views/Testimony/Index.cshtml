@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Trainer";
+    ViewBag.Title = "Testimony";
 }
 <div class="panel panel-primary">
     <div class="panel-heading" style="background-color:darkorange">
-        <h3>TRAINER</h3>
+        <h3>TESTIMONY</h3>
     </div>
     <div id="data-list" class="panel-body">
         <h4>Loading...</h4>
@@ -34,7 +34,7 @@
 
         function GetList() {
             $.ajax({
-                url: '@Url.Action("List", "Trainer")',
+                url: '@Url.Action("List", "Testimony")',
                 type: 'get',
                 success: function (result) {
                     $("#data-list").html(result);
