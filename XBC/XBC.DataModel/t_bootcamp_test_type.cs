@@ -8,6 +8,12 @@ namespace XBC.DataModel
 
     public partial class t_bootcamp_test_type
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public t_bootcamp_test_type()
+        {
+            t_biodata = new HashSet<t_biodata>();
+        }
+
         public long id { get; set; }
 
         [Required]
@@ -30,5 +36,8 @@ namespace XBC.DataModel
         public DateTime? deleted_on { get; set; }
 
         public bool is_delete { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<t_biodata> t_biodata { get; set; }
     }
 }

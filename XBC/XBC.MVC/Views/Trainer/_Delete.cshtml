@@ -1,16 +1,16 @@
 ﻿@model XBC.ViewModel.TrainerViewModel
-
 <h3>Are you sure to delete this data?</h3>
 <div>
-    @using (Html.BeginForm("Delete", "Trainer", FormMethod.Post, new { id ="form-delete", name ="form-delete" })) {
+    @using (Html.BeginForm("Delete", "Trainer", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
+    {
         @Html.AntiForgeryToken()
-        
-    @Html.HiddenFor(model => model.id)
-    @Html.HiddenFor(model => model.name)
+
+        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.name)
 
         <div class="form-actions no-color">
             <input type="button" value="No" class="btn btn-danger" data-dismiss="modal" />
-            <input type="submit" value="Yes" class="btn btn-success"/>
+            <input type="submit" value="Yes" class="btn btn-success" />
         </div>
     }
 </div>
@@ -23,7 +23,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Delete Successfull\nName: " + result.entity.name);
+                    alert("Delete Successfull\nName: " + result.entity.name + "\nNotes: " + result.entity.notes);
                     $(".modal").modal("hide");
                     GetList();
                 } else {

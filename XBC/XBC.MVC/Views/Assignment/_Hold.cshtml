@@ -1,0 +1,43 @@
+﻿@model XBC.ViewModel.AssignmentViewModel
+
+<div class="form-group" style="padding-bottom : 3rem;">
+    <div class="col-md-12">
+        <center><h3>Are you sure you want to Hold this?</h3></center>
+    </div>
+    <div class="col-md-12">
+        @using (Html.BeginForm("Hold", "Assignment", FormMethod.Post, new { id = "form-hold", name = "form-hold" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.id)
+            <div class="form-actions no-color col-md-6">
+                <center><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button></center>
+            </div>
+            <div class="form-actions no-color col-md-6">
+                <center><input type="submit" value="Hold" class="btn btn-default" /></center>
+            </div>
+        }
+    </div>
+</div>
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $("#form-hold").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    //alert("Save Successfull\nName" + result.entity.Name);
+                    $(".modal").modal("hide");
+                    $('.tx-info').html("Data successfully Hold !")
+                    $(".alert").show();
+                    GetList();
+                }
+                else {
+                    alert("Error\nName" + result.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>

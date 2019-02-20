@@ -132,7 +132,7 @@ namespace XBC.Repository
             return result;
         }
 
-        public static ResponseResult Delete(TrainerViewModel entity)
+        public static ResponseResult Delete(TechnologyViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
@@ -194,11 +194,6 @@ namespace XBC.Repository
                           }).ToList();
             }
             return result == null ? new List<TechnologyViewModel>() : result;
-        }
-
-        public static ResponseResult Delete(TechnologyViewModel model)
-        {
-            throw new NotImplementedException();
         }
     }
 }

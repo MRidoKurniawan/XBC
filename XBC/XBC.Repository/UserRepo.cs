@@ -145,7 +145,6 @@ namespace XBC.Repository
 
                         db.t_user.Add(user);
                         db.SaveChanges();
-
                         var json = new JavaScriptSerializer().Serialize(user);
 
                         t_audit_log log = new t_audit_log();

@@ -4,34 +4,43 @@
 @using (Html.BeginForm("Create", "Trainer", FormMethod.Post, new { id = "form-create", name = "form-create" }))
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.notes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+        <table class="table" style="width:100%">
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="name" style="max-width:100%; height:5rem; resize:none;" placeholder="Name"></textarea>
+                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="notes" style="max-width:100%; height:15rem; resize:none;" placeholder="Notes"></textarea>
+                            @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Cancel" class="btn btn-primary" data-dismiss="modal" style="background-color:darkorange"/>
+                            <input type="submit" value="Save" class="btn btn-primary" style="background-color:darkorange" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 }
-    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryval")
 
 <script type="text/javascript">
     $("#form-create").submit(function () {
@@ -41,7 +50,8 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save successfull!\nName: " + result.entity.Name);
+                    alert("Save Successfull!\nName: " + result.entity.name + "\nNotes: " +
+                    result.entity.notes);
                     $(".modal").modal("hide");
                     GetList();
                 } else {
