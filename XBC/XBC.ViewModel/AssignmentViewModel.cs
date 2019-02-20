@@ -32,5 +32,10 @@ namespace XBC.ViewModel
         public bool? is_hold { get; set; }
 
         public bool? is_done { get; set; }
+
+        public long UserId { get; set; }
+
+        public string TanggalMulai { get; set; }
+        public string TanggalSelesai { get; set; }
     }
 }

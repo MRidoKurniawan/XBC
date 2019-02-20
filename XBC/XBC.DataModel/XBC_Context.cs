@@ -165,6 +165,11 @@ namespace XBC.DataModel
                 .Property(e => e.notes)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<t_bootcamp_test_type>()
+                .HasMany(e => e.t_biodata)
+                .WithOptional(e => e.t_bootcamp_test_type)
+                .HasForeignKey(e => e.bootcamp_test_type);
+
             modelBuilder.Entity<t_bootcamp_type>()
                 .Property(e => e.name)
                 .IsUnicode(false);

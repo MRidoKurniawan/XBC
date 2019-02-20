@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<XBC.ViewModel.IdleNewsViewModel>
 
 <div class="col-lg-4">
-    <input type="text" id="txt-search" class="form-control" placeholder="Search by name" />
+    <input type="text" id="txt-search" class="form-control" placeholder="Search by Title" />
 </div>
 <div class="col-lg-1">
     <button type="button" id="btn-search" class="btn btn-success">
@@ -25,7 +25,7 @@
                 @Html.DisplayNameFor(model => model.title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.categoryId)
+                @Html.DisplayNameFor(model => model.categoryName)
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.content)
@@ -48,7 +48,7 @@
                 @Html.DisplayFor(modelItem => item.title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.categoryId)
+                @Html.DisplayFor(modelItem => item.categoryName)
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.content)
@@ -66,12 +66,11 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
+                        <a class="dropdown-item btn-publish" href="#" data-id="@item.id"><div class="col-lg-12">Publish</div></a>
+                        <a class="dropdown-item btn-share" href="#" data-id="@item.id"><div class="col-lg-12">Share to Email</div></a>
                         <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
                     </div>
                 </div>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })*@
             </td>
         </tr>
     </tbody>
@@ -81,7 +80,6 @@
 
 
 <script type="text/javascript">
-    //$(".table").DataTable();
     $("#btn-Create").click(function () {
         $.ajax({
             url: '@Url.Action("Create", "IdleNews")',
@@ -94,7 +92,6 @@
         });
     });
     $("#btn-search").click(function () {
-
         $.ajax({
             url: '@Url.Action("Search", "IdleNews")',
             type: 'get',
@@ -111,6 +108,31 @@
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-title").html("Idle News");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+    $(".btn-publish").click(function () {
+        $.ajax({
+            url: '@Url.Action("Publish", "IdleNews")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Idle News");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-share").click(function () {
+        $.ajax({
+            url: '@Url.Action("Share", "IdleNews")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Send to Email");
                 $(".modal-body").html(result);
                 $('.modal').modal('show');
             }

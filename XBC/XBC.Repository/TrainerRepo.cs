@@ -195,5 +195,39 @@ namespace XBC.Repository
             }
             return result == null ? new List<TrainerViewModel>() : result;
         }
+
+
+        // Get By Technology (Punya Rido)
+        public static List<TrainerViewModel> ByTechnology(long TcId)
+        {
+            List<TrainerViewModel> result = new List<TrainerViewModel>();
+            using (var db = new XBC_Context())
+            {
+                var ListTerainer = db.t_technology_trainer.
+                    Where(o => o.technology_id == TcId).ToList();
+
+                if (ListTerainer != null)
+                {
+                    foreach (var t in ListTerainer)
+                    {
+                        result = (
+                            from tct in db.t_technology_trainer
+                            join tr in db.t_trainer on tct.trainer_id equals tr.id
+                            where tr.is_delete == false && tct.technology_id == TcId
+                            select new TrainerViewModel
+                            {
+                                id = tr.id,
+                                name = tr.name
+                            }).ToList();
+                    }          
+                }
+                else
+                {
+                    result = new List<TrainerViewModel>();
+                }
+            }
+
+            return result;
+        }
     }
 }
