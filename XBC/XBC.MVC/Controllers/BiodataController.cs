@@ -40,6 +40,16 @@ namespace XBC.MVC.Controllers
 
         public ActionResult Edit (long id)
         {
+            ViewBag.rdyes = null;
+            ViewBag.rdno = null;
+            if (BiodataRepo.GetGender(id).Equals("M"))
+            {
+                ViewBag.rdyes = "checked";
+            }
+            else if (BiodataRepo.GetGender(id).Equals("F"))
+            {
+                ViewBag.rdno = "checked";
+            }
             return PartialView("_Edit", BiodataRepo.ById(id));
         }
 

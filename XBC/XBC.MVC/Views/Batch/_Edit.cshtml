@@ -43,14 +43,16 @@
             <tr>
                 <td>
                     <div class="form-group">
-                       @Html.EditorFor(model => model.periodFrom, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period from" } })
+                        @*@Html.EditorFor(model => model.periodFrom, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period from" } })*@
+                        <input type="date" name="periodFrom" placeholder="Period From" class="form-control" style="padding : 7px;" value="@ViewBag.tanggalmulai" />
                         @Html.ValidationMessageFor(model => model.periodFrom, "", new { @class = "text-danger" })
-                    </div>                    
+                    </div>
                 </td>
                 <td>  </td>
                 <td>
                     <div class="form-group">
-                        @Html.EditorFor(model => model.periodTo, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period To" } })
+                        @*@Html.EditorFor(model => model.periodTo, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period To", @value = Model.periodTo } })*@
+                        <input type="date" name="periodTo" placeholder="Period To" class="form-control" style="padding : 7px;" value="@ViewBag.tanggalselesai" />
                         @Html.ValidationMessageFor(model => model.periodTo, "", new { @class = "text-danger" })
                     </div>
                 </td>
@@ -74,7 +76,7 @@
             <tr>
                 <td></td>
                 <td>  </td>
-                <td style="right">
+                <td align="right">
                     <div class="form-group">
                         <div class="">
                             <input type="submit" value="SAVE" class="btn btn-primary" />
@@ -98,7 +100,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save successful\nId: " + result.entity.Id +"Name: " + result.entity.Name);
+                    alert("Save successful\nId: " + result.entity.Id + "Name: " + result.entity.Name);
                     $(".modal").modal("hide");
                     GetList();
                 }

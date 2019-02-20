@@ -24,9 +24,8 @@ namespace XBC.DataModel
 
         public bool is_bootcamp_test { get; set; }
 
-        
         [StringLength(255)]
-        public string  notes { get; set; }
+        public string notes { get; set; }
 
         public long created_by { get; set; }
 

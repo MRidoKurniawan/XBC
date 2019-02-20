@@ -108,8 +108,19 @@ namespace XBC.Repository
                         t_batch bt = db.t_batch.Where(o => o.id == entity.id).FirstOrDefault();
                         if (bt != null)
                         {
-                            //var jsonBefore = new JavaScriptSerializer().Serialize(bt); // Mengambil Json Before
-                            var jsonBefore = new JavaScriptSerializer().Serialize(bt);
+                            var Serial = new JavaScriptSerializer();
+                            object dataBefore = new
+                            {
+                                bt.name,
+                                bt.technology_id,
+                                bt.period_to,
+                                bt.bootcamp_type_id,
+                                bt.room_id,
+                                bt.trainer_id,
+                                bt.period_from,
+                                bt.notes
+                            };
+                            //var jsonBefore = Serial.Serialize(dataBefore);
 
                             bt.name = entity.name;
                             bt.technology_id = entity.technologyId;
@@ -125,11 +136,22 @@ namespace XBC.Repository
                             db.SaveChanges();
 
                             // Audit Log Modify
-                            var jsonAfter = new JavaScriptSerializer().Serialize(bt);
+                            object dataAfter = new
+                            {
+                                bt.name,
+                                bt.technology_id,
+                                bt.period_to,
+                                bt.bootcamp_type_id,
+                                bt.room_id,
+                                bt.trainer_id,
+                                bt.period_from,
+                                bt.notes
+                            };
+
                             t_audit_log log = new t_audit_log();
                             log.type = "MODIFY";
-                            log.json_before = jsonBefore;
-                            log.json_after = jsonAfter;
+                            log.json_before = Serial.Serialize(dataBefore);
+                            log.json_after = Serial.Serialize(dataAfter);
                             log.created_by = 1;
                             log.created_on = DateTime.Now;
                             db.t_audit_log.Add(log);
@@ -140,8 +162,84 @@ namespace XBC.Repository
                         else
                         {
                             result.Success = false;
-                            result.ErrorMessage = "Test Not Found";
+                            result.ErrorMessage = "Betch Not Found";
                         }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
+
+        //Get Participant
+        public static List<BiodataViewModel> ListParticipant()
+        {
+            List<BiodataViewModel> result = new List<BiodataViewModel>();
+            using (var db = new XBC_Context())
+            {
+                result = (from b in db.t_biodata
+                          join c in db.t_clazz on b.id equals c.biodata_id into bc from c in bc.DefaultIfEmpty()
+                          where b.is_deleted == false
+                          select new BiodataViewModel
+                          {
+                              id = b.id,
+                              name = b.name,
+                              majors = b.majors,
+                              gpa = b.gpa,
+                              is_deleted = b.is_deleted
+                          }).ToList();
+
+                if (result == null)
+                {
+                    result = new List<BiodataViewModel>();
+                }
+            }
+            return result;
+        }
+
+        // Add Participant
+        public static ResponseResult Add(ClazzViewModel entity)
+        {
+            ResponseResult result = new ResponseResult();
+            try
+            {
+                using (var db = new XBC_Context())
+                {
+                    if (entity.id == 0) // Create
+                    {
+                        t_clazz cl = new t_clazz();
+                        cl.batch_id = entity.batchId;
+                        cl.biodata_id = entity.biodataId;
+
+                        cl.created_by = 1;
+                        cl.created_on = DateTime.Now;
+
+                        db.t_clazz.Add(cl);
+                        db.SaveChanges();
+
+                        // Audit Log Insert
+                        var json = new JavaScriptSerializer().Serialize(cl);
+                        t_audit_log log = new t_audit_log();
+                        log.type = "INSERT";
+                        log.json_insert = json;
+                        log.created_by = 1;
+                        log.created_on = DateTime.Now;
+                        db.t_audit_log.Add(log);
+                        db.SaveChanges();
+
+                        entity.id = cl.id;
+                        result.Entity = entity;
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.ErrorMessage = "Gagal Menambahkan Participant";
                     }
                 }
             }
