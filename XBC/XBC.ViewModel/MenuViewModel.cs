@@ -29,6 +29,9 @@ namespace XBC.ViewModel
         [Display(Name = "menuParent")]
         public long? menu_parent { get; set; }
 
+        [Display(Name = "Menu Parent")]
+        public string ParentName { get; set; }
+
         [Display(Name = "menuUrl")]
         public string menu_url { get; set; }
 

@@ -80,6 +80,16 @@ namespace XBC.Repository
                         room.created_on = DateTime.Now;
                         db.t_room.Add(room);
                         db.SaveChanges();
+                        var json = new JavaScriptSerializer().Serialize(room);
+
+                        t_audit_log log = new t_audit_log();
+                        log.type = "Insert";
+                        log.json_insert = json;
+
+                        log.created_by = 1;
+                        log.created_on = DateTime.Now;
+
+                        db.t_audit_log.Add(log);
                         entity.id = room.id;
                         result.Entity = entity;
                     }
@@ -99,6 +109,16 @@ namespace XBC.Repository
                             room.modified_on = DateTime.Now;
 
                             db.SaveChanges();
+                            var json = new JavaScriptSerializer().Serialize(room);
+
+                            t_audit_log log = new t_audit_log();
+                            log.type = "Insert";
+                            log.json_insert = json;
+
+                            log.created_by = 1;
+                            log.created_on = DateTime.Now;
+
+                            db.t_audit_log.Add(log);
                             result.Entity = entity;
                         }
                         else
@@ -127,6 +147,8 @@ namespace XBC.Repository
                     if (room != null)
                     {
                         room.is_delete = true;
+                        room.deleted_by = 1;
+                        room.created_on = DateTime.Now;
                         db.SaveChanges();
                         var json = new JavaScriptSerializer().Serialize(room);
 

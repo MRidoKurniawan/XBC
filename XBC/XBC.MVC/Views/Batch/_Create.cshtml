@@ -1,0 +1,102 @@
+﻿@model XBC.ViewModel.BatchViewModel
+
+
+@using (Html.BeginForm("Create", "Batch", FormMethod.Post, new { id = "form-create", name = "form-create", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.technologyId, (IEnumerable<SelectListItem>)ViewBag.technologyList, "- Choose Technology -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.technologyId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(model => model.periodFrom, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period from" } })
+                    @Html.ValidationMessageFor(model => model.periodFrom, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.bootcampTypeId, (IEnumerable<SelectListItem>)ViewBag.BootcampTypeList, "- Choose Bootcamp Type -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.bootcampTypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.roomId, (IEnumerable<SelectListItem>)ViewBag.roomList, "- Choose Room -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.roomId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.trainerId, (IEnumerable<SelectListItem>)ViewBag.TerainerList, "- Choose Trainer -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.trainerId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(model => model.periodTo, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period To" } })
+                    @Html.ValidationMessageFor(model => model.periodTo, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @*@Html.EditorFor(model => model.notes, new { htmlAttributes = new { @class = "form-control", @placeholder = "Notes" } })*@
+                    <textarea class="form-control" name="notes" style="height:7rem; resize:none" placeholder="Notes"></textarea>
+                    @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+                        <input type="submit" value="SAVE" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<script type="text/javascript">
+    $("#form-create").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Save successful\nName: " + result.entity.name);
+                    $(".modal").modal("hide");
+                    GetList();
+                }
+                else {
+                    alert("Error\nName: " + result.message);
+                }
+            }
+        })
+        return false;
+    });
+
+    $("#technologyId").change(function () {
+        console.log($("#technologyId").val());
+        $.ajax({
+            url: '@Url.Action("ListByTechnology", "Trainer")',
+            type: 'get',
+            data: { id: $("#technologyId").val() },
+            success: function (result) {
+                $("#trainerId").html(result);
+            }
+        });
+    });
+</script>

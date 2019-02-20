@@ -1,0 +1,129 @@
+﻿@model IEnumerable<XBC.ViewModel.BatchViewModel>
+
+<div class="row">
+    <div class="col-lg-4">
+        <input type="text" id="txt-search" class="form-control" placeholder="Search by Name..." />
+    </div>
+    <div class="col-lg-2">
+        <button type="button" id="btn-search" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+    </div>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2">
+        <button type="button" id="btn-create-new" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+<p> </p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.technologyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trainerName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.technologyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.trainerName)
+                </td>
+                <td>
+                    <!-- Single button -->
+                    <div class="btn-group">
+                        <button type="button" id="btn-action" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="btn-edit" href="#" data-id="@item.id">Edit</a></li>
+                            <li><a class="btn-add" href="#" data-id="@item.id">Add Participant</a></li>
+                            <li><a class="btn-setup" href="#" data-id="@item.id">Setup Test</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+    $("#btn-create-new").click(function () {
+        $.ajax({
+            url: '@Url.Action("Create", "Batch")',
+            type: 'get',
+            success: function (result) {
+                $(".modal-title").html("Batch");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-edit").click(function () {
+        $.ajax({
+            url: '@Url.Action("Edit", "Batch")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Batch");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-add").click(function () {
+        $.ajax({
+            url: '@Url.Action("AddParticipant", "Batch")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Batch");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $("#btn-search").click(function () {
+        $.ajax({
+            url: '@Url.Action("List", "Batch")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+
+    $("#txt-search").change(function () {
+        $.ajax({
+            url: '@Url.Action("List", "Batch")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+</script>
