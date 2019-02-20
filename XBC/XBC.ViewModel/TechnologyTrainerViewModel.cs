@@ -18,5 +18,7 @@ namespace XBC.ViewModel
         public string trainer_name { get; set; }
         public long created_by { get; set; }
         public DateTime created_on { get; set; }
+
+        
     }
 }
