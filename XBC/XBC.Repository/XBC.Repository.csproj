@@ -64,6 +64,7 @@
     <Compile Include="Document_Test_DetailRepo.cs" />
     <Compile Include="BootcampTestTypeRepo.cs" />
     <Compile Include="ClazzRepo.cs" />
+    <Compile Include="MonitoringRepo.cs" />
     <Compile Include="OfficeRepo.cs" />
     <Compile Include="MenuRepo.cs" />
     <Compile Include="CategoryRepo.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="UserRepo.cs" />
     <Compile Include="TechnologyRepo.cs" />
     <Compile Include="TrainerRepo.cs" />
-    <Compile Include="RoleRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

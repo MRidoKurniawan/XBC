@@ -179,6 +179,7 @@
     <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MonitoringController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
@@ -341,6 +342,13 @@
     <Content Include="Views\Biodata\_Delete.cshtml" />
     <Content Include="Views\Biodata\_Search.cshtml" />
     <Content Include="Views\Biodata\_Edit.cshtml" />
+    <Content Include="Views\Monitoring\Index.cshtml" />
+    <Content Include="Views\Monitoring\_List.cshtml" />
+    <Content Include="Views\Monitoring\_Create.cshtml" />
+    <Content Include="Views\Monitoring\_Edit.cshtml" />
+    <Content Include="Views\Monitoring\_Delete.cshtml" />
+    <Content Include="Views\Monitoring\_Search.cshtml" />
+    <Content Include="Views\Monitoring\_Placement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
