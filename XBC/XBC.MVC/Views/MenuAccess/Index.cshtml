@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Test Type";
+    ViewBag.Title = "Menu Access";
 }
 
 <div class="panel panel-info">
@@ -10,7 +10,6 @@
         <h4>Loading...</h4>
     </div>
 </div>
-
 
 <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -36,7 +35,7 @@
         });
         function GetList() {
             $.ajax({
-                url: '@Url.Action("List", "TestType")',
+                url: '@Url.Action("List", "MenuAccess")',
                 type: 'get',
                 success: function (result) {
                     $("#data-list").html(result);

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BootcampTypeViewModel.cs" />
     <Compile Include="IdleNewsViewModel.cs" />
+    <Compile Include="MenuAccessViewModel.cs" />
     <Compile Include="OfficeViewModel.cs" />
     <Compile Include="MenuViewModel.cs" />
     <Compile Include="CategoryViewModel.cs" />

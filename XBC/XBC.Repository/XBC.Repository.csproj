@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BootcampTypeRepo.cs" />
     <Compile Include="IdleNewsRepo.cs" />
+    <Compile Include="MenuAccessRepo.cs" />
     <Compile Include="OfficeRepo.cs" />
     <Compile Include="MenuRepo.cs" />
     <Compile Include="CategoryRepo.cs" />
