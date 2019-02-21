@@ -393,6 +393,7 @@
     <Content Include="Views\Technology\_AddTrainer.cshtml" />
     <Content Include="Views\Technology\_AddListTrainer.cshtml" />
     <Content Include="Views\Technology\_listTrainer.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

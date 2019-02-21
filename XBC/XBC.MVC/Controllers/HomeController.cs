@@ -27,7 +27,23 @@ namespace XBC.MVC.Controllers
             {
                 return View();
             }
-            
         }
+
+        public ActionResult ForgotPassword()
+        {
+            return View("ForgotPassword");
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            UserViewModel data = AssignmentRepo.cekEmail(email);
+            ResponseResult result = HomeRepo.KirimEmail(data);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

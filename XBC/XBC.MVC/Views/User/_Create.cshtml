@@ -18,8 +18,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @type = "email", @onchange = "cekEmail()" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                <span class="field-validation-valid text-danger" style="display:none;" id="valid-email">Email Sudah Terdaftar</span>
             </div>
         </div>
         <div class="form-group">
@@ -56,6 +57,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
     var cocok = false;
+    var tersedia = false;
     $(document).ready(function () {
         $("#form-create").removeAttr("novalidate");
     });
@@ -68,8 +70,27 @@
             $("#valid-password").show();
         }
     }
+
+    function cekEmail() {
+        $.ajax({
+            url: '@Url.Action("CekEmail", "Assignment")',
+            type: this.method,
+            data: {email : $("#email").val()},
+            success: function (result) {
+                if (result.success) {
+                    tersedia = true;
+                    $("#valid-email").hide();
+                }
+                else {
+                    tersedia = false;
+                    $("#valid-email").show();
+                }
+            }
+        });
+    }
+
     $("#form-create").submit(function () {
-        if (cocok) {
+        if (cocok && tersedia) {
             $.ajax({
                 url: this.action,
                 type: this.method,
@@ -87,6 +108,8 @@
                     }
                 }
             });
+        } else {
+            alert("check your email And password");
         }
 
         return false;
