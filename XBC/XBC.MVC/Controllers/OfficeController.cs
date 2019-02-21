@@ -34,10 +34,6 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult ListRoom()
-        {
-            return PartialView("_ListRoom", RoomRepo.All());
-        }
         public ActionResult Edit(long id)
         {
             return PartialView("_Edit", OfficeRepo.ById(id));

@@ -13,6 +13,8 @@ namespace XBC.ViewModel
 
         [Display(Name = "CATEGORY")]
         public long categoryId { get; set; }
+        [Display(Name = "CATEGORY")]
+        public string categoryName { get; set; }
 
         [Required, StringLength(255)]
 

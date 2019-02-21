@@ -1,0 +1,6 @@
+﻿@model IEnumerable<XBC.ViewModel.MenuViewModel>
+<option value="">Choose Menu</option>
+@foreach (var item in Model)
+{
+    <option value="@item.id">@item.title</option>
+}

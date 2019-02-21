@@ -71,5 +71,12 @@ namespace XBC.MVC.Controllers
         {
             return PartialView("_Search", TrainerRepo.GetBySearch(search));
         }
+
+
+        // Get By Technology (Punya Rido)
+        public ActionResult ListByTechnology(long id)
+        {
+            return PartialView("_ListByTechnology", TrainerRepo.ByTechnology(id));
+        }
     }
 }

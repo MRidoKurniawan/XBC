@@ -23,7 +23,7 @@
             @Html.LabelFor(model => model.question, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.question, new { htmlAttributes = new { @class = "form-control" } })*@
-                <textarea class="form-control" name="notes" style="height:7rem; resize:none" placeholder="Question"></textarea>
+                <textarea class="form-control" name="question" style="height:7rem; resize:none" placeholder="Question"></textarea>
                 @Html.ValidationMessageFor(model => model.question, "", new { @class = "text-danger" })
             </div>
         </div>
