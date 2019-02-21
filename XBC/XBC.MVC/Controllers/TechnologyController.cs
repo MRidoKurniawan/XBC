@@ -85,7 +85,7 @@ namespace XBC.MVC.Controllers
             return PartialView("_AddListTrainer", TrainerRepo.ById(id));
         }
 
-
+        
 
     }
 }

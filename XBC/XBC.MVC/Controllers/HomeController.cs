@@ -29,5 +29,27 @@ namespace XBC.MVC.Controllers
             }
             
         }
+
+        //public ActionResult ForgotPassword()
+        //{
+        //    return View("ForgotPassword");
+        //}
+        //[HttpPost]
+        //public ActionResult ForgotPassword(string email="")
+        //{
+        //    UserViewModel data = UserRepo.LogIn(email);
+        //    if (data.PassIsTrue)
+        //    {
+        //        Session["Username"] = data.username;
+        //        Session["id"] = data.id;
+        //        return RedirectToAction("Index", "user");
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+
+        //}
+
     }
 }

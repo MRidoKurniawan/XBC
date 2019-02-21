@@ -102,5 +102,22 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ChechkEmail(string email = "")
+        {
+            UserViewModel data = UserRepo.CheckEmail(email);
+            ResponseResult result = new ResponseResult();
+            if (data!=null)
+            {
+                result.Success = false;
+            }
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
