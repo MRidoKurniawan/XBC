@@ -179,7 +179,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MenuAccessController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MonitoringController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
@@ -202,6 +204,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -365,6 +368,35 @@
     <Content Include="Views\Testimony\_Edit.cshtml" />
     <Content Include="Views\Testimony\_Delete.cshtml" />
     <Content Include="Views\Testimony\_Search.cshtml" />
+    <Content Include="Views\Assignment\_Create.cshtml" />
+    <Content Include="Views\Assignment\_Search.cshtml" />
+    <Content Include="Views\Assignment\_Edit.cshtml" />
+    <Content Include="Views\Assignment\_Delete.cshtml" />
+    <Content Include="Views\Assignment\_Hold.cshtml" />
+    <Content Include="Views\Assignment\_Done.cshtml" />
+    <Content Include="Views\Batch\_AddParticipant.cshtml" />
+    <Content Include="Views\IdleNews\_Create.cshtml" />
+    <Content Include="Views\IdleNews\_Search.cshtml" />
+    <Content Include="Views\IdleNews\_Edit.cshtml" />
+    <Content Include="Views\IdleNews\_Delete.cshtml" />
+    <Content Include="Views\IdleNews\_Publish.cshtml" />
+    <Content Include="Views\IdleNews\_Share.cshtml" />
+    <Content Include="Views\MenuAccess\Index.cshtml" />
+    <Content Include="Views\MenuAccess\_List.cshtml" />
+    <Content Include="Views\Monitoring\Index.cshtml" />
+    <Content Include="Views\Monitoring\_List.cshtml" />
+    <Content Include="Views\Monitoring\_Create.cshtml" />
+    <Content Include="Views\Monitoring\_Edit.cshtml" />
+    <Content Include="Views\Monitoring\_Delete.cshtml" />
+    <Content Include="Views\Monitoring\_Search.cshtml" />
+    <Content Include="Views\Monitoring\_Placement.cshtml" />
+    <Content Include="Views\Technology\_AddTrainer.cshtml" />
+    <Content Include="Views\Technology\_AddListTrainer.cshtml" />
+    <Content Include="Views\Technology\_listTrainer.cshtml" />
+    <Content Include="Views\MenuAccess\_ListRole.cshtml" />
+    <Content Include="Views\MenuAccess\_ListMenu.cshtml" />
+    <Content Include="Views\MenuAccess\_Delete.cshtml" />
+    <Content Include="Views\MenuAccess\_Search.cshtml" />
     <Content Include="Views\Technology\_AddTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>

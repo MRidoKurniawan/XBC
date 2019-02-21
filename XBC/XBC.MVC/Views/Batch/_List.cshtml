@@ -92,6 +92,19 @@
         });
     });
 
+    $(".btn-add").click(function () {
+        $.ajax({
+            url: '@Url.Action("AddParticipant", "Batch")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Batch");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
     $("#btn-search").click(function () {
         $.ajax({
             url: '@Url.Action("List", "Batch")',

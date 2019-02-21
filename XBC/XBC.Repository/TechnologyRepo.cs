@@ -71,8 +71,27 @@ namespace XBC.Repository
                         tec.created_on = DateTime.Now;
                         db.t_technology.Add(tec);
                         db.SaveChanges();
+                        entity.id = tec.id;
+                        foreach (var item in entity.Details)
+                        {
+                            t_technology_trainer ttr = new t_technology_trainer();
+                            ttr.technology_id = entity.id;
+                            ttr.trainer_id = item.id;
+                            ttr.created_by = 1;
+                            ttr.created_on = DateTime.Now;
 
-                        var json = new JavaScriptSerializer().Serialize(tec);
+                            db.t_technology_trainer.Add(ttr);
+                        }
+
+                        db.SaveChanges();
+
+                        object data = new
+                        {
+                            tec.id,
+                            tec.name,
+                            tec.notes
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
 
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
@@ -84,7 +103,6 @@ namespace XBC.Repository
                         db.t_audit_log.Add(log);
 
                         db.SaveChanges();
-                        entity.id = tec.id;
                         result.Entity = entity;
                     }
                     //Edit

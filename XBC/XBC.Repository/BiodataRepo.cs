@@ -101,7 +101,7 @@ namespace XBC.Repository
                     else //EDIT
                     {
                         t_biodata bio = db.t_biodata
-                            .Where(o => o.id == entity.id)
+                            .Where(o => o.id == entity.id && o.is_deleted == false)
                             .FirstOrDefault();
 
                         if (bio != null)
@@ -155,6 +155,34 @@ namespace XBC.Repository
                 result.ErrorMessage = ex.Message;
             }
             return result;
+        }
+
+        //RADIO BUTTON
+        public static string GetGender(long Id)
+        {
+            string gender = "";
+            BiodataViewModel result = new BiodataViewModel();
+            try
+            {
+                using (var db = new XBC_Context())
+                {
+                    result = (from b in db.t_biodata
+                              where b.id == Id
+                              select new BiodataViewModel
+                              {
+                                  gender = b.gender
+                              }).FirstOrDefault();
+
+                    if (result != null)
+                        gender = result.gender==null?"" : result.gender;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+            return gender;
+
         }
 
         //DELETE
@@ -212,15 +240,15 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from bio in db.t_biodata
-                              where bio.name.Contains(search) && bio.is_deleted == false 
-                              || bio.majors.Contains(search) && bio.is_deleted == false
-                              select new BiodataViewModel
-                              {
-                                  id = bio.id,
-                                  name = bio.name,
-                                  majors = bio.majors,
-                                  gpa = bio.gpa
-                              }).ToList();
+                          where bio.name.Contains(search) && bio.is_deleted == false
+                          || bio.majors.Contains(search) && bio.is_deleted == false
+                          select new BiodataViewModel
+                          {
+                              id = bio.id,
+                              name = bio.name,
+                              majors = bio.majors,
+                              gpa = bio.gpa
+                          }).ToList();
 
                 if (result == null)
                 {

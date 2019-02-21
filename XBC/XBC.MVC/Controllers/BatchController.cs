@@ -48,8 +48,11 @@ namespace XBC.MVC.Controllers
 
         // Edit
         public ActionResult Edit(long id)
-        {
-            BatchViewModel model = BatchRepo.ById(id);
+        {           
+            BatchViewModel model = new BatchViewModel();
+            model = BatchRepo.ById(id);
+            ViewBag.tanggalmulai = model.periodFrom?.ToString("yyyy'-'MM'-'dd");
+            ViewBag.tanggalselesai = model.periodTo?.ToString("yyyy'-'MM'-'dd");
 
             ViewBag.roomList = new SelectList(RoomRepo.All(), "id", "name");
             ViewBag.BootcampTypeList = new SelectList(BootcampTypeRepo.All(), "id", "name");
@@ -64,6 +67,26 @@ namespace XBC.MVC.Controllers
         public ActionResult Edit(BatchViewModel model)
         {
             ResponseResult result = BatchRepo.Update(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        // Add Participant
+        public ActionResult AddParticipant()
+        {
+            ViewBag.BiodataList = new SelectList(BatchRepo.ListParticipant(), "id", "name");
+
+            return PartialView("_AddParticipant");
+        }
+
+        [HttpPost]
+        public ActionResult AddParticipant(ClazzViewModel model)
+        {
+            ResponseResult result = BatchRepo.Add(model);
             return Json(new
             {
                 success = result.Success,

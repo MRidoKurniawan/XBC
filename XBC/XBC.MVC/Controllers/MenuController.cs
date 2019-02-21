@@ -29,7 +29,14 @@ namespace XBC.MVC.Controllers
 
         public ActionResult Search(string search = "")
         {
-            return PartialView("_Search", MenuRepo.Search(search));
+            List<MenuViewModel> menu = new List<MenuViewModel>(
+                MenuRepo.Search(search)
+            );
+            foreach (var item in menu)
+            {
+                item.ParentName = MenuRepo.getParentName(item.menu_parent == null ? 0 : (long)item.menu_parent);
+            }
+            return PartialView("_Search", menu);
         }
 
         public ActionResult Create()

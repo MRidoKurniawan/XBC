@@ -74,6 +74,24 @@ namespace XBC.MVC.Controllers
             ViewBag.TrainerList = new SelectList(TrainerRepo.All(), "id", "name");
             return PartialView("_AddTrainer");
         }
+
+        public ActionResult listTrainer()
+        {
+            return PartialView("_ListTrainer", new List<TrainerViewModel>());
+        }
+
+        public ActionResult addlistTrainer(long id)
+        {
+            return PartialView("_AddListTrainer", TrainerRepo.ById(id));
+        }
+
+
+
+        public ActionResult AddTrainer()
+        {
+            ViewBag.TrainerList = new SelectList(TrainerRepo.All(), "id", "name");
+            return PartialView("_AddTrainer");
+        }
         [HttpPost]
         public ActionResult AddTrainer(TechnologyTrainerViewModel model)
         {
