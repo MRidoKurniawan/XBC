@@ -25,6 +25,8 @@ namespace XBC.Repository
                               id = ma.id,
                               role_id = ma.role_id,
                               menu_id = ma.menu_id,
+                              menu_name = m.title,
+                              role_name = r.name
                           }).ToList();
                 if (result == null)
                     result = new List<MenuAccessViewModel>();
@@ -44,6 +46,8 @@ namespace XBC.Repository
                               id = ma.id,
                               role_id = ma.role_id,
                               menu_id = ma.menu_id,
+                              menu_name = m.title,
+                              role_name = r.name
                           }).FirstOrDefault();
                 if (result == null)
                     result = new MenuAccessViewModel();
@@ -64,6 +68,8 @@ namespace XBC.Repository
                               id = ma.id,
                               role_id = ma.role_id,
                               menu_id = ma.menu_id,
+                              menu_name = m.title,
+                              role_name = r.name
                           }).ToList();
                 if (result == null)
                     result = new List<MenuAccessViewModel>();
@@ -107,11 +113,17 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 t_menu_access ma = db.t_menu_access.Where(o => o.id == entity.id).FirstOrDefault();
+                db.t_menu_access.Remove(ma);
                 if (ma != null)
                 {
-                    var json = new JavaScriptSerializer().Serialize(ma);
+                    object data = new { 
+                        ma.id,
+                        ma.menu_id,
+                        ma.role_id
+                    };
+                    var json = new JavaScriptSerializer().Serialize(data);
                     t_audit_log log = new t_audit_log();
-                    log.type = "Modify";
+                    log.type = "DELETE";
                     log.json_before = json;
 
                     log.created_by = 1;

@@ -19,5 +19,50 @@ namespace XBC.MVC.Controllers
         {
             return PartialView("_List", MenuAccessRepo.All());
         }
+        public ActionResult Create()
+        {
+            ViewBag.RoleList = new SelectList(RoleRepo.All(), "id", "name");
+            ViewBag.MenuList = new SelectList(MenuRepo.All(), "id", "name");
+            return PartialView("_Create");
+        }
+        [HttpPost]
+        public ActionResult Create(MenuAccessViewModel model)
+        {
+            ResponseResult result = MenuAccessRepo.Create(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Search(long id)
+        {
+            return PartialView("_Search", MenuAccessRepo.GetBySearch(id));
+        }
+        public ActionResult Delete(long id)
+        {
+            return PartialView("_Delete", MenuAccessRepo.ById(id));
+        }
+        [HttpPost]
+        public ActionResult Delete(MenuAccessViewModel model)
+        {
+            ResponseResult result = MenuAccessRepo.Delete(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ListRole()
+        {
+            return PartialView("_ListRole", RoleRepo.All());
+        }
+        public ActionResult ListMenu()
+        {
+            return PartialView("_ListMenu", MenuRepo.All());
+        }
     }
 }

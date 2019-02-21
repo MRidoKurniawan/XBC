@@ -61,6 +61,7 @@
     <Compile Include="BatchRepo.cs" />
     <Compile Include="AssignmentRepo.cs" />
     <Compile Include="BootcampTypeRepo.cs" />
+    <Compile Include="FeedbackRepo.cs" />
     <Compile Include="HomeRepo.cs" />
     <Compile Include="IdleNewsRepo.cs" />
     <Compile Include="Document_Test_DetailRepo.cs" />
@@ -78,7 +79,6 @@
     <Compile Include="TestimonyRepo.cs" />
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />
-    <Compile Include="TestRepo.cs" />
     <Compile Include="TestTypeRepo.cs" />
     <Compile Include="UserRepo.cs" />
     <Compile Include="TechnologyRepo.cs" />

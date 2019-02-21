@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
     <Compile Include="Controllers\BiodataController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -204,6 +205,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -392,6 +394,18 @@
     <Content Include="Views\Technology\_AddTrainer.cshtml" />
     <Content Include="Views\Technology\_AddListTrainer.cshtml" />
     <Content Include="Views\Technology\_listTrainer.cshtml" />
+    <Content Include="Views\MenuAccess\_ListRole.cshtml" />
+    <Content Include="Views\MenuAccess\_ListMenu.cshtml" />
+    <Content Include="Views\MenuAccess\_Delete.cshtml" />
+    <Content Include="Views\MenuAccess\_Search.cshtml" />
+    <Content Include="Views\Technology\_AddTrainer.cshtml" />
+    <Content Include="Views\Document_Test\_AddQuestion.cshtml" />
+    <Content Include="Views\Document_Test\_DeleteQuestion.cshtml" />
+    <Content Include="Views\Document_Test\_CopyDocument.cshtml" />
+    <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\Feedback\_List.cshtml" />
+    <Content Include="Views\Feedback\_ChooseDocument.cshtml" />
+    <Content Include="Views\Feedback\_Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

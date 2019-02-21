@@ -112,3 +112,16 @@
     });
     
 </script>
+<script>
+    $("#btn-addtrainer").click(function () {
+        $.ajax({
+            url: '@Url.Action("Addtrainer", "Technology")',
+            type: 'get',
+            success: function (result) {
+
+                $(".modal-body").html(result);
+                $(".modal").modal('show');
+            }
+        });
+    });
+</script>
