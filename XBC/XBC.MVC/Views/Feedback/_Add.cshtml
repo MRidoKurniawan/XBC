@@ -1,0 +1,21 @@
+﻿@model IEnumerable<XBC.ViewModel.Document_Test_DetailViewModel>
+
+<table class="form-horizontal">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td class="form-group">
+                @Html.DisplayFor(modelItem => item.question)
+            </td>
+            <td class="form-group">
+                <div id="text-deskripsi" style="height:100%">
+
+                    <textarea class="form-control" name="answer" style="height:18rem; resize:none;" placeholder="Description"></textarea>
+                </div>
+            </td>
+
+        </tr>
+    }
+</table>

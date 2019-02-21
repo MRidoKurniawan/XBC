@@ -11,7 +11,7 @@ namespace XBC.Repository
 {
     public class Document_TestRepo
     {
-        public static List<Document_TestViewModel> GetBySearch( string cari)
+        public static List<Document_TestViewModel> GetBySearch(string cari)
         {
             List<Document_TestViewModel> result = new List<Document_TestViewModel>();
             using (var db = new XBC_Context())
@@ -26,16 +26,163 @@ namespace XBC.Repository
                           select new Document_TestViewModel
                           {
                               id = dt.id,
-                              version=dt.version,
-                              TestType= tt.name,
+                              version = dt.version,
+                              test_type_id = tt.id,
+                              TestType = tt.name,
                               Test = t.name
-                          
+
                           }).ToList();
             }
 
             return result == null ? new List<Document_TestViewModel>() : result;
         }
 
+        public static string Generate()
+        {
+            string noken = RandomString();
+            string result;
+            Document_TestViewModel results = new Document_TestViewModel();
+            using (var db = new XBC_Context())
+            {
+                results = (from dt in db.t_document_test
+                           select new Document_TestViewModel
+                           {
+                               token = noken
+                           }).FirstOrDefault();
+                if (results == null)
+                    result = "";
+            }
+            result = results.token;
+            return result;
+        }
+
+        public static ResponseResult CopyDocument(Document_TestViewModel entity)
+        {
+            {
+                ResponseResult result = new ResponseResult();
+                try
+                {
+                    //entity.TestType = GetTestType(id);
+                    //entity.version = GetNewVersion(entity.test_type_id);
+                    //entity.token = RandomString();
+                    using (var db = new XBC_Context())
+                    {
+                        //create
+                        if (entity.id == 0)
+                        {
+                            t_document_test doct = new t_document_test();
+                            doct.version = entity.version;
+                            doct.token = entity.token;
+                            doct.test_type_id = entity.test_type_id;
+                            doct.test_id = entity.test_id;
+                            doct.created_by = 1;
+                            doct.created_on = DateTime.Now;
+
+                            db.t_document_test.Add(doct);
+
+                            db.SaveChanges();
+
+                            var json = new JavaScriptSerializer().Serialize(doct);
+                            t_audit_log log = new t_audit_log();
+                            log.type = "Insert";
+                            log.json_insert = json;
+
+                            log.created_by = 1;
+                            log.created_on = DateTime.Now;
+
+                            db.t_audit_log.Add(log);
+
+                            db.SaveChanges();
+
+                            entity.id = doct.id;
+                            result.Entity = entity;
+                        }
+                        else //edit
+                        {
+                            t_document_test doct = db.t_document_test.Where(o => o.id == entity.id).FirstOrDefault();
+
+                            if (doct != null)
+                            {
+                                t_document_test doct1 = new t_document_test();
+                                doct1.test_id = entity.test_id;
+                                doct1.test_type_id = entity.test_type_id;
+                                doct1.version = entity.version;
+                                doct1.token = entity.token;
+
+
+                                doct1.created_by = 1;
+                                doct1.created_on = DateTime.Now;
+
+                                db.t_document_test.Add(doct1);
+
+                                db.SaveChanges();
+
+                                var json = new JavaScriptSerializer().Serialize(doct1);
+                                t_audit_log log = new t_audit_log();
+                                log.type = "Insert";
+                                log.json_insert = json;
+
+                                log.created_by = 1;
+                                log.created_on = DateTime.Now;
+
+                                db.t_audit_log.Add(log);
+
+                                db.SaveChanges();
+
+                                List<t_document_test_detail> results = (from dtd in db.t_document_test_detail
+                                                                        where dtd.document_test_id == entity.id
+                                                                        select dtd).ToList();
+                                foreach (t_document_test_detail dtd in results)
+                                {
+                                    t_document_test_detail od = new t_document_test_detail();
+                                    od.question_id = dtd.question_id;
+                                    od.document_test_id = doct1.id;
+
+                                    od.created_by = 1;
+                                    od.created_on = DateTime.Now;
+
+                                    db.t_document_test_detail.Add(od);
+                                    db.SaveChanges();
+
+                                    var Serial = new JavaScriptSerializer();
+                                    object data = new
+                                    {
+                                        od.id,
+                                        od.document_test_id,
+                                        od.question_id
+                                    };
+                                    var json2 = Serial.Serialize(data);
+                                    log.type = "Insert";
+                                    log.json_insert = json2;
+
+                                    log.created_by = 1;
+                                    log.created_on = DateTime.Now;
+
+                                    db.t_audit_log.Add(log);
+
+                                    db.SaveChanges();
+                                }
+
+                                result.Entity = entity;
+                            }
+
+                            else
+                            {
+                                result.Success = false;
+                                result.ErrorMessage = "Document Test Not Found";
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    result.Success = false;
+                    result.ErrorMessage = ex.Message;
+                }
+                return result;
+            }
+        }
         public static ResponseResult Update(Document_TestViewModel entity/*, long id*/)
         {
             ResponseResult result = new ResponseResult();
@@ -43,7 +190,8 @@ namespace XBC.Repository
             {
                 //entity.TestType = GetTestType(id);
                 entity.version = GetNewVersion(entity.test_type_id);
-                entity.token = RandomString();
+                if (entity.token == null)
+                    entity.token = RandomString();
                 using (var db = new XBC_Context())
                 {
                     //create
@@ -82,27 +230,68 @@ namespace XBC.Repository
 
                         if (doct != null)
                         {
-                            var json = new JavaScriptSerializer().Serialize(doct);
-                            t_audit_log log = new t_audit_log();
-                            log.type = "Modify";
-                            log.json_before = json;
+                            var Serial = new JavaScriptSerializer();
+                            object data = new
+                            {
+                                doct.created_by,
+                                doct.created_on,
+                                doct.is_delete,
+                                doct.id,
+                                doct.modified_by,
+                                doct.modified_on,
+                                doct.test_id,
+                                doct.test_type_id,
+                                doct.token,
+                                doct.version
 
-                            log.created_by = 1;
-                            log.created_on = DateTime.Now;
+                            };
+                            var json = Serial.Serialize(data);
 
-
+                            if (doct.test_type_id != entity.test_type_id)
+                                doct.version = GetNewVersion(entity.test_type_id);
 
                             doct.test_id = entity.test_id;
                             doct.test_type_id = entity.test_type_id;
+                            doct.token = entity.token;
 
 
                             doct.modified_by = 1;
                             doct.modified_on = DateTime.Now;
 
-                            var json2 = new JavaScriptSerializer().Serialize(doct);
-                            log.json_after = json2;
+                            object data2 = new
+                            {
+                                doct.created_by,
+                                doct.created_on,
+                                doct.is_delete,
+                                doct.id,
+                                doct.modified_by,
+                                doct.modified_on,
+                                doct.test_id,
+                                doct.test_type_id,
+                                doct.token,
+                                doct.version
+                            };
+
+                            t_audit_log log = new t_audit_log();
+                            log.type = "Modify";
+                            log.json_before = json;
+                            json = Serial.Serialize(data2);
+                            log.json_after = json;
+
+
+                            log.created_by = 1;
+                            log.created_on = DateTime.Now;
+
                             db.t_audit_log.Add(log);
+
                             db.SaveChanges();
+
+                            result.Entity = entity;
+
+                            db.SaveChanges();
+                            //var json2 = new JavaScriptSerializer().Serialize(doct);
+                            //log.json_after = json2;
+                            //db.t_audit_log.Add(log);
 
                             result.Entity = entity;
                         }
@@ -140,7 +329,7 @@ namespace XBC.Repository
                               .FirstOrDefault();
                 if (result != null)
                 {
-                    newref1 = int.Parse(result.Version.ToString())+1;
+                    newref1 = int.Parse(result.Version.ToString()) + 1;
                 }
                 else
                 {
@@ -182,7 +371,7 @@ namespace XBC.Repository
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-         public static Document_TestViewModel ById(long id)
+        public static Document_TestViewModel ById(long id)
         {
             Document_TestViewModel result = new Document_TestViewModel();
             using (var db = new XBC_Context())
@@ -206,6 +395,59 @@ namespace XBC.Repository
             }
             return result;
         }
+        public static long ByIdtest(long id)
+        {
+            long result;
+            Document_TestViewModel results = new Document_TestViewModel();
+            using (var db = new XBC_Context())
+            {
+                results = (from dt in db.t_document_test
+                           join t in db.t_test
+                           on dt.test_id equals t.id
+                           join tt in db.t_test_type
+                           on dt.test_type_id equals tt.id
+                           where dt.id == id
+                           select new Document_TestViewModel
+                           {
+                               id = dt.id,
+                               token = dt.token,
+                               version = dt.version,
+                               test_id = t.id,
+                               test_type_id = tt.id
+                           }).FirstOrDefault();
+                if (results == null)
+                    result = 0;
+            }
+            return result = results.test_type_id;
+        }
+
+        public static Document_TestViewModel ByIdCopyDocument(long id)
+        {
+            string ntoken = RandomString();
+            long id2 = ByIdtest(id);
+            decimal nversion = GetNewVersion(id2);
+            Document_TestViewModel result = new Document_TestViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from dt in db.t_document_test
+                          join t in db.t_test
+                          on dt.test_id equals t.id
+                          join tt in db.t_test_type
+                          on dt.test_type_id equals tt.id
+                          where dt.id == id
+                          select new Document_TestViewModel
+                          {
+                              id = dt.id,
+                              token = ntoken,
+                              version = nversion,
+                              test_id = t.id,
+                              test_type_id = tt.id
+                          }).FirstOrDefault();
+                if (result == null)
+                    result = new Document_TestViewModel();
+            }
+            return result;
+        }
 
         public static ResponseResult Delete(Document_TestViewModel entity)
         {
@@ -221,6 +463,8 @@ namespace XBC.Repository
                         object data = new
                         {
                             doct.is_delete,
+                            doct.deleted_by,
+                            doct.deleted_on
                         };
                         var json = Serial.Serialize(data);
                         doct.is_delete = true;
@@ -228,14 +472,15 @@ namespace XBC.Repository
 
                         doct.deleted_by = 1;
                         doct.deleted_on = DateTime.Now;
-                        db.SaveChanges();
-                        result.Entity = entity;
-                        db.SaveChanges();
+
+
 
 
                         object data2 = new
                         {
                             doct.is_delete,
+                            doct.deleted_by,
+                            doct.deleted_on
                         };
 
                         t_audit_log log = new t_audit_log();
@@ -269,5 +514,7 @@ namespace XBC.Repository
             }
             return result;
         }
+
+
     }
 }
