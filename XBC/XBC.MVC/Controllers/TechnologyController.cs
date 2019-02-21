@@ -69,5 +69,21 @@ namespace XBC.MVC.Controllers
         {
             return PartialView("_Search", TechnologyRepo.GetBySearch(search));
         }
+        public ActionResult AddTrainer()
+        {
+            ViewBag.TrainerList = new SelectList(TrainerRepo.All(), "id", "name");
+            return PartialView("_AddTrainer");
+        }
+        [HttpPost]
+        public ActionResult AddTrainer(TechnologyTrainerViewModel model)
+        {
+            ResponseResult result = TechnologyRepo.UpdateTrainer(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

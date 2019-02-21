@@ -76,7 +76,6 @@
     <Compile Include="TestRepo.cs" />
     <Compile Include="RoomRepo.cs" />
     <Compile Include="RoleRepo.cs" />
-    <Compile Include="TestRepo.cs" />
     <Compile Include="TestTypeRepo.cs" />
     <Compile Include="UserRepo.cs" />
     <Compile Include="TechnologyRepo.cs" />

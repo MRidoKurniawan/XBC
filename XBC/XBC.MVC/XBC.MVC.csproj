@@ -365,6 +365,7 @@
     <Content Include="Views\Testimony\_Edit.cshtml" />
     <Content Include="Views\Testimony\_Delete.cshtml" />
     <Content Include="Views\Testimony\_Search.cshtml" />
+    <Content Include="Views\Technology\_AddTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
