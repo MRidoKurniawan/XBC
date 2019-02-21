@@ -69,11 +69,6 @@ namespace XBC.MVC.Controllers
         {
             return PartialView("_Search", TechnologyRepo.GetBySearch(search));
         }
-        public ActionResult AddTrainer()
-        {
-            ViewBag.TrainerList = new SelectList(TrainerRepo.All(), "id", "name");
-            return PartialView("_AddTrainer");
-        }
 
         public ActionResult listTrainer()
         {
@@ -84,8 +79,6 @@ namespace XBC.MVC.Controllers
         {
             return PartialView("_AddListTrainer", TrainerRepo.ById(id));
         }
-
-
 
         public ActionResult AddTrainer()
         {
