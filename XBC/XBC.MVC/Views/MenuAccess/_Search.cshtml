@@ -1,5 +1,56 @@
 ﻿@model IEnumerable<XBC.ViewModel.MenuAccessViewModel>
-@using (Html.BeginForm("Create", "MenuAccess", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.menu_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.role_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created_by)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.created_on)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.role_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.menu_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.menu_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.created_by)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.created_on)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.role_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.menu_name)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+</table>*@
+
+
+
 {
     @Html.AntiForgeryToken()
     <div class="row">
