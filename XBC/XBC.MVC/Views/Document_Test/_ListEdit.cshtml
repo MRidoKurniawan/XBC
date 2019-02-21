@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<XBC.ViewModel.Document_Test_DetailViewModel>
-<div>
-    <button id="btn-create-question" type="button" class="btn btn-success" style="float:right">+ Question</button>
-</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -25,7 +23,7 @@
                             <span class="glyphicon glyphicon-align-justify"></span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
+                            <a class="dropdown-item btn-delete2" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
                         </div>
                     </div>
                 </td>
@@ -39,3 +37,19 @@
     </tfoot>
 
 </table>
+
+
+<script type="text/javascript">
+    $(".btn-delete2").click(function () {
+        $.ajax({
+            url: '@Url.Action("DeleteQuestion", "Document_Test")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".body2").html(result);
+                $('.modal2').show();
+            }
+        });
+    });
+</script>
+

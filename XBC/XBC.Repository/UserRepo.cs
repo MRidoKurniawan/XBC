@@ -61,6 +61,33 @@ namespace XBC.Repository
             }
             return result == null ? new List<UserViewModel>() : result;
         }
+
+        public static UserViewModel CheckEmail(string email)
+        {
+
+            UserViewModel result = new UserViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from u in db.t_user
+                          join
+                          r in db.t_role on u.role_id equals r.id
+                          where u.is_delete == false && u.email == email
+                          select new UserViewModel
+                          {
+                              id = u.id,
+                              username = u.username,
+                              email = u.email,
+                              role_id = u.role_id,
+                              role_name = r.name,
+                              password = u.password,
+                              mobile_flag = u.mobile_flag,
+                              mobile_token = u.mobile_token
+
+                          }).FirstOrDefault();
+            }
+            return result == null ? new UserViewModel() : result;
+        }
+
         public static UserViewModel ById(long id)
         {
 
@@ -96,7 +123,8 @@ namespace XBC.Repository
                               id = u.id,
                               username = u.username,
                               email = u.email,
-                              password = u.password
+                              password = u.password,
+                              role_id = u.role_id
 
                           }).FirstOrDefault();
             }

@@ -1,13 +1,12 @@
 ﻿@model XBC.ViewModel.Document_TestViewModel
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Document_Test", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Document_TestViewModel</h4>
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
@@ -42,6 +41,9 @@
                 @*@Html.LabelFor(model => model.token, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.token, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <button type="button" class="form-control-static" id="btn-token" style="padding : 7px;">
+                        GENERATE
+                    </button>
                     @*@Html.ValidationMessageFor(model => model.token, "", new { @class = "text-danger" })*@
                     @*<div class="col-md-2">
                             <button>generate</button>
@@ -51,10 +53,12 @@
             </div>
         </div>
 
+        <div>
+            <button id="btn-create-question" type="button" class="btn btn-success" data-id="@Model.id" style="float:right">+ Question</button>
+            <div id="list-question" class="panel-body" >
+                    <h4>Loading ......</h4>
+                </div>
 
-
-        <div id="list-question">
-            <h4>Loading ......</h4>
         </div>
 
         <div class="form-group">
@@ -70,27 +74,70 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            GetList();
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetList2();
+    });
+
+
+    function GetList2() {
+        $.ajax({
+            url: '@Url.Action("ListEdit", "Document_Test")',
+            type: 'get',
+            data: { id: @Model.id },
+            success: function (result) {
+                $("#list-question").html(result);
+            }
+
         });
 
-        function GetList() {
-            var id = model => model.id
-            $.ajax({
-                url: '@Url.Action("ListEdit", "Document_Test")',
-                type: 'get',
-                data: { id: @Model.id },
-                success: function (result) {
-                    $("#list-question").html(result);
+    }
+
+    $("#btn-create-question").click(function () {
+        $.ajax({
+            url: '@Url.Action("AddQuestion","Document_Test")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".body2").html(result);
+                $('.modal2').show();
+                //$('.modal').modal('hide');
+
+            }
+        });
+    });
+
+    $("#form-edit").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Save Successful!\nId: " + result.entity.Id + "\nName: " + result.entity.Name);
+                    $(".modal").modal("hide");
+                    GetList();
+                } else {
+                    alert("Error!\n: " + result.message);
                 }
+            }
 
-            });
+        });
+        return false;
+    });
 
-        }
+    $("#btn-token").click(function () {
+        $.ajax({
+            url: '@Url.Action("GenerateCreate", "Document_Test")',
+            type: 'get',
+            success: function (result) {
+                $(".modal-body #token").val(result.generate);
 
+            }
 
-    </script>
+        });
+    });
+</script>
 
 
 

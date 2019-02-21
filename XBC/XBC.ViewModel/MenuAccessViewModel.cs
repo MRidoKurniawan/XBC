@@ -20,5 +20,8 @@ namespace XBC.ViewModel
         public long created_by { get; set; }
 
         public DateTime created_on { get; set; }
+
+        public string role_name { get; set; }
+        public string menu_name { get; set; }
     }
 }

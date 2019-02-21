@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
     <Compile Include="Controllers\BiodataController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -390,9 +391,23 @@
     <Content Include="Views\Monitoring\_Delete.cshtml" />
     <Content Include="Views\Monitoring\_Search.cshtml" />
     <Content Include="Views\Monitoring\_Placement.cshtml" />
-    <Content Include="Views\Technology\_AddTrainer.cshtml" />
     <Content Include="Views\Technology\_AddListTrainer.cshtml" />
     <Content Include="Views\Technology\_listTrainer.cshtml" />
+    <Content Include="Views\MenuAccess\_ListRole.cshtml" />
+    <Content Include="Views\MenuAccess\_ListMenu.cshtml" />
+    <Content Include="Views\MenuAccess\_Delete.cshtml" />
+    <Content Include="Views\MenuAccess\_Search.cshtml" />
+    <Content Include="Views\Technology\_AddTrainer.cshtml" />
+    <Content Include="Views\Document_Test\_AddQuestion.cshtml" />
+    <Content Include="Views\Document_Test\_DeleteQuestion.cshtml" />
+    <Content Include="Views\Document_Test\_CopyDocument.cshtml" />
+    <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\Feedback\_List.cshtml" />
+    <Content Include="Views\Feedback\_ChooseDocument.cshtml" />
+    <Content Include="Views\Feedback\_Add.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\_GetMenu.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Home\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>

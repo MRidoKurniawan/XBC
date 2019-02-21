@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                <input type="password" name="password" class="form-control" onchange="cekPassword()" placeholder="Password" id="pw-main" required pattern="(?=.*\d)(?=.*[A-Z]).{6.}"/>
+                <input type="password" name="password" class="form-control" onchange="cekPassword()" placeholder="Password" id="pw-main" required pattern="(?=.*\d)(?=.*[A-Za-z]).{6,}"/>
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -70,11 +70,11 @@
             $("#valid-password").show();
         }
     }
-
     function cekEmail() {
+        console.log($("#email").val());
         $.ajax({
-            url: '@Url.Action("CekEmail", "Assignment")',
-            type: this.method,
+            url: '@Url.Action("CheckEmail","User")',
+            type: 'get',
             data: {email : $("#email").val()},
             success: function (result) {
                 if (result.success) {
@@ -88,7 +88,6 @@
             }
         });
     }
-
     $("#form-create").submit(function () {
         if (cocok && tersedia) {
             $.ajax({
