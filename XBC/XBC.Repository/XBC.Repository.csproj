@@ -66,6 +66,7 @@
     <Compile Include="BootcampTestTypeRepo.cs" />
     <Compile Include="ClazzRepo.cs" />
     <Compile Include="MenuAccessRepo.cs" />
+    <Compile Include="MonitoringRepo.cs" />
     <Compile Include="OfficeRepo.cs" />
     <Compile Include="MenuRepo.cs" />
     <Compile Include="CategoryRepo.cs" />
