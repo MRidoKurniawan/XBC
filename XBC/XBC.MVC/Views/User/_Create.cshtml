@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @type="email" } })
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @type="email", @onchange = "cekEmail()" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                 <span class="field-validation-valid text-danger" style="display:none;" id="valid-email">Email Sudah Terdaftar</span>
             </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                <input type="password" name="password" class="form-control" onchange="cekPassword()" placeholder="Password" id="pw-main" required pattern="(?=.*\d)(?=.*[A-Z]).{6.}"/>
+                <input type="password" name="password" class="form-control" onchange="cekPassword()" placeholder="Password" id="pw-main" required pattern="(?=.*\d)(?=.*[A-Za-z]).{6,}"/>
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,9 +71,10 @@
         }
     }
     function cekEmail() {
+        console.log($("#email").val());
         $.ajax({
             url: '@Url.Action("CheckEmail","User")',
-            type: this.method,
+            type: 'get',
             data: {email : $("#email").val()},
             success: function (result) {
                 if (result.success) {
@@ -81,7 +82,7 @@
                     $("#valid-email").hide();
                 }
                 else {
-                    tersedia = true;
+                    tersedia = false;
                     $("#valid-email").show();
                 }
             }

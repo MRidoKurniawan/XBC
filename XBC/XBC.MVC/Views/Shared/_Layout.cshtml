@@ -8,12 +8,14 @@
     @Scripts.Render("~/bundles/modernizr")
     @{
         ViewBag.Username = Session["Username"];
+        ViewBag.roleid = Session["roleid"];
+        ViewBag.id = Session["id"];
     }
 
     <meta name="description" content="The description of my page" />
 </head>
 <body>
-    <div style="height:10vh; background:#2c3e50; width:100%; padding:1.5vh; position:fixed; top:0; z-index:999;">
+    <div style="height:6rem; background:#2c3e50; width:100%; padding:1.5vh; position:fixed; top:0; z-index:999;">
         <button type="button" id="sidebarCollapse" class="btn btn-info" style="height:100%; background:#fff; padding : 5px;">
             <i class="fas fa-align-left"></i>
             <image src="menu.png" style="height:100%; width : auto">
@@ -23,19 +25,8 @@
     <div class="wrapper">
         <nav id="sidebar">
             <img src="images/logo.png" class="col-sm-12" style="margin-top:2rem;">
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="input_barang.php">Input Barang</a>
-                </li>
-                <li>
-                    <a href="#"><div style="">Data Barang</div></a>
-                </li>
-                <li>
-                    <a href="eoq.php">EOQ</a>
-                </li>
-                <li>
-                    <a href="logout.php">Log Out</a>
-                </li>
+            <ul class="list-unstyled components" id="menu-list">
+
             </ul>
         </nav>
         <div id="content">
@@ -57,8 +48,21 @@
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
+                
             });
+            GetMenu();
         });
+        function GetMenu() {
+            console.log("1");
+            $.ajax({
+                url: '@Url.Action("GetMenu", "Home")',
+                type: 'get',
+                data : {id : @ViewBag.roleid},
+                success: function (result) {
+                    $("#menu-list").html(result);
+                }
+            });
+        }
     </script>
 </body>
 </html>
