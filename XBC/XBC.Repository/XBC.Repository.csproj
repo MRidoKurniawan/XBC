@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BatchRepo.cs" />
     <Compile Include="BootcampTypeRepo.cs" />
+    <Compile Include="FeedbackRepo.cs" />
     <Compile Include="IdleNewsRepo.cs" />
     <Compile Include="Document_Test_DetailRepo.cs" />
     <Compile Include="OfficeRepo.cs" />

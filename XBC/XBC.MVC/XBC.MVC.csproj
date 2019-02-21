@@ -172,6 +172,7 @@
     <Compile Include="Controllers\BootcampTypeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\Document_TestController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdleNewsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -318,6 +319,13 @@
     <Content Include="Views\Batch\Index.cshtml" />
     <Content Include="Views\Batch\_Create.cshtml" />
     <Content Include="Views\Batch\_List.cshtml" />
+    <Content Include="Views\Document_Test\_AddQuestion.cshtml" />
+    <Content Include="Views\Document_Test\_DeleteQuestion.cshtml" />
+    <Content Include="Views\Document_Test\_CopyDocument.cshtml" />
+    <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\Feedback\_List.cshtml" />
+    <Content Include="Views\Feedback\_ChooseDocument.cshtml" />
+    <Content Include="Views\Feedback\_Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
