@@ -391,7 +391,6 @@
     <Content Include="Views\Monitoring\_Delete.cshtml" />
     <Content Include="Views\Monitoring\_Search.cshtml" />
     <Content Include="Views\Monitoring\_Placement.cshtml" />
-    <Content Include="Views\Technology\_AddTrainer.cshtml" />
     <Content Include="Views\Technology\_AddListTrainer.cshtml" />
     <Content Include="Views\Technology\_listTrainer.cshtml" />
     <Content Include="Views\MenuAccess\_ListRole.cshtml" />
