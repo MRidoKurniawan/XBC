@@ -87,11 +87,12 @@ namespace XBC.MVC.Controllers
 
 
 
-        public ActionResult AddTrainer()
-        {
-            ViewBag.TrainerList = new SelectList(TrainerRepo.All(), "id", "name");
-            return PartialView("_AddTrainer");
-        }
+        //public ActionResult AddTrainer()
+        //{
+        //    ViewBag.TrainerList = new SelectList(TrainerRepo.All(), "id", "name");
+        //    return PartialView("_AddTrainer");
+        //}
+
         [HttpPost]
         public ActionResult AddTrainer(TechnologyTrainerViewModel model)
         {
