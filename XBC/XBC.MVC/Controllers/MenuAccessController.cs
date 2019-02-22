@@ -36,8 +36,9 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Search(long id)
+        public ActionResult Search(long id=0)
         {
+            ViewBag.RoleList = new SelectList(RoleRepo.All(), "id", "name");
             return PartialView("_Search", MenuAccessRepo.GetBySearch(id));
         }
         public ActionResult Delete(long id)

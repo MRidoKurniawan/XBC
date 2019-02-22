@@ -59,23 +59,41 @@ namespace XBC.Repository
             List<MenuAccessViewModel> result = new List<MenuAccessViewModel>();
             using (var db = new XBC_Context())
             {
-                result = (from ma in db.t_menu_access
-                          join m in db.t_menu on ma.menu_id equals m.id
-                          join r in db.t_role on ma.role_id equals r.id
-                          where ma.role_id == id
-                          select new MenuAccessViewModel
-                          {
-                              id = ma.id,
-                              role_id = ma.role_id,
-                              menu_id = ma.menu_id,
-                              menu_name = m.title,
-                              role_name = r.name
-                          }).ToList();
+                if (id > 0)
+                {
+                    result = (from ma in db.t_menu_access
+                              join m in db.t_menu on ma.menu_id equals m.id
+                              join r in db.t_role on ma.role_id equals r.id
+                              where ma.role_id == id
+                              select new MenuAccessViewModel
+                              {
+                                  id = ma.id,
+                                  role_id = ma.role_id,
+                                  menu_id = ma.menu_id,
+                                  menu_name = m.title,
+                                  role_name = r.name
+                              }).ToList();
+                }
+                else
+                {
+                    result = (from ma in db.t_menu_access
+                              join m in db.t_menu on ma.menu_id equals m.id
+                              join r in db.t_role on ma.role_id equals r.id
+                              select new MenuAccessViewModel
+                              {
+                                  id = ma.id,
+                                  role_id = ma.role_id,
+                                  menu_id = ma.menu_id,
+                                  menu_name = m.title,
+                                  role_name = r.name
+                              }).ToList();
+                }
                 if (result == null)
                     result = new List<MenuAccessViewModel>();
             }
             return result;
         }
+
         public static ResponseResult Create(MenuAccessViewModel entity)
         {
             ResponseResult result = new ResponseResult();
@@ -116,7 +134,8 @@ namespace XBC.Repository
                 db.t_menu_access.Remove(ma);
                 if (ma != null)
                 {
-                    object data = new { 
+                    object data = new
+                    {
                         ma.id,
                         ma.menu_id,
                         ma.role_id
