@@ -405,6 +405,8 @@
     <Content Include="Views\Feedback\_List.cshtml" />
     <Content Include="Views\Feedback\_ChooseDocument.cshtml" />
     <Content Include="Views\Feedback\_Add.cshtml" />
+    <Content Include="Views\Technology\_ListEditTrainer.cshtml" />
+    <Content Include="Views\Technology\_DeleteTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
