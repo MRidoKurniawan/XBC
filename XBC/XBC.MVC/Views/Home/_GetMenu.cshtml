@@ -1,0 +1,18 @@
+﻿@model IEnumerable<XBC.ViewModel.MenuViewModel>
+
+@foreach (var item in Model)
+{
+    
+    <li>
+        <a href="http://localhost:1216/@item.menu_url">
+            <div style="">
+                @if (item.image_url != null)
+                {
+                    <img src="@item.image_url" style="height:50px; width:auto;"/>
+                }
+                @item.title
+            </div>
+        </a>
+    </li>
+}
+

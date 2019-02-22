@@ -1,25 +1,20 @@
 ﻿@model IEnumerable<XBC.ViewModel.TrainerViewModel>
 
-<table class="table">
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>
+            <td>
                 @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th></th>
+            </td>
+            <td>#</td>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
-        {
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.name)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
                 </td>
             </tr>
         }

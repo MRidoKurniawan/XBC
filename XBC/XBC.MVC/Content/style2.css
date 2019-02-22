@@ -58,7 +58,7 @@ a:focus {
 #sidebar {
     width: 250px;
     position: fixed;
-    top: 10vh;
+    top: 6rem;
     left: 0;
     height: 90vh;
     z-index: 999;

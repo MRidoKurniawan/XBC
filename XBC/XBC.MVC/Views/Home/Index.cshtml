@@ -28,7 +28,7 @@
                 <input type="password" class="form-control" id="password" placeholder="Password" name="password">
             </div>
             <input type="submit" class="btn btn-outline-info my-2 my-sm-0 float-right" name="login" value="Log In">
-            <a href="" style="float:right; margin-right:3rem;">Forgot Password?</a>
+            @Html.ActionLink("Forgot password?", "ForgotPassword", "Home")
         }
     </div>
     @Scripts.Render("~/bundles/jquery")
