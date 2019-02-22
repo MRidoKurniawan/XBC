@@ -405,6 +405,10 @@
     <Content Include="Views\Feedback\_List.cshtml" />
     <Content Include="Views\Feedback\_ChooseDocument.cshtml" />
     <Content Include="Views\Feedback\_Add.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\_GetMenu.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\Technology\_ListEditTrainer.cshtml" />
     <Content Include="Views\Technology\_DeleteTrainer.cshtml" />
   </ItemGroup>

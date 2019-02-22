@@ -38,13 +38,13 @@ namespace XBC.Tests
                 using (MailMessage mail = new MailMessage())
                 {
                     mail.From = new MailAddress("ateambatch183@gmail.com");
-                    mail.To.Add("ashararbain.aa@gmail.com");
+                    mail.To.Add("rizqiagung21@gmail.com");
                     mail.Subject = "percobaan";
                     mail.Body = "rizqi";
                     mail.IsBodyHtml = true;
                     //Way to add attachment
                     //mail.Attachments.Add(new Attachment("C:\\SomeFile.txt"));
-                    using (SmtpClient smtp = new SmtpClient("Smtp.gmail.com", 25))
+                    using (SmtpClient smtp = new SmtpClient("Smtp.gmail.com", 587))
                     {
                         smtp.Credentials = new NetworkCredential("ateambatch183@gmail.com", "Ateam1234");
                         smtp.EnableSsl = true;

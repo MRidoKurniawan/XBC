@@ -71,7 +71,7 @@ namespace XBC.Repository
                 result = (from u in db.t_user
                           join
                           r in db.t_role on u.role_id equals r.id
-                          where u.is_delete == false && u.email==email
+                          where u.is_delete == false && u.email == email
                           select new UserViewModel
                           {
                               id = u.id,
@@ -123,7 +123,8 @@ namespace XBC.Repository
                               id = u.id,
                               username = u.username,
                               email = u.email,
-                              password = u.password
+                              password = u.password,
+                              role_id = u.role_id
 
                           }).FirstOrDefault();
             }
