@@ -12,7 +12,7 @@ namespace XBC.Repository
 {
     public class HomeRepo
     {
-       public static ResponseResult ForgotPassword(UserViewModel entity)
+        public static ResponseResult ForgotPassword(UserViewModel entity)
         {
             ResponseResult result = new ResponseResult();
             try
@@ -21,8 +21,8 @@ namespace XBC.Repository
                 {
                     mail.From = new MailAddress("ateambatch183@gmail.com");
                     mail.To.Add(entity.email);
-                    mail.Subject = "percobaan";
-                    mail.Body = "<a href='http://localhost:1216/Home/resetpassword/" + entity.id+ "'>http://localhost:1216/Home/resetpassword/" + entity.id + "</a>";
+                    mail.Subject = "Reset Password";
+                    mail.Body = "<div style = 'width: 96%; margin-left: 2%; padding-top:20px; background-color: #FFFFFF; float: left;'><div style='float:right;'><img src = 'https://i.imgur.com/Qt0o9W9.png' style = 'height: 100px; margin-right: 3rem;'></div><div style='width:100%; margin-top:150px;'><h3><b> Atur ulang kata sandi anda?</b></h3><br><p> Jika anda meminta pengaturan ulang kata sandi untuk " + entity.username + ", klik tombol dibawah. Jika anda tidak melakukannya, abaikan email ini.</p><br><a href = 'https://localhost:1216/Home/resetpassword/" + entity.id + "' target = '_blank'><button style = 'background-color: #008CBA; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 8px;'> Atur ulang kata sandi </button></a></div></div> ";
                     mail.IsBodyHtml = true;
                     //Way to add attachment
                     //mail.Attachments.Add(new Attachment("C:\\SomeFile.txt"));
@@ -58,7 +58,7 @@ namespace XBC.Repository
                           where ma.role_id == id
                           select new MenuViewModel
                           {
-                              title=m.title,
+                              title = m.title,
                               image_url = m.image_url,
                               menu_url = m.menu_url
 
