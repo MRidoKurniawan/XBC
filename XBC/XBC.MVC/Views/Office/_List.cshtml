@@ -15,6 +15,7 @@
     </button>
 </div>
 <h1> </h1>
+
 <table class="table">
     <tr>
         <th>
@@ -75,23 +76,50 @@
             url: '@Url.Action("Create","Office")',
             type: 'get',
             success: function (result) {
-                $(".modal-body").html(result);
+                $("#create").html(result);
+                $(".modal").modal('show');
+                $("#room").removeClass("hidden");
+                $(".modal-footer").removeClass("hidden");
+            }
+        });
+        $.ajax({
+            url: '@Url.Action("ListByOffice","Office")',
+            type: 'get',
+            data: { id: 0 },
+            success: function (result) {
+                $("#room").html(result);
                 $(".modal").modal('show');
             }
         })
-    })
+    });
     $(".btn-edit").click(function () {
         $.ajax({
             url: '@Url.Action("Edit", "Office")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
-                $(".modal-body").html(result);
+                $("#create").html(result);
                 $(".modal").modal('show');
+                $("#room").removeClass("hidden");
+                $(".modal-footer").removeClass("hidden");
             }
         });
 
-    });
+        $.ajax({
+            url: '@Url.Action("ListByOffice","Office")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $("#room").html(result);
+                $(".modal").modal('show');
+            }
+        })
+        $.ajax({
+            url: '@Url.Action("CreateRoom","Office")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") }
+        })
+   });
 
     $(".btn-delete").click(function () {
         $.ajax({
@@ -101,6 +129,8 @@
             success: function (result) {
                 $(".modal-body").html(result);
                 $(".modal").modal('show');
+                $("#room").addClass("hidden");
+                $(".modal-footer").addClass("hidden");
             }
         });
 

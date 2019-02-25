@@ -1,10 +1,8 @@
-﻿@model XBC.ViewModel.OfficeViewModel
+﻿@model XBC.ViewModel.RoomViewModel
 
 <h3>Are you sure to delete this data?</h3>
 <div>
-    
-
-    @using (Html.BeginForm("Delete", "Office", FormMethod.Post, new { id ="form-delete", name ="form-delete" }))
+    @using (Html.BeginForm("DeleteRoom", "Office", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.id)
@@ -22,9 +20,9 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Delete successful!\n name: " + result.entity.name);
-                    $(".modal").modal("hide");
-                    GetList();
+                    alert("Delete successfuly!");
+                    $(".modal2").hide();
+                    GetListRoom(@ViewBag.officeId);
                 }
                 else {
                     alert("Error\n" + result.message);

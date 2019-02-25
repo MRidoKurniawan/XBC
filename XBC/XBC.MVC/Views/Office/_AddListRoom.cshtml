@@ -1,0 +1,23 @@
+﻿@model XBC.ViewModel.RoomViewModel
+<tr>
+    <td>
+        @Html.HiddenFor(model => model.code)
+        @Html.HiddenFor(model => model.name)
+        @Html.HiddenFor(model => model.capacity)
+        @Html.HiddenFor(model => model.notes)
+        @Html.HiddenFor(model => model.any_projector)
+        @Html.DisplayFor(model => model.code)
+    </td>
+
+    <td>
+        @Html.DisplayFor(model => model.name)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.capacity)
+    </td>
+    <td>
+        <button type="button" class="btn btn-danger btn-remove" onclick="RemoveRoom(this)" title="Remove">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+    </td>
+</tr>        
