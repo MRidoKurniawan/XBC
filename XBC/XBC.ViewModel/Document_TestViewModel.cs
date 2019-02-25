@@ -27,5 +27,9 @@ namespace XBC.ViewModel
 
         public string Test { get; set; }
 
+        public List<Document_Test_DetailViewModel> Details { get; set; }
+
+        public int noUrut { get; set; }
+
     }
 }

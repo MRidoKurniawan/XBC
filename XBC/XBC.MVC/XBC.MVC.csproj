@@ -405,7 +405,10 @@
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Feedback\_List.cshtml" />
     <Content Include="Views\Feedback\_ChooseDocument.cshtml" />
-    <Content Include="Views\Feedback\_Add.cshtml" />
+    <Content Include="Views\Feedback\_Add1.cshtml" />
+    <Content Include="Views\Feedback\Add.cshtml" />
+    <Content Include="Views\Document_Test\_ViewTest.cshtml" />
+    <Content Include="Views\Document_Test\ViewTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

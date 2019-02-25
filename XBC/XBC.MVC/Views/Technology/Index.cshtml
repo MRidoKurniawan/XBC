@@ -1,25 +1,21 @@
 ﻿@{
-    ViewBag.Title = "Feedback";
+    ViewBag.Title = "Technology";
 }
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3>@ViewBag.Title</h3>
+<div class="panel panel-primary">
+    <div class="panel-heading" style="background-color:darkorange">
+        <h3>TECHNOLOGY</h3>
     </div>
-
-    <div id="data-list">
-        <h4>Loading....</h4>
+    <div id="data-list" class="panel-body">
+        <h4>Loading...</h4>
     </div>
 </div>
 
-
-
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+<div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title">ADD TECHNOLOGY</h4>
             </div>
             <div class="modal-body">
                 <p>One fine body&hellip;</p>
@@ -29,12 +25,12 @@
                     <button type="button" class="btn btn-primary">Save changes</button>*@
             </div>
         </div><!-- /.modal-content -->
-        <div class="modal-content modal2" style="display:none; position:relative; top: -25rem; z-index:999; padding:3rem;">
-
-            <div class="modal-body body2">
-                <p>One fine Body&hellip;</p>
-            </div>
+    <div class="modal-content modal2" style="display:none; position:relative; top: -50rem; z-index:999; padding:3rem;">
+        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="modal-body body2">
+            <p>One fine body&hellip;</p>
         </div>
+    </div>
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 @section Scripts{
@@ -45,16 +41,12 @@
 
         function GetList() {
             $.ajax({
-                url: '@Url.Action("List","Feedback")',
+                url: '@Url.Action("List", "Technology")',
                 type: 'get',
                 success: function (result) {
                     $("#data-list").html(result);
                 }
-
             });
-
         }
-
-
     </script>
 }

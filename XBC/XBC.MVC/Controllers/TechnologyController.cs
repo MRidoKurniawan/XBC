@@ -85,24 +85,7 @@ namespace XBC.MVC.Controllers
             return PartialView("_AddListTrainer", TrainerRepo.ById(id));
         }
 
+        
 
-
-        //public ActionResult AddTrainer()
-        //{
-        //    ViewBag.TrainerList = new SelectList(TrainerRepo.All(), "id", "name");
-        //    return PartialView("_AddTrainer");
-        //}
-
-        [HttpPost]
-        public ActionResult AddTrainer(TechnologyTrainerViewModel model)
-        {
-            ResponseResult result = TechnologyRepo.UpdateTrainer(model);
-            return Json(new
-            {
-                success = result.Success,
-                message = result.ErrorMessage,
-                entity = result.Entity
-            }, JsonRequestBehavior.AllowGet);
-        }
     }
 }

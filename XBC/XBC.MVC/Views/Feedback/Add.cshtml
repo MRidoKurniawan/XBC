@@ -1,0 +1,97 @@
+﻿@model XBC.ViewModel.FeedbackViewModel
+
+@{
+    ViewBag.Title = "Feedback";
+}
+
+
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+</head>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+</div>
+@using (Html.BeginForm("Add", "Feedback", FormMethod.Post, new { id = "form-create", name = "form-create" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.document_test_id)
+        @Html.HiddenFor(model => model.test_id)
+        <div class="panel-body" id="list">
+            <h3> Loading.....</h3>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="javascript:history.go(-1)" class="btn btn-default ">Cancel</a>
+                <input type="submit" value="Save" class="btn btn-primary" style="background-color:darkorange" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetList2();
+    });
+
+
+    function GetList2() {
+        $.ajax({
+            url: '@Url.Action("Add1", "Feedback")',
+            type: 'get',
+            data: { id: @Model.document_test_id },
+            success: function (result) {
+                $("#list").html(result);
+            }
+
+        });
+
+    }
+
+    $("#form-create").submit(function () {
+        var details = [];
+        var dataform = $(this).serialize();
+        $("#list").find("tbody").find("tr").each(function (item) {
+            var detail = {
+                question_id: $(this).find("input[name=question_id]").val(),
+                answer:  $(this).find("#answer").val()
+            };
+            details.push(detail);
+        });
+
+        data = { Feedback: details, document_test_id: $("#document_test_id").val(), test_id: $("#test_id").val() };
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: {model : data},
+            success: function (result) {
+                if (result.success) {
+                    alert("Save Successfull!\nName: " + result.entity.name + "\nNotes: " +
+                    result.entity.notes);
+                    javascript:history.go(-1);
+                    GetList();
+                } else {
+                    alert("Error\n" + result.message);
+                }
+            }
+        });
+        return false;
+    });
+
+
+</script>
+
