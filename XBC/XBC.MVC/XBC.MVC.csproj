@@ -210,6 +210,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="logo.png" />
     <Content Include="menu.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -391,7 +392,6 @@
     <Content Include="Views\Monitoring\_Delete.cshtml" />
     <Content Include="Views\Monitoring\_Search.cshtml" />
     <Content Include="Views\Monitoring\_Placement.cshtml" />
-    <Content Include="Views\Technology\_AddTrainer.cshtml" />
     <Content Include="Views\Technology\_AddListTrainer.cshtml" />
     <Content Include="Views\Technology\_listTrainer.cshtml" />
     <Content Include="Views\MenuAccess\_ListRole.cshtml" />
@@ -409,9 +409,17 @@
     <Content Include="Views\Feedback\Add.cshtml" />
     <Content Include="Views\Document_Test\_ViewTest.cshtml" />
     <Content Include="Views\Document_Test\ViewTest.cshtml" />
+    <Content Include="Views\Home\_GetMenu.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Technology\_ListEditTrainer.cshtml" />
+    <Content Include="Views\Technology\_DeleteTrainer.cshtml" />
+    <Content Include="Views\Home\Beranda.cshtml" />
+    <Content Include="Views\Batch\_SetUpTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

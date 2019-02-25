@@ -51,6 +51,7 @@ namespace XBC.MVC.Controllers
         {           
             BatchViewModel model = new BatchViewModel();
             model = BatchRepo.ById(id);
+
             ViewBag.tanggalmulai = model.periodFrom?.ToString("yyyy'-'MM'-'dd");
             ViewBag.tanggalselesai = model.periodTo?.ToString("yyyy'-'MM'-'dd");
 
@@ -75,10 +76,13 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+
         // Add Participant
-        public ActionResult AddParticipant()
+        public ActionResult AddParticipant(long id)
         {
             ViewBag.BiodataList = new SelectList(BatchRepo.ListParticipant(), "id", "name");
+
+            ViewBag.IdBatch = id; // mengirim batch id
 
             return PartialView("_AddParticipant");
         }
@@ -87,6 +91,57 @@ namespace XBC.MVC.Controllers
         public ActionResult AddParticipant(ClazzViewModel model)
         {
             ResponseResult result = BatchRepo.Add(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        // Set Up Test List
+        public ActionResult SetUpTest(long id)
+        {
+            ViewBag.IdBatch = id; // mengirim bath id
+
+
+            List<TestViewModel> data = TestRepo.All("");
+            foreach (var item in data)
+            {
+                BatchTestViewModel btmodel = BatchRepo.Check(id, item.id);
+                if (btmodel.batch_id == 0)
+                {
+                    item.check = true;
+                }
+                else
+                {
+                    item.check = false;
+                }
+                
+            }
+
+            return PartialView("_SetUpTest", data);
+        }
+
+        // Set Up Test Choose
+        [HttpPost]
+        public ActionResult Choose(BatchTestViewModel model)
+        {
+            ResponseResult result = BatchRepo.Choose(model);
+            return Json(new
+            {
+                success = result.Success,
+                message = result.ErrorMessage,
+                entity = result.Entity
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        // Set Up Test Cancel
+        [HttpPost]
+        public ActionResult Cancel(BatchTestViewModel model)
+        {
+            ResponseResult result = BatchRepo.Cancel(model);
             return Json(new
             {
                 success = result.Success,

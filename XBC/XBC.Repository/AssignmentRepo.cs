@@ -106,6 +106,30 @@ namespace XBC.Repository
             return result == null ? new AssignmentViewModel() : result;
         }
 
+        public static UserViewModel cekEmail(string email)
+        {
+            UserViewModel result = new UserViewModel();
+            try
+            {
+                using (var db = new XBC_Context())
+                {
+                    result = (from m in db.t_user
+                              where m.is_delete == false && m.email == email
+                              select new UserViewModel
+                              {
+                                  id = m.id,
+                                  email = m.email,
+                                  username = m.username
+                              }).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+            return result==null? new UserViewModel():result;
+        }
+
         public static ResponseResult Update(AssignmentViewModel entity)
         {
             ResponseResult result = new ResponseResult();

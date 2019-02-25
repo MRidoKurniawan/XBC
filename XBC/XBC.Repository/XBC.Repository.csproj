@@ -62,6 +62,7 @@
     <Compile Include="AssignmentRepo.cs" />
     <Compile Include="BootcampTypeRepo.cs" />
     <Compile Include="FeedbackRepo.cs" />
+    <Compile Include="HomeRepo.cs" />
     <Compile Include="IdleNewsRepo.cs" />
     <Compile Include="Document_Test_DetailRepo.cs" />
     <Compile Include="BootcampTestTypeRepo.cs" />

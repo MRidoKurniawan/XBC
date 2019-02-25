@@ -18,6 +18,9 @@ namespace XBC.ViewModel
 
         [StringLength(255)]
         public string notes { get; set; }
+
         public long createdBy { get; set; }
+
+        public bool check { get; set; }
     }
 }
