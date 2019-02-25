@@ -274,9 +274,10 @@ namespace XBC.Repository
             List<BiodataViewModel> result = new List<BiodataViewModel>();
             using (var db = new XBC_Context())
             {
-                result = (from b in db.t_biodata 
-                          join m in  db.t_monitoring on b.id equals m.biodata_id into ps from m in ps.DefaultIfEmpty()
-                          where (b.is_deleted == false && m.id == null) || (m.is_delete == true && b.is_deleted == false)
+                result = (from b in db.t_biodata
+                          join m in db.t_monitoring on b.id equals m.biodata_id into ps
+                          from m in ps.DefaultIfEmpty()
+                          where /*(b.is_deleted == false && m.id == null) || */(m.is_delete == true && b.is_deleted == false)
                           select new BiodataViewModel
                           {
                               id = b.id,

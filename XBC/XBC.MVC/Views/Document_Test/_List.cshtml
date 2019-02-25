@@ -101,4 +101,17 @@
             }
         });
     });
+
+    $(".btn-viewtest").click(function () {
+        $.ajax({
+            url: '@Url.Action("ViewTest", "Document_Test")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete Category");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
 </script>

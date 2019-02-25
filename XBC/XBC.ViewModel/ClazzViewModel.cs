@@ -10,7 +10,9 @@ namespace XBC.ViewModel
     {
         public long id { get; set; }
         public long batchId { get; set; }
+        public string BatchName { get; set; }
         public long biodataId { get; set; }
+        public string BiodataName { get; set; }
 
     }
 }

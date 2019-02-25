@@ -130,6 +130,14 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult NewVersion(long id)
+        {
+            return Json(new
+            {
+                generate = Document_TestRepo.GetNewVersion(id)
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult CopyDocument(long id)
         {
             ViewBag.TestList = new SelectList(TestRepo.All(""), "id", "name");
@@ -149,5 +157,9 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult ViewTest(long id)
+        {
+            return View("ViewTest", Document_TestRepo.ViewTest(id));
+        }
     }
 }

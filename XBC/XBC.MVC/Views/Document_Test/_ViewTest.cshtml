@@ -1,0 +1,48 @@
+﻿@model IEnumerable<XBC.ViewModel.Document_Test_DetailViewModel>
+
+@{
+    ViewBag.nomer = 1;
+}
+@foreach (var item in Model)
+{
+    if (item.questionType == "MC")
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                Soal @ViewBag.nomer @Html.DisplayFor(modelItem => item.question)
+            </div>
+            <div class="form-group">
+                <div class="form-group col-lg-4">
+                    A. @Html.DisplayFor(modelItem => item.optionA)
+                </div>
+                <div class="form-group col-lg-4">
+                    B. @Html.DisplayFor(modelItem => item.optionB)
+                </div>
+                <div class="form-group col-lg-4">
+                    C. @Html.DisplayFor(modelItem => item.optionC)
+                </div>
+                <div class="form-group col-lg-4">
+                    D. @Html.DisplayFor(modelItem => item.optionD)
+                </div>
+                <div class="form-group col-lg-4">
+                    E. @Html.DisplayFor(modelItem => item.optionE)
+                </div>
+            </div>
+        </div>
+    }
+
+    else
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                Soal @ViewBag.nomer @Html.DisplayFor(modelItem => item.question)
+            </div>
+            <div class="form-group">
+            </div>
+        </div>
+    }
+
+    ViewBag.nomer++;
+}
+            
+

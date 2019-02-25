@@ -16,5 +16,7 @@ namespace XBC.ViewModel
         [Required, StringLength(255)]
         public string notes { get; set; }
         public bool isDelete { get; set; }
+        public long created_by { get; set; }
+        public string UserName { get; set; }
     }
 }

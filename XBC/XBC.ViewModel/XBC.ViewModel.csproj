@@ -52,6 +52,7 @@
     <Compile Include="Document_Test_DetailViewModel.cs" />
     <Compile Include="BootcampTestTypeViewModel.cs" />
     <Compile Include="ClazzViewModel.cs" />
+    <Compile Include="JsonFeedbackViewModel.cs" />
     <Compile Include="MenuAccessViewModel.cs" />
     <Compile Include="MonitoringViewModel.cs" />
     <Compile Include="OfficeViewModel.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseResult.cs" />
     <Compile Include="RoleViewModel.cs" />
+    <Compile Include="ResponseResult.cs" />
     <Compile Include="TestTypeViewModel.cs" />
     <Compile Include="QuestionViewModel.cs" />
     <Compile Include="TechnologyTrainerViewModel.cs" />
