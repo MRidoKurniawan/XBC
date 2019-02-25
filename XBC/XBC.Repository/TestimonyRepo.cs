@@ -70,7 +70,13 @@ namespace XBC.Repository
                         db.t_testimony.Add(tes);
                         db.SaveChanges();
 
-                        var json = new JavaScriptSerializer().Serialize(tes);
+                        object data = new
+                        {
+                            tes.id,
+                            tes.title,
+                            tes.content
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
@@ -78,6 +84,7 @@ namespace XBC.Repository
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
+
                         entity.id = tes.id;
                         result.Entity = entity;
                     }
@@ -90,7 +97,13 @@ namespace XBC.Repository
 
                         if (tes != null)
                         {
-                            var json = new JavaScriptSerializer().Serialize(tes);
+                            object data = new
+                            {
+                                tes.id,
+                                tes.title,
+                                tes.content
+                            };
+                            var json = new JavaScriptSerializer().Serialize(data);
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
@@ -102,7 +115,13 @@ namespace XBC.Repository
                             tes.modified_by = 1;
                             tes.modified_on = DateTime.Now;
 
-                            var json2 = new JavaScriptSerializer().Serialize(tes);
+                            object data2 = new
+                            {
+                                tes.id,
+                                tes.title,
+                                tes.content
+                            };
+                            var json2 = new JavaScriptSerializer().Serialize(data2);
                             log.json_after = json2;
                             db.t_audit_log.Add(log);
                             db.SaveChanges();
@@ -137,7 +156,14 @@ namespace XBC.Repository
 
                     if (tes != null)
                     {
-                        var json = new JavaScriptSerializer().Serialize(tes);
+                        object data = new
+                        {
+                            tes.id,
+                            tes.title,
+                            tes.content,
+                            tes.is_delete
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
@@ -148,7 +174,14 @@ namespace XBC.Repository
                         tes.deleted_by = 1;
                         tes.deleted_on = DateTime.Now;
 
-                        var json2 = new JavaScriptSerializer().Serialize(tes);
+                        object data2 = new
+                        {
+                            tes.id,
+                            tes.title,
+                            tes.content,
+                            tes.is_delete
+                        };
+                        var json2 = new JavaScriptSerializer().Serialize(data2);
                         log.json_after = json2;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
