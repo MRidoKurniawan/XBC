@@ -1,0 +1,80 @@
+﻿@model IEnumerable<XBC.ViewModel.TestViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                TEST LIST
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td align="right">
+                    @if (item.check)
+                    {
+                        <button type="button" style="width:100px" class="btn btn-primary btn-choose" data-id="@item.id">CHOOSE</button>
+                    }
+                    else
+                    {
+                        <button type="button" style="width:100px" class="btn btn-success btn-choose" data-id="@item.id">CANCEL</button>
+                    }                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $(".btn-choose").click(function () {
+        data = { test_id: $(this).attr("data-id"), batch_id : @ViewBag.IdBatch }
+
+        if ($(this).html() == "CHOOSE") {
+            $.ajax({
+                url: '@Url.Action("Choose", "Batch")',
+                type: 'post',
+                data: { model : data  },
+                success: function (result) {
+                    if (result.success) {
+                        alert("Save successful\nName: " + result.entity.name);
+                    }
+                    else {
+                        alert("Error\nName: " + result.message);
+                    }
+                }
+            });
+            $(this).html("CANCEL");
+            $(this).removeClass("btn-primary");
+            $(this).addClass("btn-success");
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("Cancel", "Batch")',
+                type: 'post',
+                data: { model : data  },
+                success: function (result) {
+                    if (result.success) {
+                        alert("Save successful\nName: " + result.entity.name);
+                    }
+                    else {
+                        alert("Error\nName: " + result.message);
+                    }
+                }
+            });
+            $(this).html("CHOOSE");
+            $(this).removeClass("btn-success");
+            $(this).addClass("btn-primary");
+        }
+    });
+
+    $(".btn-choose").load(function () {
+    });
+</script>

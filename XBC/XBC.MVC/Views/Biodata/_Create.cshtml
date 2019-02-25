@@ -1,0 +1,82 @@
+﻿@model XBC.ViewModel.BiodataViewModel
+
+
+@using (Html.BeginForm("Create", "Biodata", FormMethod.Post, new { id = "form-create", name = "form-create" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.last_education, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Education" } })
+                @Html.ValidationMessageFor(model => model.last_education, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.educational_level, new { htmlAttributes = new { @class = "form-control", @placeholder = "Education Level" } })
+                @Html.ValidationMessageFor(model => model.educational_level, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.graduation_year, new { htmlAttributes = new { @class = "form-control", @placeholder = "Graduation Year" } })
+                @Html.ValidationMessageFor(model => model.graduation_year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.majors, new { htmlAttributes = new { @class = "form-control", @placeholder = "Majors" } })
+                @Html.ValidationMessageFor(model => model.majors, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.gpa, new { htmlAttributes = new { @class = "form-control", @placeholder = "GPA" } })
+                @Html.ValidationMessageFor(model => model.gpa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $("#form-create").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Save successful!\nNama: " + result.entity.name);
+                    $(".modal").modal("hide");
+                    GetList();
+                } else {
+                    alert("Error!\n" + result.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>

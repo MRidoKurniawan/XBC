@@ -6,8 +6,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Document_TestViewModel</h4>
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div>
             <div class="form-group col-lg-6">
@@ -36,10 +35,13 @@
                 </div>
             </div>
 
-            <div class="form-group col-lg-6">
+            <div class="form-group col-lg-6" >
                 @*@Html.LabelFor(model => model.token, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                <div class="col-md-10">
+                <div class="col-md-10" >
                     @Html.EditorFor(model => model.token, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <button type="button" class="form-control-static" id="btn-token" style="padding : 7px;">
+                        GENERATE
+                    </button>
                     @*@Html.ValidationMessageFor(model => model.token, "", new { @class = "text-danger" })*@
                     @*<div class="col-md-2">
                         <button>generate</button>
@@ -83,5 +85,48 @@
         });
         return false
     });
+
+    $("#btn-token").click(function () {
+        $.ajax({
+            url: '@Url.Action("GenerateCreate", "Document_Test")',
+            type: 'get',
+            success: function (result) {
+                    $(".modal-body #token").val(result.generate);
+
+            }
+
+        });
+        return false
+    });
+
+    $("#test_type_id").change(function () {
+        //var id = parseFloat($(".modal-body #test_type_id").val())
+        $.ajax({
+            url: '@Url.Action("NewVersion", "Document_Test")',
+            type: 'get',
+            data: { id: $(".modal-body #test_type_id").val() },
+            success: function (result) {
+                $(".modal-body #version").val(result.generate);
+
+            }
+
+        });
+        return false
+    });
+
+    @*$("#test_type_id").keyup(function () {
+         var id = parseFloat($(".modal-body #test_type_id").val())
+        $.ajax({
+            url: '@Url.Action("NewVersion", "Document_Test")',
+            type: 'get',
+            data: { id},
+            success: function (result) {
+                $(".modal-body #test_type_id").val(result.generate);
+
+            }
+
+        });
+        return false
+    });*@
 
 </script>

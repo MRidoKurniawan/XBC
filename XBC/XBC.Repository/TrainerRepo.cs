@@ -72,18 +72,21 @@ namespace XBC.Repository
                         db.t_trainer.Add(tra);
                         db.SaveChanges();
 
-                        var json = new JavaScriptSerializer().Serialize(tra);
-
+                        object data = new
+                        {
+                            tra.id,
+                            tra.name,
+                            tra.notes
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
-
                         log.created_by = 1;
                         log.created_on = DateTime.Now;
-
                         db.t_audit_log.Add(log);
-
                         db.SaveChanges();
+
                         entity.id = tra.id;
                         result.Entity = entity;
                     }
@@ -96,21 +99,31 @@ namespace XBC.Repository
 
                         if (tra != null)
                         {
-                            var json = new JavaScriptSerializer().Serialize(tra);
+                            object data = new
+                            {
+                                tra.id,
+                                tra.name,
+                                tra.notes
+                            };
+                            var json = new JavaScriptSerializer().Serialize(data);
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
-
                             log.created_by = 1;
                             log.created_on = DateTime.Now;
 
                             tra.name = entity.name;
                             tra.notes = entity.notes;
-
                             tra.modified_by = 1;
                             tra.modified_on = DateTime.Now;
 
-                            var json2 = new JavaScriptSerializer().Serialize(tra);
+                            object data2 = new
+                            {
+                                tra.id,
+                                tra.name,
+                                tra.notes
+                            };
+                            var json2 = new JavaScriptSerializer().Serialize(data2);
                             log.json_after = json2;
                             db.t_audit_log.Add(log);
                             db.SaveChanges();
@@ -146,7 +159,14 @@ namespace XBC.Repository
 
                     if (tra != null)
                     {
-                        var json = new JavaScriptSerializer().Serialize(tra);
+                        object data = new
+                        {
+                            tra.id,
+                            tra.name,
+                            tra.notes,
+                            tra.is_delete
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
@@ -157,7 +177,14 @@ namespace XBC.Repository
                         tra.deleted_by = 1;
                         tra.deleted_on = DateTime.Now;
 
-                        var json2 = new JavaScriptSerializer().Serialize(tra);
+                        object data2 = new
+                        {
+                            tra.id,
+                            tra.name,
+                            tra.notes,
+                            tra.is_delete
+                        };
+                        var json2 = new JavaScriptSerializer().Serialize(data2);
                         log.json_after = json2;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -186,14 +213,48 @@ namespace XBC.Repository
             {
                 result = (from tra in db.t_trainer
                           where tra.name.Contains(search) && tra.is_delete == false
-                             select new TrainerViewModel
-                             {
-                                 id = tra.id,
-                                 name = tra.name,
-                                 notes = tra.notes
-                             }).ToList();
+                          select new TrainerViewModel
+                          {
+                              id = tra.id,
+                              name = tra.name,
+                              notes = tra.notes
+                          }).ToList();
             }
             return result == null ? new List<TrainerViewModel>() : result;
+        }
+
+
+        // Get By Technology (Punya Rido)
+        public static List<TrainerViewModel> ByTechnology(long TcId)
+        {
+            List<TrainerViewModel> result = new List<TrainerViewModel>();
+            using (var db = new XBC_Context())
+            {
+                var ListTerainer = db.t_technology_trainer.
+                    Where(o => o.technology_id == TcId).ToList();
+
+                if (ListTerainer != null)
+                {
+                    foreach (var t in ListTerainer)
+                    {
+                        result = (
+                            from tct in db.t_technology_trainer
+                            join tr in db.t_trainer on tct.trainer_id equals tr.id
+                            where tr.is_delete == false && tct.technology_id == TcId
+                            select new TrainerViewModel
+                            {
+                                id = tr.id,
+                                name = tr.name
+                            }).ToList();
+                    }
+                }
+                else
+                {
+                    result = new List<TrainerViewModel>();
+                }
+            }
+
+            return result;
         }
     }
 }

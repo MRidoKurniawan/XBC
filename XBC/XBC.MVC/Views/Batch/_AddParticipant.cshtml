@@ -1,0 +1,52 @@
+﻿@model XBC.ViewModel.ClazzViewModel
+
+
+@using (Html.BeginForm("AddParticipant", "Batch", FormMethod.Post, new { id = "form-create", name = "form-create", enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <input type="hidden" name="batchId" value="@ViewBag.IdBatch" />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.biodataId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.biodataId, (IEnumerable<SelectListItem>)ViewBag.BiodataList, "- Choose Biodata -", new { @class = "form-control" })
+                @*@Html.EditorFor(model => model.biodataId, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.biodataId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+                <input type="submit" value="SAVE" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $("#form-create").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Save successful\nName: " + result.entity.name);
+                    $(".modal").modal("hide");
+                    GetList();
+                }
+                else {
+                    alert("Error\nName: " + result.message);
+                }
+            }
+        })
+        return false;
+    });
+</script>

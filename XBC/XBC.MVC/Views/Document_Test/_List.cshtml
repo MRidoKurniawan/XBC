@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<XBC.ViewModel.Document_TestViewModel>
 
-
 <table class="table">
     <tr>
         <th>
@@ -37,12 +36,14 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
                         <a class="dropdown-item btn-copydocument" href="#" data-id="@item.id"><div class="col-lg-12">Copy Document</div></a>
-                        <a class="dropdown-item btn-viewtest" href="#" data-id="@item.id"><div class="col-lg-12">View Test</div></a>
+                        <a class="dropdown-item btn-viewtest" href="#" data-id="@item.id" ><div class="col-lg-12">View Test</div></a>
                         <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
                     </div>
                 </div>
             </td>
         </tr>
+        @Html.HiddenFor(modelItem => item.test_type_id)
+
     }
 
 </table>
@@ -60,6 +61,7 @@
     });
 
     $(".btn-edit").click(function () {
+        $(".modal2").hide();
         $.ajax({
             url: '@Url.Action("Edit", "Document_Test")',
             type: 'get',
@@ -67,7 +69,7 @@
             success: function (result) {
                 $(".modal-title").html("Edit Category");
                 $(".modal-body").html(result);
-                $('.modal').modal('show');
+                $('#myModal').modal('show');
             }
         });
     });
@@ -75,6 +77,34 @@
     $(".btn-delete").click(function () {
         $.ajax({
             url: '@Url.Action("Delete", "Document_Test")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete Category");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-copydocument").click(function () {
+        //var data_id = $(this).attr("data-id").split("/");
+        //var data = "id=" + data_id[0] + "&id2=" + data_id[1];
+        $.ajax({
+            url: '@Url.Action("CopyDocument", "Document_Test")',
+            type: 'get',
+            data: { id: $(this).attr("data-id")} ,
+            success: function (result) {
+                $(".modal-title").html("Copy Document");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+
+    $(".btn-viewtest").click(function () {
+        $.ajax({
+            url: '@Url.Action("ViewTest", "Document_Test")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {

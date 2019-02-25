@@ -1,0 +1,62 @@
+﻿@model XBC.ViewModel.MonitoringViewModel
+
+@using (Html.BeginForm("Placement", "Monitoring", FormMethod.Post, new { id = "form-placement", name = "form-placement" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.placement_date, new { htmlAttributes = new { @class = "form-control", @type = "date", @placeholder = "Placement Date" } })
+                @Html.ValidationMessageFor(model => model.placement_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.placement_at, new { htmlAttributes = new { @class = "form-control", @placeholder = "Placement At" } })
+                @Html.ValidationMessageFor(model => model.placement_at, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.notes, new { htmlAttributes = new { @class = "form-control", @placeholder = "Notes" } })
+                @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $("#form-placement").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Save successful!\nId: " + result.entity.id + "\nName: " + result.entity.name);
+                    $(".modal").modal("hide");
+                    GetList();
+                } else {
+                    alert("Error!\n" + result.message);
+                }
+            }
+        });
+        return false;
+    });
+</script>

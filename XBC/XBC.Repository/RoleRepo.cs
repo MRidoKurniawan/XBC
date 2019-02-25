@@ -203,6 +203,7 @@ namespace XBC.Repository
                               code = rol.code,
                               name = rol.name
                           }).ToList();
+
                 if (result == null)
                 {
                     result = new List<RoleViewModel>();
