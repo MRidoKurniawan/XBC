@@ -140,7 +140,7 @@ namespace XBC.Repository
                     else
                     {
                         result.Success = false;
-                        result.ErrorMessage = " Test Type not found";
+                        result.ErrorMessage = "Test Type not found";
                     }
                 }
             }

@@ -1,0 +1,31 @@
+﻿@model XBC.ViewModel.TrainerViewModel
+
+<tr class="baru">
+    <td>
+        @Html.HiddenFor(model => model.id)
+        @Html.DisplayFor(model => model.name)
+    </td>
+    <td>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuTrainer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-align-justify"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuTrainer">
+                <a class="dropdown-item btn-delete" href="#" data-id="@Model.id"><div class="col-lg-12">Delete</div></a>
+            </div>
+        </div>
+    </td>
+</tr>
+<script type="text/javascript">
+    $(".btn-delete").click(function () {
+        $.ajax({
+            url: '@Url.Action("DeleteTrainer", "Technology")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".body2").html(result);
+                $('.modal2').show();
+            }
+        });
+    });
+</script>

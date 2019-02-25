@@ -136,5 +136,15 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult CekEmail(string email="")
+        {
+            bool hasil = AssignmentRepo.cekEmail(email) == null;
+            return Json(new
+            {
+                success = hasil
+                
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

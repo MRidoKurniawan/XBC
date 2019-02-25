@@ -1,0 +1,138 @@
+﻿@model IEnumerable<XBC.ViewModel.MenuAccessViewModel>
+
+
+@using (Html.BeginForm("Create", "MenuAccess", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-4">
+            <select class="form-control" name="role_id" id="role_id"></select>
+        </div>
+
+        <div class="col-lg-4">
+            <select class="form-control" name="menu_id" id="menu_id"></select>
+        </div>
+
+        <div class="form-actions no-color col-md-offset-6 col-md-6">
+            <button type="button" class="btn btn-danger btn-clear" data-dismiss="modal">Cancel</button>
+            <input type="submit" value="Save" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <select class="form-control" name="role_id" id="role_id1"></select>
+    </div>
+    <div class="col-lg-1">
+        <button type="button" id="btn-search" class="btn btn-success">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.role_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.menu_name)
+        </th>
+        <th>#</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.role_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.menu_name)
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetList1();
+    });
+    function GetList1() {
+        $.ajax({
+            url: '@Url.Action("ListRole", "MenuAccess")',
+            type: 'get',
+            success: function (result) {
+                $("#role_id").html(result);
+                $("#role_id1").html(result);
+            }
+        });
+        $.ajax({
+            url: '@Url.Action("ListMenu", "MenuAccess")',
+            type: 'get',
+            success: function (result) {
+                $("#menu_id").html(result);
+            }
+        });
+    }
+    $("#form-create").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Save Successful!\nName: " + result.entity.name);
+                    $(".modal").modal("hide");
+                    GetList();
+                }
+                else {
+                    alert("Error!\nName: " + result.message);
+                }
+            }
+        });
+        return false;
+    });
+
+    $("#btn-search").click(function () {
+        $.ajax({
+            url: '@Url.Action("Search", "MenuAccess")',
+            type: 'get',
+            data: { id: $("#role_id1").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+
+    $(".btn-clear").click(function () {
+        console.log("1");
+        $("#role_id").find('option:first').attr('selected', 'selected');;
+        $("#menu_id option:selected").prop("selected", false);
+    });
+    $(".btn-delete").click(function () {
+        console.log($(this).attr("data-id"))
+        $.ajax({
+            url: '@Url.Action("Delete", "MenuAccess")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                $(".modal-title").html("Delete");
+                $(".modal-body").html(result);
+                $('.modal').modal('show');
+            }
+        });
+    });
+</script>
