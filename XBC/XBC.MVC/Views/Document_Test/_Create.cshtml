@@ -99,5 +99,34 @@
         return false
     });
 
+    $("#test_type_id").change(function () {
+        //var id = parseFloat($(".modal-body #test_type_id").val())
+        $.ajax({
+            url: '@Url.Action("NewVersion", "Document_Test")',
+            type: 'get',
+            data: { id: $(".modal-body #test_type_id").val() },
+            success: function (result) {
+                $(".modal-body #version").val(result.generate);
+
+            }
+
+        });
+        return false
+    });
+
+    @*$("#test_type_id").keyup(function () {
+         var id = parseFloat($(".modal-body #test_type_id").val())
+        $.ajax({
+            url: '@Url.Action("NewVersion", "Document_Test")',
+            type: 'get',
+            data: { id},
+            success: function (result) {
+                $(".modal-body #test_type_id").val(result.generate);
+
+            }
+
+        });
+        return false
+    });*@
 
 </script>

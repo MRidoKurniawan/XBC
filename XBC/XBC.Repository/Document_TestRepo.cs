@@ -189,12 +189,13 @@ namespace XBC.Repository
             try
             {
                 //entity.TestType = GetTestType(id);
-                entity.version = GetNewVersion(entity.test_type_id);
+                //entity.version = GetNewVersion(entity.test_type_id);
                 if (entity.token == null)
                     entity.token = RandomString();
                 using (var db = new XBC_Context())
                 {
                     //create
+
                     if (entity.id == 0)
                     {
                         t_document_test doct = new t_document_test();
@@ -272,6 +273,7 @@ namespace XBC.Repository
                                 doct.version
                             };
 
+
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
@@ -294,6 +296,15 @@ namespace XBC.Repository
                             //db.t_audit_log.Add(log);
 
                             result.Entity = entity;
+                            //string b = data2.ToString();
+                            // string a = data.ToString();
+                            // b = b + a;
+                            // object data3 = new
+                            // {
+                            //     doct.created_by,
+                            //     b
+                            // };
+                            // json = Serial.Serialize(b);
                         }
 
                         else
@@ -313,7 +324,7 @@ namespace XBC.Repository
             return result;
         }
 
-        private static int GetNewVersion(long id)
+        public static int GetNewVersion(long id)
         {
             int newref1;
             long newRef = id;
@@ -339,7 +350,7 @@ namespace XBC.Repository
             return newref1;
         }
 
-        private static string GetTestType(long id)
+        public static string GetTestType(long id)
         {
             string newref1;
             long newRef = id;
@@ -515,6 +526,38 @@ namespace XBC.Repository
             return result;
         }
 
-
+        public static List<Document_Test_DetailViewModel> ViewTest(long id)
+        {
+            List<Document_Test_DetailViewModel> result = new List<Document_Test_DetailViewModel>();
+            using (var db = new XBC_Context())
+            {
+                result = (from dtd in db.t_document_test_detail
+                          join dt in db.t_document_test
+                          on dtd.document_test_id equals dt.id
+                          join q in db.t_question
+                          on dtd.question_id equals q.id
+                          where dtd.document_test_id == id
+                          select new Document_Test_DetailViewModel
+                          {
+                              id = dtd.id,
+                              document_test_id = dt.id,
+                              question_id = q.id,
+                              question = q.question,
+                              questionType = q.question_type,
+                              imageUrl = q.image_url,
+                              imageA = q.image_a,
+                              imageB = q.image_b,
+                              imageC = q.image_c,
+                              imageD = q.image_d,
+                              imageE = q.image_e,
+                              optionA = q.option_a,
+                              optionB = q.option_b,
+                              optionC = q.option_c,
+                              optionD = q.option_d,
+                              optionE = q.option_e
+                          }).ToList();
+            }
+            return result == null ? new List<Document_Test_DetailViewModel>() : result;
+        }
     }
 }
