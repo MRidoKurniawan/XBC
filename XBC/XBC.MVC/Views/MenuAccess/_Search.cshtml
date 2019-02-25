@@ -1,56 +1,7 @@
 ﻿@model IEnumerable<XBC.ViewModel.MenuAccessViewModel>
 
-@*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.menu_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.role_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.created_by)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.created_on)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.role_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.menu_name)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.menu_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.role_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.created_by)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.created_on)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.role_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.menu_name)
-        </td>
-        <td>
-        </td>
-    </tr>
-}
-</table>*@
-
-
-
+@using (Html.BeginForm("Create", "MenuAccess", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -68,9 +19,10 @@
         </div>
     </div>
 }
+
 <div class="row">
     <div class="col-lg-4">
-        <input type="text" id="txt-search" class="form-control" placeholder="Search Role" />
+        <select class="form-control" name="role_id" id="role_id1"></select>
     </div>
     <div class="col-lg-1">
         <button type="button" id="btn-search" class="btn btn-success">
@@ -124,6 +76,7 @@
             type: 'get',
             success: function (result) {
                 $("#role_id").html(result);
+                $("#role_id1").html(result);
             }
         });
         $.ajax({
@@ -152,6 +105,18 @@
         });
         return false;
     });
+
+    $("#btn-search").click(function () {
+        $.ajax({
+            url: '@Url.Action("Search", "MenuAccess")',
+            type: 'get',
+            data: { id: $("#role_id1").val() },
+            success: function (result) {
+                $("#data-list").html(result);
+            }
+        });
+    });
+
     $(".btn-clear").click(function () {
         console.log("1");
         $("#role_id").find('option:first').attr('selected', 'selected');;
@@ -162,7 +127,7 @@
         $.ajax({
             url: '@Url.Action("Delete", "MenuAccess")',
             type: 'get',
-            data: { id : $(this).attr("data-id") },
+            data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-title").html("Delete");
                 $(".modal-body").html(result);
