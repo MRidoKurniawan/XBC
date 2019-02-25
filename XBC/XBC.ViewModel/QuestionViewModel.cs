@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace XBC.ViewModel
 {
@@ -50,6 +51,6 @@ namespace XBC.ViewModel
         [StringLength(255)]
         public string imageE { get; set; }
 
-        //public HttpPostedFileBase img { get; set; }
+        public HttpPostedFileBase imgUrl { get; set; }
     }
 }

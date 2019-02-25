@@ -90,9 +90,15 @@ namespace XBC.Repository
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
-
+                        object data = new
+                        {
+                            qs.id,
+                            qs.question,
+                            qs.question_type,
+                            qs.image_url
+                        };
                         entity.id = qs.id;
-                        result.Entity = entity;
+                        result.Entity = data;
                     }
                     else // Edit
                     {
