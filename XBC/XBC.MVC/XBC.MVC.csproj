@@ -372,9 +372,11 @@
     <Content Include="Views\Assignment\_Hold.cshtml" />
     <Content Include="Views\Assignment\_Done.cshtml" />
     <Content Include="Views\Batch\_AddParticipant.cshtml" />
+    <Content Include="Views\Batch\_SetUpTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
