@@ -51,6 +51,7 @@ namespace XBC.Repository
                         db.t_technology.Add(tec);
                         db.SaveChanges();
                         entity.id = tec.id;
+
                         foreach (var item in entity.Details)
                         {
                             t_technology_trainer ttr = new t_technology_trainer();
@@ -64,9 +65,7 @@ namespace XBC.Repository
                             {
                                 ttr.id,
                                 ttr.trainer_id,
-                                ttr.technology_id,
-                                ttr.created_by,
-                                ttr.created_on
+                                ttr.technology_id
                             };
                             var jsonttr = new JavaScriptSerializer().Serialize(datattr);
 
@@ -77,17 +76,14 @@ namespace XBC.Repository
                             logttr.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(logttr);
+                            db.SaveChanges();
                         }
-
-                        db.SaveChanges();
 
                         object data = new
                         {
                             tec.id,
                             tec.name,
-                            tec.notes,
-                            tec.created_by,
-                            tec.created_on
+                            tec.notes
                         };
                         var json = new JavaScriptSerializer().Serialize(data);
 
@@ -114,9 +110,7 @@ namespace XBC.Repository
                             {
                                 tec.id,
                                 tec.name,
-                                tec.notes,
-                                tec.modified_by,
-                                tec.modified_on
+                                tec.notes
                             };
                             var json = new JavaScriptSerializer().Serialize(data);
 
@@ -147,9 +141,7 @@ namespace XBC.Repository
                                     {
                                         ttr.id,
                                         ttr.trainer_id,
-                                        ttr.technology_id,
-                                        ttr.created_by,
-                                        ttr.created_on
+                                        ttr.technology_id
                                     };
                                     var jsonttr = new JavaScriptSerializer().Serialize(datattr);
 
@@ -162,14 +154,12 @@ namespace XBC.Repository
                                     db.t_audit_log.Add(logttr);
                                 }
                             }
-                            
+
                             object data2 = new
                             {
                                 tec.id,
                                 tec.name,
-                                tec.notes,
-                                tec.modified_by,
-                                tec.modified_on
+                                tec.notes
                             };
                             var json2 = new JavaScriptSerializer().Serialize(data2);
                             log.json_after = json2;
@@ -212,8 +202,7 @@ namespace XBC.Repository
                             tec.id,
                             tec.name,
                             tec.notes,
-                            tec.deleted_by,
-                            tec.deleted_on
+                            tec.is_delete
                         };
                         var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
@@ -231,8 +220,7 @@ namespace XBC.Repository
                             tec.id,
                             tec.name,
                             tec.notes,
-                            tec.deleted_by,
-                            tec.deleted_on
+                            tec.is_delete
                         };
                         var json2 = new JavaScriptSerializer().Serialize(data2);
                         log.json_after = json2;

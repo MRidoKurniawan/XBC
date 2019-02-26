@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace XBC.ViewModel
 {
-    public class QuestionViewModel
+    public partial class QuestionViewModel 
     {
         public long id { get; set; }
 
@@ -50,6 +51,12 @@ namespace XBC.ViewModel
         [StringLength(255)]
         public string imageE { get; set; }
 
-        //public HttpPostedFileBase img { get; set; }
+        public HttpPostedFileBase imgurl { get; set; }
+        public HttpPostedFileBase imga { get; set; }
+        public HttpPostedFileBase imgb { get; set; }
+        public HttpPostedFileBase imgc { get; set; }
+        public HttpPostedFileBase imgd { get; set; }
+        public HttpPostedFileBase imge { get; set; }
+
     }
 }

@@ -23,8 +23,9 @@ namespace XBC.MVC.Controllers
                 Session["Username"] = data.username;
                 Session["id"] = data.id;
                 Session["roleid"] = data.role_id;
-                return RedirectToAction("Index", "user");
-            }else
+                return RedirectToAction("Beranda", "Home");
+            }
+            else
             {
                 return View();
             }
@@ -77,6 +78,22 @@ namespace XBC.MVC.Controllers
                 message = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult LogOut()
+        {
+
+            Session["Username"] = "";
+            Session["id"] = "";
+            Session["roleid"] = "";
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Beranda()
+        {
+
+            return View("Beranda");
 
         }
 

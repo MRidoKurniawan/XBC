@@ -1,5 +1,9 @@
 ﻿@model XBC.ViewModel.TechnologyTrainerViewModel
 
+@*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")*@
+
+
 @using (Html.BeginForm("addlistTrainer", "Technology", FormMethod.Post, new { id = "form-addtrainer", name = "form-addtrainer" }))
 {
     @Html.AntiForgeryToken()

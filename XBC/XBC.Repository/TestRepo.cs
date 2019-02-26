@@ -92,7 +92,13 @@ namespace XBC.Repository
                         t_test ts = db.t_test.Where(o => o.id == entity.id).FirstOrDefault();
                         if (ts != null)
                         {
-                            var jsonBefore = new JavaScriptSerializer().Serialize(ts); // Mengambil Json Before
+                            var Serial = new JavaScriptSerializer();
+                            object dataBefore = new //Mengambil Data Before for Log
+                            {
+                                ts.name,
+                                ts.is_bootcamp_test,
+                                ts.notes                              
+                            };
 
                             ts.name = entity.name;
                             ts.is_bootcamp_test = entity.isBootcampTest;
@@ -103,16 +109,22 @@ namespace XBC.Repository
                             db.SaveChanges();
 
                             // Audit Log Modify
-                            var jsonAfter = new JavaScriptSerializer().Serialize(ts);
+                            object dataAfter = new
+                            {
+                                ts.name,
+                                ts.is_bootcamp_test,
+                                ts.notes
+                            };
+
                             t_audit_log log = new t_audit_log();
                             log.type = "MODIFY";
-                            log.json_before = jsonBefore;
-                            log.json_after = jsonAfter;
+                            log.json_before = Serial.Serialize(dataBefore);
+                            log.json_after = Serial.Serialize(dataAfter);
                             log.created_by = 1;
                             log.created_on = DateTime.Now;
                             db.t_audit_log.Add(log);
-
                             db.SaveChanges();
+
                             result.Entity = entity;
                         }
                         else
@@ -144,16 +156,33 @@ namespace XBC.Repository
 
                     if (ts != null)
                     {
+                        var Serial = new JavaScriptSerializer();
+                        object dataBefore = new //Mengambil Data Before for Log
+                        {
+                            ts.name,
+                            ts.is_bootcamp_test,
+                            ts.notes,
+                            ts.is_delete
+                        };
+
                         ts.deleted_by = 1;
                         ts.deleted_on = DateTime.Now;
                         ts.is_delete = true;
                         db.SaveChanges();
 
-                        // Audit Log Delete
-                        var json = new JavaScriptSerializer().Serialize(ts);
+                        // Audit Log Modify
+                        object dataAfter = new
+                        {
+                            ts.name,
+                            ts.is_bootcamp_test,
+                            ts.notes,
+                            ts.is_delete
+                        };
+
                         t_audit_log log = new t_audit_log();
-                        log.type = "DELETE";
-                        log.json_delete = json;
+                        log.type = "MODIFY";
+                        log.json_before = Serial.Serialize(dataBefore);
+                        log.json_after = Serial.Serialize(dataAfter);
                         log.created_by = 1;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
