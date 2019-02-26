@@ -43,7 +43,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save successfull!\nName:" + result.entity.name);
+                    alert("Data Successfully Submitted");
                     $(".modal").modal("hide");
                     GetList();
                 }

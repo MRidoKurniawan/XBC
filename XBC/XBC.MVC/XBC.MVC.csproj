@@ -186,7 +186,6 @@
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
-    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\TestTypeController.cs" />
     <Compile Include="Controllers\TestimonyController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
@@ -269,12 +268,6 @@
     <Content Include="Views\Office\_Edit.cshtml" />
     <Content Include="Views\Office\_Delete.cshtml" />
     <Content Include="Views\Office\_List.cshtml" />
-    <Content Include="Views\Room\Index.cshtml" />
-    <Content Include="Views\Room\_ListRoom.cshtml" />
-    <Content Include="Views\Room\_Create.cshtml" />
-    <Content Include="Views\Room\_Edit.cshtml" />
-    <Content Include="Views\Room\_Delete.cshtml" />
-    <Content Include="Views\Office\_Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_List.cshtml" />
     <Content Include="Views\User\_Create.cshtml" />
@@ -416,6 +409,14 @@
     <Content Include="Views\Technology\_DeleteTrainer.cshtml" />
     <Content Include="Views\Home\Beranda.cshtml" />
     <Content Include="Views\Batch\_SetUpTest.cshtml" />
+    <Content Include="Views\Class\_Delete.cshtml" />
+    <Content Include="Views\Office\_Create.cshtml" />
+    <Content Include="Views\Office\_CreateRoom.cshtml" />
+    <Content Include="Views\Office\_ListByOffice.cshtml" />
+    <Content Include="Views\Office\_AddListRoom.cshtml" />
+    <Content Include="Views\Office\_EditRoom.cshtml" />
+    <Content Include="Views\Office\_DeleteRoom.cshtml" />
+    <Content Include="Views\Office\_AddRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

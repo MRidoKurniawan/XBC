@@ -60,7 +60,7 @@ namespace XBC.Repository
             return result == null ? result = new QuestionViewModel() : result;
         }
 
-        // Update (Edit & Create)
+        // Update (Create)
         public static ResponseResult Update(QuestionViewModel entity)
         {
             ResponseResult result = new ResponseResult();
@@ -102,9 +102,6 @@ namespace XBC.Repository
                         entity.id = qs.id;
                         result.Entity = data;
                     }
-                    else // Edit
-                    {
-                    }
                 }
             }
             catch (Exception ex)
@@ -127,7 +124,20 @@ namespace XBC.Repository
                     t_question qs = db.t_question.Where(o => o.id == entity.id).FirstOrDefault();
                     if (qs != null)
                     {
-                        var jsonBefore = new JavaScriptSerializer().Serialize(qs); // Mengambil Json Before
+                        var Serial = new JavaScriptSerializer();
+                        object dataBefore = new //Mengambil Data Before for Log
+                        {
+                            qs.option_a,
+                            qs.option_b,
+                            qs.option_c,
+                            qs.option_d,
+                            qs.option_e,
+                            qs.image_a,
+                            qs.image_b,
+                            qs.image_c,
+                            qs.image_d,
+                            qs.image_e
+                        };
 
                         qs.option_a = entity.optionA;
                         qs.option_b = entity.optionB;
@@ -145,11 +155,24 @@ namespace XBC.Repository
                         db.SaveChanges();
 
                         // Audit Log Modify
-                        var jsonAfter = new JavaScriptSerializer().Serialize(qs);
+                        object dataAfter = new
+                        {
+                            qs.option_a,
+                            qs.option_b,
+                            qs.option_c,
+                            qs.option_d,
+                            qs.option_e,
+                            qs.image_a,
+                            qs.image_b,
+                            qs.image_c,
+                            qs.image_d,
+                            qs.image_e
+                        };
+
                         t_audit_log log = new t_audit_log();
                         log.type = "MODIFY";
-                        log.json_before = jsonBefore;
-                        log.json_after = jsonAfter;
+                        log.json_before = Serial.Serialize(dataBefore);
+                        log.json_after = Serial.Serialize(dataAfter);
                         log.created_by = 1;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
@@ -197,7 +220,21 @@ namespace XBC.Repository
                     t_question qs = db.t_question.Where(o => o.id == entity.id).FirstOrDefault();
                     if (qs != null)
                     {
-                        var jsonBefore = new JavaScriptSerializer().Serialize(qs); // Mengambil Json Before
+                        var Serial = new JavaScriptSerializer();
+                        object dataBefore = new //Mengambil Data Before for Log
+                        {
+                            qs.option_a,
+                            qs.option_b,
+                            qs.option_c,
+                            qs.option_d,
+                            qs.option_e,
+                            qs.image_a,
+                            qs.image_b,
+                            qs.image_c,
+                            qs.image_d,
+                            qs.image_e,
+                            qs.is_deleted
+                        };
 
                         qs.deleted_by = 1;
                         qs.deleted_on = DateTime.Now;
@@ -205,11 +242,25 @@ namespace XBC.Repository
                         db.SaveChanges();
 
                         // Audit Log Modify
-                        var jsonAfter = new JavaScriptSerializer().Serialize(qs);
+                        object dataAfter = new
+                        {
+                            qs.option_a,
+                            qs.option_b,
+                            qs.option_c,
+                            qs.option_d,
+                            qs.option_e,
+                            qs.image_a,
+                            qs.image_b,
+                            qs.image_c,
+                            qs.image_d,
+                            qs.image_e,
+                            qs.is_deleted
+                        };
+
                         t_audit_log log = new t_audit_log();
                         log.type = "MODIFY";
-                        log.json_before = jsonBefore;
-                        log.json_after = jsonAfter;
+                        log.json_before = Serial.Serialize(dataBefore);
+                        log.json_after = Serial.Serialize(dataAfter);
                         log.created_by = 1;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
