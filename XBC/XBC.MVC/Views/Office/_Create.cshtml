@@ -1,13 +1,11 @@
 ﻿@model XBC.ViewModel.OfficeViewModel
 
-<table class="table">
 
-@using (Html.BeginForm("Create", "Office", FormMethod.Post, new { id = "form-create", name = "form-create" })) 
+@using (Html.BeginForm("Create", "Office", FormMethod.Post, new { id = "form-create", name = "form-create" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>OfficeViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -17,7 +15,6 @@
                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -49,13 +46,7 @@
                 @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.contact, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.contact, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -63,26 +54,50 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
+
     </div>
+    <div>
+        <button id="btn-create-room" type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true">Room</span>
+        </button>
+    </div>
+
 }
-</table>
 
-
-
-   
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
     $("#form-create").submit(function () {
-        console.log("1");
+        var details = [];
+        $("#room").find("tbody").find("tr").each(function (item) {
+            var detail = {
+                code: $(this).find("#code").val(),
+                name: $(this).find("#name").val(),
+                capacity: $(this).find("#capacity").val(),
+                any_projector: $(this).find("#any_projector").val(),
+                notes: $(this).find("notes").val()
+            };
+            details.push(detail);
+        })
+        data = { name: $("#name").val(), phone: $("#phone").val(), email: $("#email").val(), address: $("#address").val(), notes: $("#notes").val(), details: details }
+
         $.ajax({
             url: this.action,
             type: this.method,
-            data: $(this).serialize(),
+            data: { model: data },
             success: function (result) {
                 if (result.success) {
-                    alert("Save successfull!\nName:" + result.entity.name);
+                    alert("Data Successfully Submitted!");
                     $(".modal").modal("hide");
                     GetList();
+                    function GetListRoom() {
+                        $.ajax({
+                            url: '@Url.Action("ListByOffice", "Office")',
+                            type: 'get',
+                            success: function (result) {
+                                $("#room").html(result);
+                            }
+                        })
+                    };
                 }
                 else {
                     alert("Error!\n" + result.message);
@@ -90,5 +105,17 @@
             }
         });
         return false;
+    });
+    $("#btn-create-room").click(function () {
+        $.ajax({
+            url: '@Url.Action("CreateRoom","Office")',
+            type: 'get',
+            success: function (result) {
+                $(".body2").html(result);
+                $(".modal2").show();
+
+            }
+        })
+
     });
 </script>

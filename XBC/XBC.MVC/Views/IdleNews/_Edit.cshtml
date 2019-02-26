@@ -1,33 +1,34 @@
 ﻿@model XBC.ViewModel.IdleNewsViewModel
-
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Edit", "IdleNews", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
-    @Html.AntiForgeryToken()    
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.categoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.categoryId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-12">
                 @Html.DropDownListFor(model => model.categoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryList, "Select Category", new { @class = "form-control" })
-                @*@Html.EditorFor(model => model.categoryId, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.categoryId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.content, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-12">
                 <textarea class="form-control" name="content" style="height:18rem; resize:none;" placeholder="content">@Model.content</textarea>
                 @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
             </div>

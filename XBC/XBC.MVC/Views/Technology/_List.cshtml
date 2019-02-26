@@ -14,7 +14,7 @@
     </button>
 </div>
 <div class="panel-body">
-    <table class="table table-bordered table-striped" style="background-color:bisque">
+    <table class="table table-bordered table-striped table-hover" style="background-color:bisque">
         <thead>
             <tr>
                 <th>
@@ -55,13 +55,13 @@
 
 <script>
     $("#btn-create-new").click(function () {
+        $(".modal2").hide();
         $.ajax({
             url: '@Url.Action("Create", "Technology")',
             type: 'get',
             success: function (result) {
-
                 $(".modal-body").html(result);
-                $(".modal").modal('show');
+                $(".modal").modal("show");
             }
         });
     });

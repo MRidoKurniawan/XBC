@@ -1,0 +1,22 @@
+﻿@model IEnumerable<XBC.ViewModel.TrainerViewModel>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.name)
+            </td>
+            <td>#</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

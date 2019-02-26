@@ -1,0 +1,46 @@
+﻿@model IEnumerable<XBC.ViewModel.Document_TestViewModel>
+
+<table class="table" border="0">
+
+    @{ 
+        ViewBag.nomer = 1;
+    }
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                FEEDBACK @ViewBag.nomer
+            <td>
+                @*<submit type="button" class="btn btn-default btn-open" data-id="@item.id" title="Delete">*@
+                <a href="feedback/Add/@item.id" class="btn btn-default">
+                    OPEN
+                </a>
+                @*</submit>*@
+            </td>
+        </tr>
+            ViewBag.nomer++;
+
+    }
+
+</table>
+
+<script type="text/javascript">
+
+    @*$(".btn-open").click(function () {
+        console.log($(this).attr("data-id"))
+        var id = $(this).attr("data-id");
+        $.ajax({
+            url: '@Url.Action("Add", "Feedback")',
+            type: 'get',
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                window.location.href = "Add/" + id;
+                $("body").html(result);
+
+            }
+        });
+    });*@
+
+
+</script>

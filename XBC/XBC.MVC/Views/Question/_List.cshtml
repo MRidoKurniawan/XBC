@@ -38,6 +38,14 @@
                     @Html.DisplayFor(modelItem => item.question)
                 </td>
                 <td>
+                    @if (item.questionType == "ES")
+                    {
+                        item.questionType = "Essay";
+                    }
+                    else if (item.questionType == "MC")
+                    {
+                        item.questionType = "Multiple Choice";
+                    }
                     @Html.DisplayFor(modelItem => item.questionType)
                 </td>
                 <td>
@@ -87,7 +95,7 @@
 
     var typ;
     $(".btn-action").click(function () {        
-        if ($(this).attr("data-id") == "ES") {
+        if ($(this).attr("data-id") == "Essay") {
             $(".btn-set").hide();
             typ = "Essay";
         } else {
@@ -95,19 +103,6 @@
             typ = "Multiple Choice"
         }
     });
-
-    @*$(".btn-edit").click(function () {
-        $.ajax({
-            url: '@Url.Action("Edit", "Question")',
-            type: 'get',
-            data: { id: $(this).attr("data-id") },
-            success: function (result) {
-                $(".modal-title").html("Question");
-                $(".modal-body").html(result);
-                $('.modal').modal('show');
-            }
-        });
-    });*@
 
     $(".btn-view").click(function () {
 

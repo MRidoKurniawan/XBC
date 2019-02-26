@@ -25,6 +25,8 @@ namespace XBC.Repository
                               id = ma.id,
                               role_id = ma.role_id,
                               menu_id = ma.menu_id,
+                              menu_name = m.title,
+                              role_name = r.name
                           }).ToList();
                 if (result == null)
                     result = new List<MenuAccessViewModel>();
@@ -44,6 +46,8 @@ namespace XBC.Repository
                               id = ma.id,
                               role_id = ma.role_id,
                               menu_id = ma.menu_id,
+                              menu_name = m.title,
+                              role_name = r.name
                           }).FirstOrDefault();
                 if (result == null)
                     result = new MenuAccessViewModel();
@@ -55,21 +59,41 @@ namespace XBC.Repository
             List<MenuAccessViewModel> result = new List<MenuAccessViewModel>();
             using (var db = new XBC_Context())
             {
-                result = (from ma in db.t_menu_access
-                          join m in db.t_menu on ma.menu_id equals m.id
-                          join r in db.t_role on ma.role_id equals r.id
-                          where ma.role_id == id
-                          select new MenuAccessViewModel
-                          {
-                              id = ma.id,
-                              role_id = ma.role_id,
-                              menu_id = ma.menu_id,
-                          }).ToList();
+                if (id > 0)
+                {
+                    result = (from ma in db.t_menu_access
+                              join m in db.t_menu on ma.menu_id equals m.id
+                              join r in db.t_role on ma.role_id equals r.id
+                              where ma.role_id == id
+                              select new MenuAccessViewModel
+                              {
+                                  id = ma.id,
+                                  role_id = ma.role_id,
+                                  menu_id = ma.menu_id,
+                                  menu_name = m.title,
+                                  role_name = r.name
+                              }).ToList();
+                }
+                else
+                {
+                    result = (from ma in db.t_menu_access
+                              join m in db.t_menu on ma.menu_id equals m.id
+                              join r in db.t_role on ma.role_id equals r.id
+                              select new MenuAccessViewModel
+                              {
+                                  id = ma.id,
+                                  role_id = ma.role_id,
+                                  menu_id = ma.menu_id,
+                                  menu_name = m.title,
+                                  role_name = r.name
+                              }).ToList();
+                }
                 if (result == null)
                     result = new List<MenuAccessViewModel>();
             }
             return result;
         }
+
         public static ResponseResult Create(MenuAccessViewModel entity)
         {
             ResponseResult result = new ResponseResult();
@@ -79,7 +103,7 @@ namespace XBC.Repository
                 ma.role_id = entity.role_id;
                 ma.menu_id = entity.menu_id;
 
-                ma.created_by = 01;
+                ma.created_by = entity.UserId;
                 ma.created_on = DateTime.Now;
 
                 db.t_menu_access.Add(ma);
@@ -90,7 +114,7 @@ namespace XBC.Repository
                 log.type = "Insert";
                 log.json_insert = json;
 
-                log.created_by = 1;
+                log.created_by = entity.UserId;
                 log.created_on = DateTime.Now;
                 db.t_audit_log.Add(log);
 
@@ -107,14 +131,21 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 t_menu_access ma = db.t_menu_access.Where(o => o.id == entity.id).FirstOrDefault();
+                db.t_menu_access.Remove(ma);
                 if (ma != null)
                 {
-                    var json = new JavaScriptSerializer().Serialize(ma);
+                    object data = new
+                    {
+                        ma.id,
+                        ma.menu_id,
+                        ma.role_id
+                    };
+                    var json = new JavaScriptSerializer().Serialize(data);
                     t_audit_log log = new t_audit_log();
-                    log.type = "Modify";
+                    log.type = "DELETE";
                     log.json_before = json;
 
-                    log.created_by = 1;
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
 
                     var json2 = new JavaScriptSerializer().Serialize(ma);

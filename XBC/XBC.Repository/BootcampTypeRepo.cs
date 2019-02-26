@@ -18,13 +18,15 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from botp in db.t_bootcamp_type
+                          join us in db.t_user on botp.created_by equals us.id
                           where botp.is_delete == false
                           select new BootcampTypeViewModel
                           {
                               id = botp.id,
                               name = botp.name,
                               notes = botp.notes,
-                              createdBy = botp.created_by
+                              createdBy = botp.created_by,
+                              CreatedByName = us.username
                           }).ToList();
                 if (result == null)
                 {
@@ -39,13 +41,15 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from botp in db.t_bootcamp_type
+                          join us in db.t_user on botp.created_by equals us.id
                           where botp.id == id && botp.is_delete == false
                           select new BootcampTypeViewModel
                           {
                               id = botp.id,
                               name = botp.name,
                               notes = botp.notes,
-                              createdBy = botp.created_by
+                              createdBy = botp.created_by,
+                              CreatedByName = us.username
                           }).FirstOrDefault();
                 if (result == null)
                     result = new BootcampTypeViewModel();
@@ -58,13 +62,15 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from botp in db.t_bootcamp_type
+                          join us in db.t_user on botp.created_by equals us.id
                           where botp.name.Contains(search) && botp.is_delete == false
                           select new BootcampTypeViewModel
                           {
                               id = botp.id,
                               name = botp.name,
                               notes = botp.notes,
-                              createdBy = botp.created_by
+                              createdBy = botp.created_by,
+                              CreatedByName = us.username
                           }).ToList();
                 if (result == null)
                     result = new List<BootcampTypeViewModel>();
@@ -94,7 +100,7 @@ namespace XBC.Repository
                     log.type = "Insert";
                     log.json_insert = json;
 
-                    log.created_by = 1;
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
 
                     db.t_audit_log.Add(log);
@@ -114,13 +120,13 @@ namespace XBC.Repository
                         log.type = "Modify";
                         log.json_before = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         botp.name = entity.name;
                         botp.notes = entity.notes;
 
-                        botp.modified_by = 01;
+                        botp.modified_by = entity.UserId;
                         botp.modified_on = DateTime.Now;
 
                         var json2 = new JavaScriptSerializer().Serialize(botp);
@@ -152,11 +158,11 @@ namespace XBC.Repository
                     log.type = "Modify";
                     log.json_before = json;
 
-                    log.created_by = 1;
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
 
                     botp.is_delete = true;
-                    botp.deleted_by = 1;
+                    botp.deleted_by = entity.UserId;
                     botp.deleted_on = DateTime.Now;
                     var json2 = new JavaScriptSerializer().Serialize(botp);
                     log.json_after = json2;

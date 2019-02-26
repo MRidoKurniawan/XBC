@@ -13,10 +13,11 @@ namespace XBC.ViewModel
 
         [Required]
         [StringLength(255)]
-        [Display(Name= "NAME")]
+        [Display(Name= "Name")]
         public string name { get; set; }
 
         [StringLength(255)]
+        [Display(Name ="Notes")]
         public string notes { get; set; }
         public bool is_delete { get; set; }
     }

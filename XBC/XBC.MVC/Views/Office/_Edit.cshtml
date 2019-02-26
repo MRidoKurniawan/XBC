@@ -6,7 +6,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>OfficeViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
@@ -54,8 +53,14 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
+    </div>
+    <div>
+        <button id="btn-create-room" type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true">Room2</span>
+        </button>
     </div>
 }
 
@@ -68,9 +73,10 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save Successfull\nId" + result.entity.Id + "\nName: " + result.entity.name);
+                    alert("Data Successfully Saved");
                     $(".modal").modal("hide");
                     GetList();
+
                 }
                 else {
                     alert("Error!\n" + result.message);
@@ -78,5 +84,20 @@
             }
         });
         return false;
+    });
+
+    $("#btn-create-room").click(function () {
+        $.ajax({
+            url: '@Url.Action("AddRoom","Office")',
+            type: 'get',
+            data : {id : @Model.id, officeid: $(this).attr("data-id") },
+            success: function (result) {
+                $(".body2").html(result);
+                $(".modal2").show();
+                GetListRoom(@ViewBag.officeId)
+
+            }
+        })
+
     });
 </script>

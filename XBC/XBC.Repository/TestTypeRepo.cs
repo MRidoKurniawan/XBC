@@ -17,7 +17,8 @@ namespace XBC.Repository
             List<TestTypeViewModel> result = new List<TestTypeViewModel>();
             using (var db = new XBC_Context())
             {
-                result = (from ttp in db.t_test_type 
+                result = (from ttp in db.t_test_type
+                          join us in db.t_user on ttp.created_by equals us.id
                           where ttp.is_delete == false
                           select new TestTypeViewModel
                           {
@@ -25,7 +26,8 @@ namespace XBC.Repository
                               name = ttp.name,
                               notes = ttp.notes,
                               typeofanswer = ttp.type_of_answer,
-                              createdBy = ttp.created_by
+                              createdBy = ttp.created_by,
+                              CreatedByName = us.username
                           }).ToList();
                 if (result == null)
                 {
@@ -35,12 +37,13 @@ namespace XBC.Repository
             return result;
         }
 
-        public static TestTypeViewModel ById( long id)
+        public static TestTypeViewModel ById(long id)
         {
             TestTypeViewModel result = new TestTypeViewModel();
             using (var db = new XBC_Context())
             {
                 result = (from ttp in db.t_test_type
+                          join us in db.t_user on ttp.created_by equals us.id
                           where ttp.id == id && ttp.is_delete == false
                           select new TestTypeViewModel
                           {
@@ -48,7 +51,8 @@ namespace XBC.Repository
                               name = ttp.name,
                               notes = ttp.notes,
                               typeofanswer = ttp.type_of_answer,
-                              createdBy = ttp.created_by
+                              createdBy = ttp.created_by,
+                              CreatedByName = us.username
                           }).FirstOrDefault();
                 if (result == null)
                     result = new TestTypeViewModel();
@@ -61,15 +65,17 @@ namespace XBC.Repository
             List<TestTypeViewModel> result = new List<TestTypeViewModel>();
             using (var db = new XBC_Context())
             {
-                result =(from ttp in db.t_test_type
-                         where ttp.name.Contains(search) && ttp.is_delete == false
+                result = (from ttp in db.t_test_type
+                          join us in db.t_user on ttp.created_by equals us.id
+                          where ttp.name.Contains(search) && ttp.is_delete == false
                           select new TestTypeViewModel
                           {
                               id = ttp.id,
                               name = ttp.name,
                               notes = ttp.notes,
                               typeofanswer = ttp.type_of_answer,
-                              createdBy = ttp.created_by
+                              createdBy = ttp.created_by,
+                              CreatedByName = us.username
                           }).ToList();
 
                 if (result == null)
@@ -88,7 +94,7 @@ namespace XBC.Repository
                     tstp.name = entity.name;
                     tstp.notes = entity.notes;
 
-                    tstp.created_by = 01;
+                    tstp.created_by = entity.UserId;
                     tstp.created_on = DateTime.Now;
                     tstp.is_delete = false;
 
@@ -100,7 +106,7 @@ namespace XBC.Repository
                     log.type = "Insert";
                     log.json_insert = json;
 
-                    log.created_by = 1;
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
 
                     db.t_audit_log.Add(log);
@@ -120,20 +126,19 @@ namespace XBC.Repository
                         log.type = "Modify";
                         log.json_before = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         tstp.name = entity.name;
                         tstp.notes = entity.notes;
 
-                        tstp.modified_by = 01;
+                        tstp.modified_by = entity.UserId;
                         tstp.modified_on = DateTime.Now;
 
                         var json2 = new JavaScriptSerializer().Serialize(tstp);
                         log.json_after = json2;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
-
 
                         result.Entity = entity;
                     }
@@ -149,39 +154,38 @@ namespace XBC.Repository
         public static ResponseResult Delete(TestTypeViewModel entity)
         {
             ResponseResult result = new ResponseResult();
-           
-                using (var db = new XBC_Context())
+            using (var db = new XBC_Context())
+            {
+                t_test_type ttp = db.t_test_type.Where(o => o.id == entity.id).FirstOrDefault();
+
+                if (ttp != null)
                 {
-                    t_test_type ttp = db.t_test_type.Where(o => o.id == entity.id).FirstOrDefault();
+                    var json = new JavaScriptSerializer().Serialize(ttp);
+                    t_audit_log log = new t_audit_log();
+                    log.type = "Modify";
+                    log.json_before = json;
 
-                    if (ttp != null)
-                    {
-                        var json = new JavaScriptSerializer().Serialize(ttp);
-                        t_audit_log log = new t_audit_log();
-                        log.type = "Modify";
-                        log.json_before = json;
+                    log.created_by = entity.UserId;
+                    log.created_on = DateTime.Now;
 
-                        log.created_by = 1;
-                        log.created_on = DateTime.Now;
+                    ttp.is_delete = true;
+                    ttp.deleted_by = entity.UserId;
+                    ttp.deleted_on = DateTime.Now;
+                    var json2 = new JavaScriptSerializer().Serialize(ttp);
+                    log.json_after = json2;
+                    db.t_audit_log.Add(log);
+                    db.SaveChanges();
 
-                        ttp.is_delete = true;
-                        ttp.deleted_by = 1;
-                        ttp.deleted_on = DateTime.Now;
-                        var json2 = new JavaScriptSerializer().Serialize(ttp);
-                        log.json_after = json2;
-                        db.t_audit_log.Add(log);
-                        db.SaveChanges();
-
-                        result.Entity = entity;
-                    }
-                    else
-                    {
-                        result.Success = false;
-                        result.ErrorMessage = "Test Type not found!";
-                    }
+                    result.Entity = entity;
                 }
-            return result;
+                else
+                {
+                    result.Success = false;
+                    result.ErrorMessage = "Test Type not found!";
+                }
             }
+            return result;
         }
     }
+}
 
