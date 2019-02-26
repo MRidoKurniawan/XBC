@@ -11,10 +11,11 @@ namespace XBC.ViewModel
     {
         public long id { get; set; }
         [Required, StringLength(255)]
-        [Display(Name="NAME")]
+        [Display(Name="Name")]
         public string name { get; set; }
 
         [StringLength(255)]
+        [Display(Name ="Notes")]
         public string notes { get; set; }
         [Display(Name="CREATED BY")]
         public long created_by { get; set; }
