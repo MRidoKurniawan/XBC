@@ -48,8 +48,21 @@ namespace XBC.Repository
                           {
                               id = b.id,
                               name = b.name,
+                              gender = b.gender,
+                              last_education = b.last_education,
+                              graduation_year = b.graduation_year,
+                              educational_level = b.educational_level,
                               majors = b.majors,
-                              gpa = b.gpa
+                              gpa = b.gpa,
+                              bootcamp_test_type = b.bootcamp_test_type,
+                              iq = b.iq,
+                              du = b.du,
+                              arithmetic = b.arithmetic,
+                              nested_logic = b.nested_logic,
+                              join_table = b.join_table,
+                              tro = b.tro,
+                              notes = b.notes,
+                              interviewer = b.interviewer
                           }).FirstOrDefault();
 
                 if (result == null)
@@ -106,7 +119,28 @@ namespace XBC.Repository
 
                         if (bio != null)
                         {
-                            var json = new JavaScriptSerializer().Serialize(bio);
+                            object data = new
+                            {
+                                bio.id,
+                                bio.name,
+                                bio.gender,
+                                bio.last_education,
+                                bio.graduation_year,
+                                bio.educational_level,
+                                bio.majors,
+                                bio.gpa,
+                                bio.bootcamp_test_type,
+                                bio.iq,
+                                bio.du,
+                                bio.arithmetic,
+                                bio.nested_logic,
+                                bio.join_table,
+                                bio.tro,
+                                bio.notes,
+                                bio.interviewer
+                            };
+
+                            var json = new JavaScriptSerializer().Serialize(data);
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
@@ -128,12 +162,33 @@ namespace XBC.Repository
                             bio.join_table = entity.join_table;
                             bio.tro = entity.tro;
                             bio.notes = entity.notes;
-                            bio.interviewer = bio.interviewer;
+                            bio.interviewer = entity.interviewer;
 
                             bio.modified_by = 1;
                             bio.modified_on = DateTime.Now;
 
-                            var json2 = new JavaScriptSerializer().Serialize(bio);
+                            object data2 = new
+                            {
+                                bio.id,
+                                bio.name,
+                                bio.gender,
+                                bio.last_education,
+                                bio.graduation_year,
+                                bio.educational_level,
+                                bio.majors,
+                                bio.gpa,
+                                bio.bootcamp_test_type,
+                                bio.iq,
+                                bio.du,
+                                bio.arithmetic,
+                                bio.nested_logic,
+                                bio.join_table,
+                                bio.tro,
+                                bio.notes,
+                                bio.interviewer
+                            };
+
+                            var json2 = new JavaScriptSerializer().Serialize(data2);
                             log.json_after = json2;
                             db.t_audit_log.Add(log);
 
@@ -253,6 +308,30 @@ namespace XBC.Repository
                 if (result == null)
                 {
                     result = new List<BiodataViewModel>();
+                }
+            }
+            return result;
+        }
+
+        //Get By Bootcamp Test Type 
+        public static List<BootcampTestTypeViewModel> ByBtt()
+        {
+            List<BootcampTestTypeViewModel> result = new List<BootcampTestTypeViewModel>();
+            using (var db = new XBC_Context())
+            {
+                result = (from btt in db.t_bootcamp_test_type
+                          join b in db.t_biodata on btt.id equals b.bootcamp_test_type into ps
+                          from m in ps.DefaultIfEmpty()
+                          where btt.is_delete == false
+                          select new BootcampTestTypeViewModel
+                          {
+                              id = btt.id,
+                              name = btt.name,
+                          }).ToList();
+
+                if (result == null)
+                {
+                    result = new List<BootcampTestTypeViewModel>();
                 }
             }
             return result;
