@@ -65,7 +65,8 @@ namespace XBC.Repository
                                   end_date = m.end_date,
                                   description = m.description,
                                   realization_date = m.realization_date,
-                                  notes = m.notes
+                                  notes = m.notes,
+                                  is_done = m.is_done
                               }).ToList();
                 }
             }

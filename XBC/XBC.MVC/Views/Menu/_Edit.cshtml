@@ -89,17 +89,6 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
-    function cekPassword() {
-        if ($("#pw-main").val() == $("#pw-second").val() && $("#pw-second").val() != "") {
-            cocok = true;
-            $("#valid-password").hide();
-        } else if ($("#pw-second").val() != "") {
-            cocok = false;
-            $("#valid-password").show();
-        }
-    }
-
-
     $("#form-edit").submit(function () {
         $.ajax({
             url: this.action,

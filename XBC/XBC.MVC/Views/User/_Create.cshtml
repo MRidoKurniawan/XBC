@@ -30,7 +30,7 @@
             <div class="col-md-10">
                 @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label" })
                 @*@Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username", @pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" } })*@
-                <input type="text" class="username form-control" id="username" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}" data-bv-regexp-message="Username minimal 8 karakter dan terdiri dari huruf dan angka" onchange = "cekUName()"/>
+                <input type="text" class="username form-control" id="username" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}" data-bv-regexp-message="Username minimal 8 karakter dan terdiri dari huruf dan angka" onchange = "cekUName()" />
                 @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                 <span class="field-validation-valid text-danger" style="display:none;" id="valid-uname">Username Sudah Terdaftar</span>
             </div>
@@ -60,8 +60,6 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
-    var cocok = false;
-    var tersedia = false;
     $(document).ready(function () {
         $("#form-create").removeAttr("novalidate");
     });
@@ -82,11 +80,11 @@
             data: {email : $("#email").val()},
             success: function (result) {
                 if (result.success) {
-                    tersedia = true;
+                    tersedia1 = true;
                     $("#valid-email").hide();
                 }
                 else {
-                    tersedia = false;
+                    tersedia1 = false;
                     $("#valid-email").show();
                 }
             }
@@ -98,7 +96,7 @@
         $.ajax({
             url: '@Url.Action("CheckUName","User")',
             type: 'get',
-            data: { name: $("#username").val() },
+            data: { uname: $("#username").val() },
             success: function (result) {
                 if (result.success) {
                     tersedia = true;
@@ -113,7 +111,7 @@
     }
 
     $("#form-create").submit(function () {
-        if (cocok && tersedia) {
+        if (cocok && tersedia && tersedia1) {
             $.ajax({
                 url: this.action,
                 type: this.method,
@@ -132,7 +130,7 @@
                 }
             });
         } else {
-            alert("check your email And password");
+            alert("check your email, Username And password");
         }
 
         return false;
