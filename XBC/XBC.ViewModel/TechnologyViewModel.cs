@@ -20,6 +20,7 @@ namespace XBC.ViewModel
         [Display(Name="CREATED BY")]
         public long created_by { get; set; }
         public bool is_delete { get; set; }
+        public long UserId { get; set; }
 
         public List<TechnologyTrainerViewModel> Details { get; set; }
 
