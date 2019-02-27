@@ -32,9 +32,9 @@ namespace XBC.MVC.Controllers
                 success = result.Success,
                 message = result.ErrorMessage,
                 entity = result.Entity
-            },JsonRequestBehavior.AllowGet);
+            }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Search (string search = "")
+        public ActionResult Search(string search = "")
         {
             return PartialView("_Search", TestTypeRepo.GetBySearch(search));
         }
@@ -68,5 +68,5 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-    } 
+    }
 }

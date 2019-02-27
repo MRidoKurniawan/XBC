@@ -50,7 +50,8 @@ namespace XBC.MVC.Controllers
             {
                 ViewBag.rdno = "checked";
             }
-            return PartialView("_Edit", BiodataRepo.ById(id));
+                ViewBag.BootcampTestTypeList = new SelectList(BiodataRepo.ByBtt(), "id", "name");
+                return PartialView("_Edit", BiodataRepo.ById(id));
         }
 
         [HttpPost]

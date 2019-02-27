@@ -95,7 +95,7 @@ namespace XBC.Repository
                     idn.content = entity.content;
                     idn.is_publish = entity.isPublish;
 
-                    idn.created_by = 01;
+                    idn.created_by = entity.UserId;
                     idn.created_on = DateTime.Now;
                     idn.is_delete = false;
 
@@ -107,7 +107,7 @@ namespace XBC.Repository
                     log.type = "Insert";
                     log.json_insert = json;
 
-                    log.created_by = 1;
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
                     db.t_audit_log.Add(log);
 
@@ -121,49 +121,48 @@ namespace XBC.Repository
                     t_idle_news idn = db.t_idle_news.Where(idns => idns.id == entity.id).FirstOrDefault();
                     if (idn != null)
                     {
-                         var Serial = new JavaScriptSerializer();
-                         object data = new
-                         {
-                             idn.category_id,
-                             idn.title,
-                             idn.content,
-                             idn.is_publish
-                         };
-                         var json = Serial.Serialize(data);
-                         idn.category_id = entity.categoryId;
-                         idn.title = entity.title;
-                         idn.content = entity.content;
-                         idn.is_publish = entity.isPublish;
+                        var Serial = new JavaScriptSerializer();
+                        object data = new
+                        {
+                            idn.category_id,
+                            idn.title,
+                            idn.content,
+                            idn.is_publish
+                        };
+                        var json = Serial.Serialize(data);
+                        idn.category_id = entity.categoryId;
+                        idn.title = entity.title;
+                        idn.content = entity.content;
+                        idn.is_publish = entity.isPublish;
 
-                         idn.modified_by = 1;
-                         idn.modified_on = DateTime.Now;
-                         db.SaveChanges();
-                         result.Entity = entity;
-                         db.SaveChanges();
+                        idn.modified_by = entity.UserId;
+                        idn.modified_on = DateTime.Now;
+                        db.SaveChanges();
+                        result.Entity = entity;
+                        db.SaveChanges();
 
-                         object data2 = new
-                         {
-                             idn.category_id,
-                             idn.title,
-                             idn.content,
-                             idn.is_publish
-                         };
+                        object data2 = new
+                        {
+                            idn.category_id,
+                            idn.title,
+                            idn.content,
+                            idn.is_publish
+                        };
 
-                         t_audit_log log = new t_audit_log();
-                         log.type = "Modify";
-                         log.json_before = json;
-                         json = Serial.Serialize(data2);
-                         log.json_after = json;
+                        t_audit_log log = new t_audit_log();
+                        log.type = "Modify";
+                        log.json_before = json;
+                        json = Serial.Serialize(data2);
+                        log.json_after = json;
 
-                         log.created_by = 1;
-                         log.created_on = DateTime.Now;
+                        log.created_by = entity.UserId;
+                        log.created_on = DateTime.Now;
 
-                         db.t_audit_log.Add(log);
+                        db.t_audit_log.Add(log);
 
-                         db.SaveChanges();
+                        db.SaveChanges();
 
-                         result.Entity = entity;
-
+                        result.Entity = entity;
                     }
                     else
                     {
@@ -192,7 +191,7 @@ namespace XBC.Repository
                     };
                     var json = Serial.Serialize(data);
                     idn.is_publish = true;
-                    idn.modified_by = 1;
+                    idn.modified_by = entity.UserId;
                     idn.modified_on = DateTime.Now;
                     db.SaveChanges();
                     result.Entity = entity;
@@ -202,7 +201,7 @@ namespace XBC.Repository
                     log.type = "Modify";
                     log.json_delete = json;
 
-                    log.created_by = 1;
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
 
                     db.t_audit_log.Add(log);
@@ -240,7 +239,7 @@ namespace XBC.Repository
 
                     idn.is_delete = true;
 
-                    idn.deleted_by = 1;
+                    idn.deleted_by = entity.UserId;
                     idn.deleted_on = DateTime.Now;
                     db.SaveChanges();
                     result.Entity = entity;
@@ -249,8 +248,8 @@ namespace XBC.Repository
                     t_audit_log log = new t_audit_log();
                     log.type = "Delete";
                     log.json_delete = json;
-                 
-                    log.created_by = 1;
+
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
 
                     db.t_audit_log.Add(log);

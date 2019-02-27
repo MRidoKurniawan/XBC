@@ -35,7 +35,7 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Search(string search = " " )
+        public ActionResult Search(string search = " ")
         {
             return PartialView("_Search", IdleNewsRepo.GetBySearch(search));
         }

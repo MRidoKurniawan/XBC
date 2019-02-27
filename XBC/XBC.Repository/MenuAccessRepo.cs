@@ -103,7 +103,7 @@ namespace XBC.Repository
                 ma.role_id = entity.role_id;
                 ma.menu_id = entity.menu_id;
 
-                ma.created_by = 01;
+                ma.created_by = entity.UserId;
                 ma.created_on = DateTime.Now;
 
                 db.t_menu_access.Add(ma);
@@ -114,7 +114,7 @@ namespace XBC.Repository
                 log.type = "Insert";
                 log.json_insert = json;
 
-                log.created_by = 1;
+                log.created_by = entity.UserId;
                 log.created_on = DateTime.Now;
                 db.t_audit_log.Add(log);
 
@@ -145,7 +145,7 @@ namespace XBC.Repository
                     log.type = "DELETE";
                     log.json_before = json;
 
-                    log.created_by = 1;
+                    log.created_by = entity.UserId;
                     log.created_on = DateTime.Now;
 
                     var json2 = new JavaScriptSerializer().Serialize(ma);

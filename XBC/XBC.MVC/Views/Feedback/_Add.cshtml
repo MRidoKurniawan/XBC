@@ -1,21 +1,74 @@
 ﻿@model IEnumerable<XBC.ViewModel.Document_Test_DetailViewModel>
 
-<table class="form-horizontal">
-
-    @foreach (var item in Model)
+@using (Html.BeginForm("Add", "Feedback", FormMethod.Post, new { id = "form-create", name = "form-create" }))
+{
+    @Html.AntiForgeryToken()
+    foreach (var item in Model)
     {
-        <tr>
 
-            <td class="form-group">
+        <div class="form-horizontal">
+            <div class="form-group">
                 @Html.DisplayFor(modelItem => item.question)
-            </td>
-            <td class="form-group">
+                @Html.HiddenFor(modelItem => item.question_id)
+                @Html.HiddenFor(modelItem => item.document_test_id)
+                @Html.HiddenFor(modelItem => item.test_id)
+            </div>
+            <div class="form-group">
                 <div id="text-deskripsi" style="height:100%">
 
                     <textarea class="form-control" name="answer" style="height:18rem; resize:none;" placeholder="Description"></textarea>
                 </div>
-            </td>
+            </div>
+        </div>
 
-        </tr>
     }
-</table>
+
+<div class="col-md-offset-2 col-md-10">
+    <button type="button" class="btn btn-danger btn-close">Cancel</button>
+    <input type="submit" value="Submit" class="btn btn-success" />
+</div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+
+    $(document).ready(function () {
+            GetList();
+        });
+
+        function GetList() {
+            $.ajax({
+                url: '@Url.Action("List","Feedback")',
+                type: 'get',
+                success: function (result) {
+                    $("#data-list").html(result);
+                }
+
+            });
+
+        }
+    $("#form-create").submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    alert("Data Successfully Saved!\nId: "+   result.entity.Id+ "\nName: " + result.entity.Name);
+                    //$(".modal").modal("show");
+                    //$(".modal2").hide();
+                } else {
+                    alert("Error!\n: " + result.message);
+                }
+            }
+
+        });
+        return false
+    });
+
+    $(".btn-close").click(function () {
+        $(".modal2").hide();
+    })
+
+</script>
+

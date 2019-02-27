@@ -23,6 +23,7 @@ namespace XBC.Repository
                           {
                               id = btt.id,
                               name = btt.name,
+                              created_by = 1,
                               notes = btt.notes,
                               isDelete = btt.is_delete
                           }).ToList();
@@ -86,7 +87,15 @@ namespace XBC.Repository
                         t_bootcamp_test_type btt = db.t_bootcamp_test_type.Where(o => o.id == entity.id).FirstOrDefault();
                         if (btt != null)
                         {
-                            var jsonbefore = new JavaScriptSerializer().Serialize(btt);
+                            var Serial = new JavaScriptSerializer();
+                            object dataBefore = new
+                            {
+                                btt.name,
+                                btt.notes,
+                                btt.modified_by,
+                                btt.modified_on
+                            };
+                            
                             btt.name = entity.name;
                             btt.notes = entity.notes;
                             btt.is_delete = false;
@@ -95,11 +104,18 @@ namespace XBC.Repository
                             btt.modified_on = DateTime.Now;
 
                             db.SaveChanges();
-                            var json = new JavaScriptSerializer().Serialize(btt);
 
+                            object dataAfter = new
+                            {
+                                btt.name,
+                                btt.notes,
+                                btt.modified_by,
+                                btt.modified_on
+                            };
                             t_audit_log log = new t_audit_log();
                             log.type = "Modified";
-                            log.json_insert = json;
+                            log.json_before = Serial.Serialize(dataBefore);
+                            log.json_after = Serial.Serialize(dataAfter);
 
                             log.created_by = 1;
                             log.created_on = DateTime.Now;
@@ -107,7 +123,7 @@ namespace XBC.Repository
                             db.t_audit_log.Add(log);
                             db.SaveChanges();
                             result.Entity = entity;
-                        }
+                            }
                         else
                         {
                             result.Success = false;
@@ -137,10 +153,16 @@ namespace XBC.Repository
                         btt.deleted_by = 1;
                         btt.created_on = DateTime.Now;
                         db.SaveChanges();
-                        var json = new JavaScriptSerializer().Serialize(btt);
+                        object data = new
+                        {
+                            btt.id,
+                            btt.name,
+                            btt.notes
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Delete";
+                        log.type = "Modified";
                         log.json_insert = json;
 
                         log.created_by = 1;
@@ -148,8 +170,6 @@ namespace XBC.Repository
 
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
-
-                        result.Entity = entity;
                     }
                     else
                     {
