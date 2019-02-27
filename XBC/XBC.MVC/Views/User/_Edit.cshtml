@@ -1,45 +1,51 @@
 ﻿@model XBC.ViewModel.UserViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
     @Html.AntiForgeryToken()
-    
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.role_id, htmlAttributes: new { @class = "control-label col-md-2" })
+
             <div class="col-md-10">
+                @Html.LabelFor(model => model.role_id, htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.role_id, (IEnumerable<SelectListItem>)ViewBag.RoleList, "Select Category", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.role_id, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+
             <div class="col-md-10">
+                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+            
             <div class="col-md-10">
+                @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label" })
                 <input type="text" class="username form-control" id="username" value="@Model.username" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}" data-bv-regexp-message="Username minimal 8 karakter dan terdiri dari huruf dan angka" />
                 @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
 
         <div class="form-group">
-            @Html.LabelFor(model => model.mobile_flag, htmlAttributes: new { @class = "control-label col-md-2" })
+            
             <div class="col-md-10">
+                @Html.LabelFor(model => model.mobile_flag, htmlAttributes: new { @class = "control-label" })
                 <div class="checkbox">
-                    <input type="radio" name="mobile_flag"  value="true" id="rd-yes" @ViewBag.rdyes /> Yes
-                    <input type="radio" name="mobile_flag"  value="false" id="rd-no" @ViewBag.rdno/> No
+                    <input type="radio" name="mobile_flag" value="true" id="rd-yes" @ViewBag.rdyes /> Yes 
+                    <input type="radio" name="mobile_flag" value="false" id="rd-no" @ViewBag.rdno /> No
                     @*@Html.EditorFor(model => model.mobile_flag)*@
                     @Html.ValidationMessageFor(model => model.mobile_flag, "", new { @class = "text-danger" })
                 </div>
@@ -47,8 +53,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.mobile_token, htmlAttributes: new { @class = "control-label col-md-2" })
+            
             <div class="col-md-10">
+                @Html.LabelFor(model => model.mobile_token, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.mobile_token, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.mobile_token, "", new { @class = "text-danger" })
             </div>
@@ -56,7 +63,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Edit" class="btn btn-success" />
             </div>
         </div>
     </div>

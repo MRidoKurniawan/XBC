@@ -33,7 +33,8 @@ namespace XBC.Repository
                                   end_date = m.end_date,
                                   description = m.description,
                                   realization_date = m.realization_date,
-                                  notes = m.notes
+                                  notes = m.notes,
+                                  is_done = m.is_done
                               }).ToList();
                 }
             }
@@ -156,7 +157,7 @@ namespace XBC.Repository
                         var json = new JavaScriptSerializer().Serialize(assignment);
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Insert";
+                        log.type = "INSERT";
                         log.json_insert = json;
 
                         log.created_by = entity.UserId;
@@ -207,7 +208,7 @@ namespace XBC.Repository
                             };
 
                             t_audit_log log = new t_audit_log();
-                            log.type = "Edit";
+                            log.type = "MODIFY";
                             log.json_before = json;
                             json = Serial.Serialize(data2);
                             log.json_after = json;

@@ -13,14 +13,17 @@ namespace XBC.ViewModel
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Code")] //untuk .cshtml LabelFor
         public string code { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Name")]
         public string name { get; set; }
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "Description")]
         public string description { get; set; }
         public bool is_delete { get; set; }
     }
