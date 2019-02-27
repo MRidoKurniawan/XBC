@@ -20,5 +20,6 @@ namespace XBC.ViewModel
         [Display(Name ="Notes")]
         public string notes { get; set; }
         public bool is_delete { get; set; }
+        public long UserId { get; set; }
     }
 }
