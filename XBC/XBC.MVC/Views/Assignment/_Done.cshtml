@@ -1,5 +1,7 @@
 ﻿@model XBC.ViewModel.AssignmentViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Done", "Assignment", FormMethod.Post, new { id = "form-done", name = "form-done" }))
 {
     @Html.AntiForgeryToken()
@@ -7,7 +9,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
-
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
         <div class="form-group">
             @Html.LabelFor(model => model.realization_date, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
@@ -26,7 +28,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Done" class="btn btn-success" />
             </div>
         </div>
     </div>

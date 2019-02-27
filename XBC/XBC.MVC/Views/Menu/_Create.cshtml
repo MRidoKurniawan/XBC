@@ -1,8 +1,11 @@
 ﻿@model XBC.ViewModel.MenuViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Create", "Menu", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
 {
     @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
         <table class="table">
             <tr>

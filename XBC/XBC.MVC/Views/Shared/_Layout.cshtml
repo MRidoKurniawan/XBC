@@ -7,15 +7,18 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @{
+        //if (Session["id"]==null)
+        //{
+        //    Response.Redirect("~/home");
+        //}
         ViewBag.Username = Session["Username"];
         ViewBag.roleid = Session["roleid"];
         ViewBag.id = Session["id"];
     }
-
     <meta name="description" content="The description of my page" />
 </head>
 <body>
-    <div style="height:6rem; background:#2c3e50; width:100%; padding:1.5vh; position:fixed; top:0; z-index:999;">
+    <div style="height:6rem; background:rgb(50, 110, 160); width:100%; padding:1.5vh; position:fixed; top:0; z-index:999;">
         <button type="button" id="sidebarCollapse" class="btn btn-info" style="height:100%; background:#fff; padding : 5px;">
             <i class="fas fa-align-left"></i>
             <image src="~/menu.png" style="height:100%; width : auto">
