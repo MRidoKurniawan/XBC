@@ -14,7 +14,7 @@
     </button>
 </div>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.name)
@@ -50,7 +50,7 @@
                             <div class="col-lg-12">Edit</div></a>
                                 <a class="dropdown-item btn-delete" href="#" data-id="@item.id">
                                     <div class="col-lg-12">Delete</div></a>
-                                        <a class="dropdown-item btn-edit" href="#" data-id="@item.id">
+                                        <a class="dropdown-item btn-placement" href="#" data-id="@item.id">
                                             <div class="col-lg-12">Placement</div></a>
                     </div>
                 </div>
@@ -68,6 +68,7 @@
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Edit Data");
                 $('.modal').modal('show');
             }
         });
@@ -75,13 +76,14 @@
 </script>
 
 <script type="text/javascript">
-    $(".btn-edit").click(function () {
+    $(".btn-placement").click(function () {
         $.ajax({
             url: '@Url.Action("Placement", "Monitoring")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Placement");
                 $('.modal').modal('show');
             }
         });
@@ -109,6 +111,7 @@
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Delete Data");
                 $('.modal').modal('show');
             }
         });
@@ -122,6 +125,7 @@
             type: 'get',
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Add Data");
                 $('.modal').modal('show');
             }
         });

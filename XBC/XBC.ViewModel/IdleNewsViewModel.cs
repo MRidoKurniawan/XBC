@@ -17,14 +17,15 @@ namespace XBC.ViewModel
         public string categoryName { get; set; }
 
         [Required, StringLength(255)]
-
         [Display(Name = "TITLE")]
         public string title { get; set; }
 
+        [Display(Name = "CONTENT")]
         [StringLength(5000)]
         public string content { get; set; }
 
         public bool isPublish { get; set; }
         public bool isDelete { get; set; }
+        public long UserId { get; set; }
     }
 }

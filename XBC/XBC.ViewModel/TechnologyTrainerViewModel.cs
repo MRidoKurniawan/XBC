@@ -12,11 +12,12 @@ namespace XBC.ViewModel
         public long id { get; set; }
         public long technology_id { get; set; }
         public long trainer_id { get; set; }
-        [Display(Name ="NAME")]
+        [Display(Name ="Name")]
         public string trainer_name { get; set; }
         public long created_by { get; set; }
         public DateTime created_on { get; set; }
+        public long UserId { get; set; }
 
-        
+
     }
 }

@@ -61,6 +61,7 @@ namespace XBC.Repository
         }
 
         // Update (Create)
+        
         public static ResponseResult Update(QuestionViewModel entity)
         {
             ResponseResult result = new ResponseResult();

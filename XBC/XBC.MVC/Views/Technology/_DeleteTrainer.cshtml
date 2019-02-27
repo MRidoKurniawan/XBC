@@ -1,4 +1,7 @@
 ﻿@model XBC.ViewModel.TechnologyTrainerViewModel
+@{
+    ViewBag.id = Session["id"];
+}
 
 <h3>Are you sure to delete this data?</h3>
 <div>
@@ -8,6 +11,7 @@
         @Html.HiddenFor(Model => Model.id)
         @Html.HiddenFor(Model => Model.trainer_name)
 
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
         <div class="form-actions no-color">
             <input type="button" value="No" class="btn btn-danger" data-dismiss="modal" />
             <input type="submit" value="Yes" class="btn btn-success" />

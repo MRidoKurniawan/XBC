@@ -41,8 +41,12 @@ namespace XBC.MVC.Controllers
 
         public ActionResult Edit (long id)
         {
-            ViewBag.BiodataList = new SelectList(MonitoringRepo.ByNameBiodata(), "id", "name");
-            return PartialView("_Edit", MonitoringRepo.ById(id));
+            MonitoringViewModel model = new MonitoringViewModel(); //.
+            model = MonitoringRepo.ById(id); //.
+
+            ViewBag.idle_date = model.idle_date.ToString("yyyy'-'MM'-'dd"); //.(BIAR PAS NGEDIT ADA TANGGAL LAMANYA)
+            ViewBag.BiodataList = new SelectList(MonitoringRepo.ByNameBiodataforEdit(model.biodata_id), "id", "name");
+            return PartialView("_Edit", model);
         }
 
         [HttpPost]
@@ -81,13 +85,17 @@ namespace XBC.MVC.Controllers
 
         public ActionResult Placement(long id)
         {
+            MonitoringViewModel model = new MonitoringViewModel();
+            model = MonitoringRepo.ById(id);
+
+            ViewBag.placement_date = model.placement_date?.ToString("yyyy'-'MM'-'dd");
             return PartialView("_Placement", MonitoringRepo.ById(id));
         }
 
         [HttpPost]
         public ActionResult Placement(MonitoringViewModel model)
         {
-            ResponseResult result = MonitoringRepo.Update(model);
+            ResponseResult result = MonitoringRepo.Placement(model);
             return Json(new
             {
                 success = result.Success,

@@ -65,7 +65,7 @@ namespace XBC.Repository
                         tes.title = entity.title;
                         tes.content = entity.content;
                         tes.is_delete = entity.is_delete;
-                        tes.created_by = 1;
+                        tes.created_by = entity.UserId;
                         tes.created_on = DateTime.Now;
                         db.t_testimony.Add(tes);
                         db.SaveChanges();
@@ -80,7 +80,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -107,12 +107,12 @@ namespace XBC.Repository
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             tes.title = entity.title;
                             tes.content = entity.content;
-                            tes.modified_by = 1;
+                            tes.modified_by = entity.UserId;
                             tes.modified_on = DateTime.Now;
 
                             object data2 = new
@@ -167,11 +167,11 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         tes.is_delete = true;
-                        tes.deleted_by = 1;
+                        tes.deleted_by = entity.UserId;
                         tes.deleted_on = DateTime.Now;
 
                         object data2 = new

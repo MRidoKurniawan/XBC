@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<XBC.ViewModel.MenuAccessViewModel>
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Create", "MenuAccess", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
 {
     @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="row">
         <div class="col-lg-4">
             <select class="form-control" name="role_id" id="role_id"></select>
@@ -28,7 +32,6 @@
         </button>
     </div>
 </div>
-
 
 <table class="table">
     <tr>
@@ -62,8 +65,8 @@
             </td>
         </tr>
     }
-
 </table>
+
 <script type="text/javascript">
     $(document).ready(function () {
         GetList1();
@@ -108,7 +111,7 @@
         $.ajax({
             url: '@Url.Action("Search", "MenuAccess")',
             type: 'get',
-            data: {id: $("#role_id1").val() },
+            data: { id: $("#role_id1").val() },
             success: function (result) {
                 $("#data-list").html(result);
             }

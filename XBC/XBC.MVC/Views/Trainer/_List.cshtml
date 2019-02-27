@@ -1,51 +1,45 @@
 ﻿@model IEnumerable<XBC.ViewModel.TrainerViewModel>
-    <div class="col-lg-4">
-        <input type="text" id="txt-search" class="form-control" placeholder="Search by name" />
-    </div>
-    <div class="col-lg-1">
-        <button type="button" id="btn-search" class="btn btn-primary" style="background-color:darkorange">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+
+<div>
+    <div class="col-md-7" style="padding:5rem 0rem 5rem 0rem; display:inline">
+        <input type="text" id="txt-search" class="form-control" style="padding:7px; width:70%; display:inline" placeholder="Search by name" />
+        <button type="button" id="btn-search" class="btn btn-primary" style="padding:7px 15px 7px 15px; display:inline">
+            <span class="glyphicon glyphicon-search"></span>
         </button>
     </div>
-<div class="col-lg-6">
-    <button type="button" id="btn-create-new" class="btn btn-primary" style="background-color:darkorange">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    </button>
+    <div class="col-md-3" style="padding: 5rem 0rem 5rem 0rem; display:inline; float:right">
+        <button type="button" id="btn-create-new" class="btn btn-primary" style="padding: 7px 15px 7px 15px; float:right">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
 </div>
-<div class="panel-body">
-    <table class="table table-bordered table-striped" style="background-color:bisque">
-        <thead>
+<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>#</th>
+        </tr>
+    @foreach (var item in Model)
+    {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.name)
-                </th>
-                <th>#</th>
-            </tr>
-        </thead>
-
-        @foreach (var item in Model)
-        {
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="glyphicon glyphicon-align-justify"></span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
-                                <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
-                            </div>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
+                            <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        }
-    </table>
-</div>
+                    </div>
+                </td>
+            </tr>
+    }
+</table>
 <script>
     $("#btn-create-new").click(function () {
         $.ajax({
