@@ -185,6 +185,7 @@
     <Compile Include="Controllers\MonitoringController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\TestTypeController.cs" />
     <Compile Include="Controllers\TestimonyController.cs" />

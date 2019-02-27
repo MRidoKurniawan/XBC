@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<XBC.ViewModel.TestViewModel>
+@{
+    ViewBag.id = Session["id"];
+}
 
 <table class="table">
     <thead>
@@ -35,7 +38,7 @@
 <script type="text/javascript">
 
     $(".btn-choose").click(function () {
-        data = { test_id: $(this).attr("data-id"), batch_id : @ViewBag.IdBatch }
+        data = { test_id: $(this).attr("data-id"), batch_id : @ViewBag.IdBatch, UserId : @ViewBag.id }
 
         if ($(this).html() == "CHOOSE") {
             $.ajax({
@@ -44,7 +47,7 @@
                 data: { model : data  },
                 success: function (result) {
                     if (result.success) {
-                        alert("Save successful\nName: " + result.entity.name);
+                        alert("Data Successfully Saved !");
                     }
                     else {
                         alert("Error\nName: " + result.message);
@@ -62,7 +65,7 @@
                 data: { model : data  },
                 success: function (result) {
                     if (result.success) {
-                        alert("Save successful\nName: " + result.entity.name);
+                        alert("Data Successfully Deleted !");
                     }
                     else {
                         alert("Error\nName: " + result.message);
@@ -73,8 +76,5 @@
             $(this).removeClass("btn-success");
             $(this).addClass("btn-primary");
         }
-    });
-
-    $(".btn-choose").load(function () {
     });
 </script>

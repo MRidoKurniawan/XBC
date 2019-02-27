@@ -81,6 +81,7 @@
     <Compile Include="RoleRepo.cs" />
     <Compile Include="TestRepo.cs" />
     <Compile Include="TestTypeRepo.cs" />
+    <Compile Include="Test_TypeRepo.cs" />
     <Compile Include="UserRepo.cs" />
     <Compile Include="TechnologyRepo.cs" />
     <Compile Include="TrainerRepo.cs" />

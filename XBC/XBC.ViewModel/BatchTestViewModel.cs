@@ -14,5 +14,7 @@ namespace XBC.ViewModel
         public long batch_id { get; set; }
 
         public long test_id { get; set; }
+
+        public long UserId { get; set; }
     }
 }
