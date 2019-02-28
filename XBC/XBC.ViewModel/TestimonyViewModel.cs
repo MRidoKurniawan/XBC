@@ -11,12 +11,13 @@ namespace XBC.ViewModel
     {
         public long id { get; set; }
 
-        [Display(Name="TITLE")]
+        [Display(Name="Title")]
         [Required, StringLength(255)]
         public string title { get; set; }
-
+        [Display(Name ="Content")]
         [StringLength(5000)]
         public string content { get; set; }
         public bool is_delete { get; set; }
+        public long UserId { get; set; }
     }
 }

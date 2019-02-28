@@ -1,15 +1,18 @@
 ﻿@model XBC.ViewModel.QuestionViewModel
+@{
+    ViewBag.id = Session["id"];
+}
 
-
-@using (Html.BeginForm("Create", "Question", FormMethod.Post, new { id = "form-create", name = "form-create", enctype = "multipart/form-data" })) 
+@using (Html.BeginForm("Create", "Question", FormMethod.Post, new { id = "form-create", name = "form-create", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
+
         <div class="form-group">
-            @Html.LabelFor(model => model.questionType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.questionType, htmlAttributes: new { @class = "control-label" })
                 <select class="form-control" name="questionType" id="questionType">
                     <option value="MC">Multiple Choice</option>
                     <option value="ES">Essay</option>
@@ -19,25 +22,25 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.question, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <textarea class="form-control" name="question" style="height:7rem; resize:none" placeholder="Question"></textarea>
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.question, htmlAttributes: new { @class = "control-label" })
+                <textarea class="form-control" name="question" style="height:12rem; resize:none" placeholder="Question"></textarea>
                 @Html.ValidationMessageFor(model => model.question, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.imageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" id="imgurl" name="imgurl" class="img-url" value="Upload Image" />             
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.imageUrl, htmlAttributes: new { @class = "control-label" })
+                <input type="file" id="imgurl" name="imgurl" class="img-url" />
                 @Html.ValidationMessageFor(model => model.imgurl, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">                
-                <button type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
-                <input type="submit" value="SAVE" class="btn btn-primary" />
+            <div class="col-md-offset-7 col-md-5">
+                <button style="width:100px" type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+                <input style="width:100px" type="submit" value="SAVE" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -55,10 +58,10 @@
             processData: false,
             contentType: false,
             cache: false,
-            timeout : 600000,
+            timeout: 600000,
             success: function (result) {
                 if (result.success) {
-                    alert("Save successful\nName: " + result.entity.name);
+                    alert("Data Successfully Saved !");
                     $(".modal").modal("hide");
                     GetList();
                 }

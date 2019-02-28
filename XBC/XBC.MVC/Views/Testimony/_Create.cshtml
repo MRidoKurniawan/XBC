@@ -1,42 +1,30 @@
 ﻿@model XBC.ViewModel.TestimonyViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Create", "Testimony", FormMethod.Post, new { id = "form-create", name = "form-create" }))
 {
     @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <table class="table" style="width:100%">
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-md-1"> </label>
-                        <div class="col-md-12">
-                            <textarea class="form-control" name="title" style="max-width:100%; height:5rem; resize:none;" placeholder="Title"></textarea>
-                            @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <textarea class="form-control" name="content" style="max-width:100%; height:25rem; resize:none;" placeholder="Content"></textarea>
-                            @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="button" value="Cancel" class="btn btn-primary" data-dismiss="modal" style="background-color:darkorange" />
-                            <input type="submit" value="Save" class="btn btn-primary" style="background-color:darkorange" />
-                        </div>
-                    </div>
-                </td>
-            </tr>
+            <div class="form-group">
+                @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", @style = "max-width:100%; height:5rem; resize:none;", @placeholder = "Title" } })
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.content, htmlAttributes: new { @class = "control-label" })
+                <textarea class="form-control" name="content" style="max-width:100%; height:25rem; resize:none;" placeholder="Content"></textarea>
+                @Html.ValidationMessageFor(model => model.content, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Cancel" class="btn btn-primary" data-dismiss="modal"/>
+                    <input type="submit" value="Save" class="btn btn-primary"/>
+                </div>
+            </div>
         </table>
     </div>
 }

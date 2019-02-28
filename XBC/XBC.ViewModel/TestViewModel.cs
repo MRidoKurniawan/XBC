@@ -11,15 +11,23 @@ namespace XBC.ViewModel
     {
         public long id { get; set; }
 
+        [Display(Name = "Name")]
         [Required, StringLength(255)]
         public string name { get; set; }
 
+        [Display(Name = "Is Bootcamp Test ?")]
         public bool isBootcampTest { get; set; }
 
+        [Display(Name = "Notes")]
         [StringLength(255)]
         public string notes { get; set; }
-
+       
         public long createdBy { get; set; }
+
+        public long UserId { get; set; }
+
+        [Display(Name = "Created By")]
+        public string UserName { get; set; }
 
         public bool check { get; set; }
     }

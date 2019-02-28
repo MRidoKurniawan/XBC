@@ -1,28 +1,35 @@
 ﻿@model XBC.ViewModel.ClazzViewModel
+@{
+    ViewBag.id = Session["id"];
+}
 
-
-@using (Html.BeginForm("AddParticipant", "Batch", FormMethod.Post, new { id = "form-create", name = "form-create", enctype = "multipart/form-data" })) 
+@using (Html.BeginForm("AddParticipant", "Batch", FormMethod.Post, new { id = "form-create", name = "form-create", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
         <input type="hidden" name="batchId" value="@ViewBag.IdBatch" />
 
         <div class="form-group">
-            @Html.LabelFor(model => model.biodataId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-offset-1 col-md-10">
+                @Html.LabelFor(model => model.biodataId, htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.biodataId, (IEnumerable<SelectListItem>)ViewBag.BiodataList, "- Choose Biodata -", new { @class = "form-control" })
-                @*@Html.EditorFor(model => model.biodataId, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.biodataId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
-                <input type="submit" value="SAVE" class="btn btn-primary" />
+            <div class="col-md-12">
+                <p>   </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-7 col-md-5">
+                <button style="width:90px" type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+                <input style="width:90px" type="submit" value="SAVE" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -38,7 +45,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save successful\nName: " + result.entity.name);
+                    alert("Data Successfully Added !");
                     $(".modal").modal("hide");
                     GetList();
                 }
