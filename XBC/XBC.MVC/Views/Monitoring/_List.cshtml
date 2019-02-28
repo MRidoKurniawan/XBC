@@ -21,6 +21,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.idle_date)
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.placement_date)
@@ -35,10 +36,10 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.idle_date)
+                @Html.DisplayFor(modelItem => item.date_idle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.placement_date)
+                @Html.DisplayFor(modelItem => item.date_placement)
             </td>
             <td>
                 <div class="dropdown">

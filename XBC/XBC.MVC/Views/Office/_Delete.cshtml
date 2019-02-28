@@ -1,5 +1,7 @@
 ﻿@model XBC.ViewModel.OfficeViewModel
-
+@{ 
+    ViewBag.id = Session["id"];
+}
 <h3>Are you sure to delete this data?</h3>
 <div>
     
@@ -7,6 +9,7 @@
     @using (Html.BeginForm("Delete", "Office", FormMethod.Post, new { id ="form-delete", name ="form-delete" }))
     {
         @Html.AntiForgeryToken()
+        <input type="hidden" name="UserId" id="UserId" value="@ViewBag.id" />
         @Html.HiddenFor(model => model.id)
         <div class="form-actions no-color">
             <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />

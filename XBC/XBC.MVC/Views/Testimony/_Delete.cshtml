@@ -2,7 +2,7 @@
 @{
     ViewBag.id = Session["id"];
 }
-<h3>Are you sure to delete this data?</h3>
+<h4>Are you sure to delete this data?</h4>
 <div>
     @using (Html.BeginForm("Delete", "Testimony", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
     {

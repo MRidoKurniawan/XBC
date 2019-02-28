@@ -76,17 +76,26 @@ namespace XBC.Repository
                         room.notes = entity.notes;
                         room.is_delete = false;
 
-                        room.created_by = 1;
+                        room.created_by = entity.UserId;
                         room.created_on = DateTime.Now;
                         db.t_room.Add(room);
                         db.SaveChanges();
-                        var json = new JavaScriptSerializer().Serialize(room);
+
+                        object data = new
+                        {
+                            room.code,
+                            room.name,
+                            room.capacity,
+                            room.any_projector,
+                            room.notes,
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
 
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -115,7 +124,7 @@ namespace XBC.Repository
                             room.notes = entity.notes;
                             room.is_delete = false;
 
-                            room.modified_by = 1;
+                            room.modified_by = entity.UserId;
                             room.modified_on = DateTime.Now;
 
                             db.SaveChanges();
@@ -133,7 +142,7 @@ namespace XBC.Repository
                             log.json_before = Serial.Serialize(dataBefore);
                             log.json_after = Serial.Serialize(dataAfter);
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(log);
@@ -166,7 +175,7 @@ namespace XBC.Repository
                     if (room != null)
                     {
                         room.is_delete = true;
-                        room.deleted_by = 1;
+                        room.deleted_by = entity.UserId;
                         room.created_on = DateTime.Now;
                         db.SaveChanges();
 
@@ -182,7 +191,7 @@ namespace XBC.Repository
                         log.type = "Modified";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);

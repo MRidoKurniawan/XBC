@@ -22,9 +22,7 @@ namespace XBC.Repository
                           select new TrainerViewModel
                           {
                               id = tra.id,
-                              name = tra.name,
-                              notes = tra.notes,
-                              is_delete = tra.is_delete
+                              name = tra.name
                           }).ToList();
 
                 if (result == null)
@@ -45,8 +43,7 @@ namespace XBC.Repository
                           {
                               id = tra.id,
                               name = tra.name,
-                              notes = tra.notes,
-                              is_delete = tra.is_delete
+                              notes = tra.notes
                           }).FirstOrDefault();
                 if (result == null)
                     result = new TrainerViewModel();
@@ -66,7 +63,6 @@ namespace XBC.Repository
                         t_trainer tra = new t_trainer();
                         tra.name = entity.name;
                         tra.notes = entity.notes;
-                        tra.is_delete = entity.is_delete;
                         tra.created_by = entity.UserId;
                         tra.created_on = DateTime.Now;
                         db.t_trainer.Add(tra);

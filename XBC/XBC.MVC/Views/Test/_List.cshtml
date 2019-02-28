@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<XBC.ViewModel.TestViewModel>
 
-<div class="row">
-    <div class="col-lg-4">
-        <input type="text" id="txt-search" class="form-control" placeholder="Search by Name..." />
-    </div>
-    <div class="col-lg-2">
-        <button type="button" id="btn-search" class="btn btn-primary">
+<div style="padding:1rem 0rem 4rem 0rem" class="row">
+    <div style="display:inline" class="col-md-6">
+        <input style="display:inline; width:70%" type="text" id="txt-search" class="form-control" placeholder="Search by Name..." />
+        <button style="display:inline" type="button" id="btn-search" class="btn btn-primary">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
         </button>
     </div>
-    <div class="col-lg-4"></div>
-    <div class="col-lg-2">
+    <div class="col-md-offset-4 col-md-2">
         <button type="button" id="btn-create-new" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>

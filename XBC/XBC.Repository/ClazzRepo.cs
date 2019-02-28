@@ -69,7 +69,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Delete";
                         log.json_delete = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();

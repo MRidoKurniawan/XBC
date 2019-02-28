@@ -149,5 +149,20 @@ namespace XBC.MVC.Controllers
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
+
+        // Validalsi Nama Batch Tidak Boleh Sama
+        public ActionResult CheckName(string name = "")
+        {
+            BatchViewModel data = BatchRepo.CheckName(name);
+            ResponseResult result = new ResponseResult();
+            if (data.name != null)
+            {
+                result.Success = false;
+            }
+            return Json(new
+            {
+                success = result.Success
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

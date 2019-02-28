@@ -18,7 +18,16 @@ namespace XBC.MVC.Controllers
 
         public ActionResult List()
         {
-            return PartialView("_List", MonitoringRepo.All());
+            List<MonitoringViewModel> model = new List<MonitoringViewModel>(); //.
+            model = MonitoringRepo.All(); //.
+            foreach (var item in model)
+            {
+                item.date_placement = item.placement_date?.ToString("yyyy'-'MM'-'dd");
+                item.date_idle = item.idle_date.ToString("yyyy'-'MM'-'dd");
+            }
+            //ViewBag.idle_date = model.idle_date.ToString("yyyy'-'MM'-'dd"); //.(BIAR DI LIST IDLE_DATE CUMA MUNCUL TANGGAL)
+            //ViewBag.placement_date = model.placement_date?.ToString("yyyy'-'MM'-'dd"); //.(BIAR DI LIST PLACEMENT_DATE CUMA MUNCUL TANGGAL)
+            return PartialView("_List", model);
         }
 
         public ActionResult Create()

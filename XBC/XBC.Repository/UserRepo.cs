@@ -369,7 +369,7 @@ namespace XBC.Repository
                         user.is_delete = true;
                         
                         user.deleted_by = entity.UserId;
-                        user.modified_on = DateTime.Now;
+                        user.deleted_on = DateTime.Now;
                         db.SaveChanges();
 
                         result.Entity = entity;

@@ -74,19 +74,27 @@ namespace XBC.Repository
                         rol.description = entity.description;
                         rol.is_deleted = entity.is_delete;
 
-                        rol.created_by = 1;
+                        rol.created_by = entity.UserId;
                         rol.created_on = DateTime.Now;
 
                         db.t_role.Add(rol);
                         db.SaveChanges();
 
-                        var json = new JavaScriptSerializer().Serialize(rol);
+                        object data = new
+                        {
+                            rol.id,
+                            rol.code,
+                            rol.name,
+                            rol.description
+                        };
+
+                        var json = new JavaScriptSerializer().Serialize(data);
 
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -103,21 +111,37 @@ namespace XBC.Repository
 
                         if (rol != null)
                         {
-                            var json = new JavaScriptSerializer().Serialize(rol);
+                            object data = new
+                            {
+                                rol.id,
+                                rol.code,
+                                rol.name,
+                                rol.description
+                            };
+
+                            var json = new JavaScriptSerializer().Serialize(data);
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             rol.code = entity.code;
                             rol.name = entity.name;
                             rol.description = entity.description;
 
-                            rol.modified_by = 1;
+                            rol.modified_by = entity.UserId;
                             rol.modified_on = DateTime.Now;
 
-                            var json2 = new JavaScriptSerializer().Serialize(rol);
+                            object data2 = new
+                            {
+                                rol.id,
+                                rol.code,
+                                rol.name,
+                                rol.description
+                            };
+
+                            var json2 = new JavaScriptSerializer().Serialize(data2);
                             log.json_after = json2;
                             db.t_audit_log.Add(log);
 
@@ -155,18 +179,34 @@ namespace XBC.Repository
 
                     if (rol != null)
                     {
-                        var json = new JavaScriptSerializer().Serialize(rol);
+                        object data = new
+                        {
+                            rol.id,
+                            rol.code,
+                            rol.name,
+                            rol.description
+                        };
+
+                        var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         rol.is_deleted = true;
-                        rol.deleted_by = 1;
+                        rol.deleted_by = entity.UserId;
                         rol.deleted_on = DateTime.Now;
 
-                        var json2 = new JavaScriptSerializer().Serialize(rol);
+                        object data2 = new
+                        {
+                            rol.id,
+                            rol.code,
+                            rol.name,
+                            rol.description
+                        };
+
+                        var json2 = new JavaScriptSerializer().Serialize(data2);
                         log.json_after = json2;
                         db.t_audit_log.Add(log);
 
@@ -210,6 +250,24 @@ namespace XBC.Repository
                 }
             }
             return result;
+        }
+
+        //CheckName
+        public static RoleViewModel CheckName(string name)
+        {
+
+            RoleViewModel result = new RoleViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from rol in db.t_role
+                          where rol.name == name && rol.is_deleted == false
+                          select new RoleViewModel
+                          {
+                              id = rol.id,
+                              name = rol.name
+                          }).FirstOrDefault();
+            }
+            return result == null ? new RoleViewModel() : result;
         }
     }
 }

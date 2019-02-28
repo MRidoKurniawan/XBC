@@ -88,7 +88,7 @@ namespace XBC.Repository
                         mon.idle_reason = entity.idle_reason;
                         mon.is_delete = entity.is_delete;
 
-                        mon.created_by = 1;
+                        mon.created_by = entity.UserId;
                         mon.created_on = DateTime.Now;
 
                         db.t_monitoring.Add(mon);
@@ -108,7 +108,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -138,18 +138,15 @@ namespace XBC.Repository
                             log.type = "Modify";
                             log.json_before = json;
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             mon.biodata_id = entity.biodata_id;
                             mon.idle_date = entity.idle_date;
                             mon.last_project = entity.last_project;
                             mon.idle_reason = entity.idle_reason;
-                            //mon.placement_at = entity.placement_at;
-                            //mon.placement_date = entity.placement_date;
-                            //mon.notes = entity.notes;
 
-                            mon.modified_by = 1;
+                            mon.modified_by = entity.UserId;
                             mon.modified_on = DateTime.Now;
 
                             object data2 = new
@@ -214,18 +211,14 @@ namespace XBC.Repository
                         log.type = "Modify";
                         log.json_before = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
-                        //mon.biodata_id = entity.biodata_id;
-                        //mon.idle_date = entity.idle_date;
-                        //mon.last_project = entity.last_project;
-                        //mon.idle_reason = entity.idle_reason;
                         mon.placement_date = entity.placement_date;
                         mon.placement_at = entity.placement_at;
                         mon.notes = entity.notes;
 
-                        mon.modified_by = 1;
+                        mon.modified_by = entity.UserId;
                         mon.modified_on = DateTime.Now;
 
                         object data2 = new
@@ -290,11 +283,11 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         mon.is_delete = true;
-                        mon.deleted_by = 1;
+                        mon.deleted_by = entity.UserId;
                         mon.deleted_on = DateTime.Now;
 
                         object data2 = new

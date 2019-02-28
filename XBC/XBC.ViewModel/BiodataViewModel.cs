@@ -69,6 +69,7 @@ namespace XBC.ViewModel
         [StringLength(100)]
         [Display(Name = "Interviewer")]
         public string interviewer { get; set; }
+        public long UserId { get; set; }
         public bool is_deleted { get; set; }
     }
 }

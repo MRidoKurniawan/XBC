@@ -372,5 +372,24 @@ namespace XBC.Repository
             }
             return result;
         }
+
+
+        // Validalsi Nama Batch Tidak Boleh Sama
+        public static BatchViewModel CheckName(string name)
+        {
+
+            BatchViewModel result = new BatchViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from b in db.t_batch
+                          where b.name == name && b.is_delete == false
+                          select new BatchViewModel
+                          {
+                              id = b.id,
+                              name = b.name
+                          }).FirstOrDefault();
+            }
+            return result == null ? new BatchViewModel() : result;
+        }
     }
 }

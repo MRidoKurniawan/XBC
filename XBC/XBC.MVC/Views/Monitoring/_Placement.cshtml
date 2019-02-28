@@ -1,9 +1,12 @@
 ﻿@model XBC.ViewModel.MonitoringViewModel
+@{
+    ViewBag.id = Session["id"];
+}
 
 @using (Html.BeginForm("Placement", "Monitoring", FormMethod.Post, new { id = "form-placement", name = "form-placement" }))
 {
     @Html.AntiForgeryToken()
-    
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
