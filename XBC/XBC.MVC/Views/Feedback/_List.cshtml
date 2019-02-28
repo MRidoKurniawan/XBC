@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<XBC.ViewModel.FeedbackViewModel>
 
 
-<table class="table">
+<table class="table table-bordered table-striped">
     <tr>
 
         <th>
             @Html.DisplayNameFor(model => model.Nama)
         </th>
-        <th></th>
+        <th>#</th>
     </tr>
 
     @foreach (var item in Model)

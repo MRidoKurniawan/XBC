@@ -75,7 +75,7 @@ namespace XBC.Repository
                             doct.token = entity.token;
                             doct.test_type_id = entity.test_type_id;
                             doct.test_id = entity.test_id;
-                            doct.created_by = 1;
+                            doct.created_by = entity.UserId;
                             doct.created_on = DateTime.Now;
 
                             db.t_document_test.Add(doct);
@@ -87,7 +87,7 @@ namespace XBC.Repository
                             log.type = "Insert";
                             log.json_insert = json;
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(log);
@@ -110,7 +110,7 @@ namespace XBC.Repository
                                 doct1.token = entity.token;
 
 
-                                doct1.created_by = 1;
+                                doct1.created_by = entity.UserId;
                                 doct1.created_on = DateTime.Now;
 
                                 db.t_document_test.Add(doct1);
@@ -122,7 +122,7 @@ namespace XBC.Repository
                                 log.type = "Insert";
                                 log.json_insert = json;
 
-                                log.created_by = 1;
+                                log.created_by = entity.UserId;
                                 log.created_on = DateTime.Now;
 
                                 db.t_audit_log.Add(log);
@@ -138,7 +138,7 @@ namespace XBC.Repository
                                     od.question_id = dtd.question_id;
                                     od.document_test_id = doct1.id;
 
-                                    od.created_by = 1;
+                                    od.created_by = entity.UserId;
                                     od.created_on = DateTime.Now;
 
                                     db.t_document_test_detail.Add(od);
@@ -155,7 +155,7 @@ namespace XBC.Repository
                                     log.type = "Insert";
                                     log.json_insert = json2;
 
-                                    log.created_by = 1;
+                                    log.created_by = entity.UserId;
                                     log.created_on = DateTime.Now;
 
                                     db.t_audit_log.Add(log);
@@ -163,6 +163,7 @@ namespace XBC.Repository
                                     db.SaveChanges();
                                 }
 
+                                entity.id = doct1.id;
                                 result.Entity = entity;
                             }
 
@@ -203,7 +204,7 @@ namespace XBC.Repository
                         doct.token = entity.token;
                         doct.test_type_id = entity.test_type_id;
                         doct.test_id = entity.test_id;
-                        doct.created_by = 1;
+                        doct.created_by = entity.UserId;
                         doct.created_on = DateTime.Now;
 
                         db.t_document_test.Add(doct);
@@ -215,7 +216,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -256,7 +257,7 @@ namespace XBC.Repository
                             doct.token = entity.token;
 
 
-                            doct.modified_by = 1;
+                            doct.modified_by = entity.UserId;
                             doct.modified_on = DateTime.Now;
 
                             object data2 = new
@@ -281,7 +282,7 @@ namespace XBC.Repository
                             log.json_after = json;
 
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(log);
@@ -473,6 +474,11 @@ namespace XBC.Repository
                         var Serial = new JavaScriptSerializer();
                         object data = new
                         {
+                            doct.id,
+                            doct.test_id,
+                            doct.test_type_id,
+                            doct.token,
+                            doct.version,
                             doct.is_delete,
                             doct.deleted_by,
                             doct.deleted_on
@@ -481,7 +487,7 @@ namespace XBC.Repository
                         doct.is_delete = true;
 
 
-                        doct.deleted_by = 1;
+                        doct.deleted_by = entity.UserId;
                         doct.deleted_on = DateTime.Now;
 
 
@@ -489,6 +495,11 @@ namespace XBC.Repository
 
                         object data2 = new
                         {
+                            doct.id,
+                            doct.test_id,
+                            doct.test_type_id,
+                            doct.token,
+                            doct.version,
                             doct.is_delete,
                             doct.deleted_by,
                             doct.deleted_on
@@ -501,7 +512,7 @@ namespace XBC.Repository
                         log.json_after = json;
 
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);

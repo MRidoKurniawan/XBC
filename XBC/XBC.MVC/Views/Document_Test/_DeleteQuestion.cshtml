@@ -1,5 +1,7 @@
 ﻿@model XBC.ViewModel.Document_Test_DetailViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 <h3>Are you sure you want to delete this?</h3>
 @*<div>
     <h4>Document_Test_DetailViewModel</h4>
@@ -34,10 +36,10 @@
     @using (Html.BeginForm("DeleteQuestion", "Document_Test", FormMethod.Post, new { id = "form-delete", name = "form-delete" })) {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.id )
-
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
         <div class="form-actions no-color">
-            <input type="button" value="Cancel" class="btn btn-default btn-close"  />
-            <input type="submit" value="Delete" class="btn btn-danger" />
+            <input type="button" value="No" class="btn btn-danger btn-close"  />
+            <input type="submit" value="Yes" class="btn btn-success" />
 
         </div>
     }
@@ -51,10 +53,10 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Delete Successful!\nName");
+                    alert("Data Successfully Deleted !");
                     $(".modal").modal("show");
+                    $(".modal2").hide();
                     GetList2();
-                    $(".modal2").modal("hide");;
                 } else {
                     alert("Error!\n" + result.message);
                 }

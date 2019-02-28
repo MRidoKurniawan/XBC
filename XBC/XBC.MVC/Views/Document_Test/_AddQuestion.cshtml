@@ -1,9 +1,12 @@
 ﻿@model XBC.ViewModel.Document_Test_DetailViewModel
+@{
+    ViewBag.id = Session["id"];
+}
 
-
-@using (Html.BeginForm("AddQuestion", "Document_Test", FormMethod.Post, new { id = "form-create", name = "form-create" })) 
+@using (Html.BeginForm("AddQuestion", "Document_Test", FormMethod.Post, new { id = "form-create", name = "form-create" }))
 {
     @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     @Html.HiddenFor(model => model.document_test_id )
 
     <div class="form-horizontal">
@@ -11,7 +14,7 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.question_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.question_id, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.question_id, (IEnumerable<SelectListItem>)ViewBag.QuestionList, "Choose Question", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.question_id, "", new { @class = "text-danger" })
@@ -23,8 +26,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="button" class="btn btn-danger btn-close"  >Cancel</button>
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="Save" class="btn btn-primary"style="float:right; margin-right:7px"  />
+                <button type="button" class="btn btn-primary btn-close" style="float:right; margin-right:7px"  >Cancel</button>
             </div>
         </div>
     </div>
@@ -40,7 +43,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Data Successfully Saved!\nId: "+   result.entity.Id+ "\nName: " + result.entity.Name);
+                    alert("Data has been added!\nId: "+   result.entity.id);
                     $(".modal").modal("show");
                     $(".modal2").hide();
                     GetList2();

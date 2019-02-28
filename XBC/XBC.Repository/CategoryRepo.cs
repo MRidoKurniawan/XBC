@@ -52,7 +52,7 @@ namespace XBC.Repository
                         cat.name = entity.name;
                         cat.description = entity.description;
 
-                        cat.created_by = 1;
+                        cat.created_by = entity.UserId;
                         cat.created_on = DateTime.Now;
 
                         db.t_category.Add(cat);
@@ -64,7 +64,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -85,7 +85,7 @@ namespace XBC.Repository
                             log.type = "Modify";
                             log.json_before = json;
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
 
@@ -94,7 +94,7 @@ namespace XBC.Repository
                             cat.description = entity.description;
 
 
-                            cat.modified_by = 1;
+                            cat.modified_by = entity.UserId;
                             cat.modified_on = DateTime.Now;
 
                             var json2 = new JavaScriptSerializer().Serialize(cat);
@@ -181,12 +181,12 @@ namespace XBC.Repository
                         log.type = "Modify";
                         log.json_before = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         cat.is_delete = true;
-
-                        cat.deleted_by = 1;
+     
+                        cat.deleted_by = entity.UserId;
                         cat.deleted_on = DateTime.Now;
 
                         db.SaveChanges();
@@ -212,6 +212,22 @@ namespace XBC.Repository
                 result.ErrorMessage = ex.Message;
             }
             return result;
+        }
+
+        public static CategoryViewModel Check(string name)
+        {
+            CategoryViewModel result = new CategoryViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from cat in db.t_category
+                          where cat.name == name && cat.is_delete == false
+                          select new CategoryViewModel
+                          {
+                              id = cat.id,
+                              name = cat.name
+                          }).FirstOrDefault();
+            }
+            return result == null ? new CategoryViewModel() : result;
         }
 
     }

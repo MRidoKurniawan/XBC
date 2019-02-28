@@ -15,7 +15,7 @@
             <select class="form-control" name="menu_id" id="menu_id"></select>
         </div>
 
-        <div class="form-actions no-color col-md-offset-6 col-md-6">
+        <div class="form-actions no-color col-md-offset-6 col-md-6" style="margin-top:1.5rem;margin-bottom:1.5rem;">
             <button type="button" class="btn btn-danger btn-clear" data-dismiss="modal">Cancel</button>
             <input type="submit" value="Save" class="btn btn-success" />
         </div>
@@ -27,13 +27,13 @@
         <select class="form-control" name="role_id" id="role_id1"></select>
     </div>
     <div class="col-lg-1">
-        <button type="button" id="btn-search" class="btn btn-success">
+        <button type="button" id="btn-search" class="btn btn-primary">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
         </button>
     </div>
 </div>
 
-<table class="table">
+<table class="table" style="margin-top:2rem;">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.role_name)
@@ -95,7 +95,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save Successful!\nName: " + result.entity.name);
+                    alert("Data successfully saved!");
                     $(".modal").modal("hide");
                     GetList();
                 }
