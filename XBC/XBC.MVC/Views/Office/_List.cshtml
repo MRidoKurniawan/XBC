@@ -1,22 +1,24 @@
 ﻿@model IEnumerable<XBC.ViewModel.OfficeViewModel>
 
-<div class="col-lg-5">
-    <input type="text" id="txt-search" class="form-control" placeholder="search..." />
+<div class="row" style="padding: 1rem 0rem 4rem 0rem">
+    <div class="col-lg-3">
+        <input type="text" id="txt-search" class="form-control" placeholder="search..." />
 
+    </div>
+    <div class="col-lg-3">
+        <button type="button" id="btn-search" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+    </div>
+    <div class="col-lg-5">
+        <div>
+            <button id="btn-create-new" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
 </div>
-<div class="col-lg-3">
-    <button type="button" id="btn-search" class="btn btn-success">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-    </button>
-</div>
-<div>
-    <button id="btn-create-new" type="button" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    </button>
-</div>
-<h1> </h1>
-
-<table class="table">
+<table class="table table-bordered table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.name)
@@ -24,7 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.contact)
         </th>
-        
+
         <th>
             @Html.DisplayName("#")
         </th>
@@ -40,11 +42,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.contact)
             </td>
-            
+
             <td>
                 <div class="dropdown">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="icon-bar"></span>                        
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                     </button>
@@ -53,7 +55,7 @@
                         <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
                     </div>
                 </div>
-                
+
             </td>
         </tr>
     }
@@ -71,41 +73,41 @@
             }
         });
     });
-    $("#btn-create-new").click(function () {
+    $("#txt-search").change(function () {
         $.ajax({
-            url: '@Url.Action("Create","Office")',
+            url: '@Url.Action("List", "Office")',
             type: 'get',
+            data: { search: $("#txt-search").val() },
             success: function (result) {
-                $("#create").html(result);
-                $(".modal").modal('show');
-                $("#room").removeClass("hidden");
-                $(".modal-footer").removeClass("hidden");
+                //console.log("1");
+                $("#data-list").html(result);
             }
         });
+    });
+    $("#btn-create-new").click(function () {
+        $(".modal2").hide();
         $.ajax({
-            url: '@Url.Action("ListByOffice","Office")',
+            url: '@Url.Action("Create", "Office")',
             type: 'get',
-            data: { id: 0 },
             success: function (result) {
-                $("#room").html(result);
-                $(".modal").modal('show');
+                $(".modal-body").html(result);
+                $(".modal").modal("show");
             }
-        })
+        });
     });
     $(".btn-edit").click(function () {
+        $(".modal2").hide();
         $.ajax({
             url: '@Url.Action("Edit", "Office")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
-                $("#create").html(result);
+                $(".modal-body").html(result);
                 $(".modal").modal('show');
-                $("#room").removeClass("hidden");
-                $(".modal-footer").removeClass("hidden");
             }
         });
 
-        $.ajax({
+        @*$.ajax({
             url: '@Url.Action("ListByOffice","Office")',
             type: 'get',
             data: { id: $(this).attr("data-id") },
@@ -113,13 +115,13 @@
                 $("#room").html(result);
                 $(".modal").modal('show');
             }
-        })
-        $.ajax({
+        })*@
+        @*$.ajax({
             url: '@Url.Action("CreateRoom","Office")',
             type: 'get',
             data: { id: $(this).attr("data-id") }
-        })
-   });
+        })*@
+    });
 
     $(".btn-delete").click(function () {
         $.ajax({
@@ -129,8 +131,7 @@
             success: function (result) {
                 $(".modal-body").html(result);
                 $(".modal").modal('show');
-                $("#room").addClass("hidden");
-                $(".modal-footer").addClass("hidden");
+
             }
         });
 

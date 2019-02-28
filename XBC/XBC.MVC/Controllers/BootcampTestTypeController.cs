@@ -18,6 +18,7 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult List(string search = "")
         {
+            ViewBag.id = new SelectList(UserRepo.All(), "id", "username");
             return PartialView("_List", BootcampTestTypeRepo.All(search));
         }
 

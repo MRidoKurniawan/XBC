@@ -104,28 +104,30 @@ namespace XBC.Repository
                         ofc.notes = entity.notes;
                         ofc.is_delete = entity.isDelete;
 
-                        ofc.created_by = 1;
+                        ofc.created_by = entity.UserId;
                         ofc.created_on = DateTime.Now;
                         ofc.is_delete = false;
                         db.t_office.Add(ofc);
                         db.SaveChanges();
                         entity.id = ofc.id;
+                        if (entity.details !=null) {
+                            foreach (var item in entity.details)
+                            {
+                                t_room room = new t_room();
+                                room.office_id = entity.id;
+                                room.code = item.code;
+                                room.name = item.name;
+                                room.capacity = item.capacity;
+                                room.any_projector = item.any_projector;
+                                room.notes = entity.notes;
 
-                        foreach (var item in entity.details)
-                        {
-                            t_room room = new t_room();
-                            room.office_id = entity.id;
-                            room.code = item.code;
-                            room.name = item.name;
-                            room.capacity = item.capacity;
-                            room.any_projector = item.any_projector;
-                            room.notes = entity.notes;
+                                room.created_by = item.UserId;
+                                room.created_on = DateTime.Now;
 
-                            room.created_by = 1;
-                            room.created_on = DateTime.Now;
-
-                            db.t_room.Add(room);
+                                db.t_room.Add(room);
+                            }
                         }
+                        
                         db.SaveChanges();
 
                         object data = new
@@ -143,7 +145,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -171,7 +173,7 @@ namespace XBC.Repository
                             ofc.address = entity.address;
                             ofc.notes = entity.notes;
                             ofc.is_delete = entity.isDelete;
-                            ofc.modified_by = 1;
+                            ofc.modified_by = entity.UserId;
                             ofc.modified_on = DateTime.Now;
                             db.SaveChanges();
                             object dataAfter = new
@@ -187,7 +189,7 @@ namespace XBC.Repository
                             log.json_before = Serial.Serialize(dataBefore);
                             log.json_after = Serial.Serialize(dataAfter);
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(log);
@@ -220,7 +222,7 @@ namespace XBC.Repository
                     if (ofc != null)
                     {
                         ofc.is_delete = true;
-                        ofc.deleted_by = 1;
+                        ofc.deleted_by = entity.UserId;
                         ofc.deleted_on = DateTime.Now;
                         db.SaveChanges();
 
@@ -237,7 +239,7 @@ namespace XBC.Repository
                         log.type = "Modified";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -258,6 +260,19 @@ namespace XBC.Repository
             }
             return result;
         }
-
+        public static bool anyProjector(long id)
+        {
+            RoomViewModel result = new RoomViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from a in db.t_room
+                          where a.id == id
+                          select new RoomViewModel
+                          {
+                              any_projector = a.any_projector
+                          }).FirstOrDefault();
+            }
+            return result == null ? false : result.any_projector;
+        }
     }
 }

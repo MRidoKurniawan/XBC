@@ -17,13 +17,14 @@ namespace XBC.Repository
             List<BootcampTestTypeViewModel> result = new List<BootcampTestTypeViewModel>();
             using (var db = new XBC_Context())
             {
-                result = (from btt in db.t_bootcamp_test_type
+                result = (from btt in db.t_bootcamp_test_type join u in db.t_user on btt.created_by equals u.id
                           where (btt.name.Contains(search) && btt.is_delete == false)
                           select new BootcampTestTypeViewModel
                           {
                               id = btt.id,
                               name = btt.name,
-                              created_by = 1,
+                              created_by = u.id,
+                              UserName = u.username,
                               notes = btt.notes,
                               isDelete = btt.is_delete
                           }).ToList();
@@ -65,7 +66,7 @@ namespace XBC.Repository
                         btt.notes = entity.notes;
                         btt.is_delete = false;
 
-                        btt.created_by = 1;
+                        btt.created_by = entity.UserId;
                         btt.created_on = DateTime.Now;
                         db.t_bootcamp_test_type.Add(btt);
                         db.SaveChanges();
@@ -74,7 +75,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -100,7 +101,7 @@ namespace XBC.Repository
                             btt.notes = entity.notes;
                             btt.is_delete = false;
 
-                            btt.modified_by = 1;
+                            btt.modified_by = entity.UserId;
                             btt.modified_on = DateTime.Now;
 
                             db.SaveChanges();
@@ -117,7 +118,7 @@ namespace XBC.Repository
                             log.json_before = Serial.Serialize(dataBefore);
                             log.json_after = Serial.Serialize(dataAfter);
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(log);
@@ -150,7 +151,7 @@ namespace XBC.Repository
                     if (btt != null)
                     {
                         btt.is_delete = true;
-                        btt.deleted_by = 1;
+                        btt.deleted_by = entity.UserId;
                         btt.created_on = DateTime.Now;
                         db.SaveChanges();
                         object data = new
@@ -165,7 +166,7 @@ namespace XBC.Repository
                         log.type = "Modified";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);

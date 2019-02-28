@@ -1,13 +1,14 @@
 ﻿@model XBC.ViewModel.RoomViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 
 @using (Html.BeginForm("EditRoom", "Office", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
     @Html.AntiForgeryToken()
-    
+    <input type="hidden" name="UserId" id="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
-        <h4>RoomViewModel</h4>
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
@@ -27,7 +28,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="capacity">
             @Html.LabelFor(model => model.capacity, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.capacity, new { htmlAttributes = new { @class = "form-control" } })
@@ -38,8 +39,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.any_projector, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="radio">
-                    @Html.EditorFor(model => model.any_projector)
+                <div class="checkbox">
+                    <input type="radio" name="anyProjector" value="Yes" id="rd-yes" @ViewBag.rdyes /> Yes
+                    <input type="radio" name="anyProjector" value="No" id="rd-No" @ViewBag.rdno /> No
+                    @*@Html.EditorFor(model => model.any_projector)*@
                     @Html.ValidationMessageFor(model => model.any_projector, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -54,24 +57,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.officeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.officeId, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.officeId, new { htmlAttributes = new { @class = "form-control" } })*@
-                <input type="number" name="officeId" value="@ViewBag.officeId" class="form-control" />
+                <input type="number" name="officeId" value="@ViewBag.officeId" class="form-control hidden" />
                 @Html.ValidationMessageFor(model => model.officeId, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.isDelete, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.isDelete)
-                    @Html.ValidationMessageFor(model => model.isDelete, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -83,6 +75,11 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
+    $("#capacity").keypress(function (data) {
+        if (data.which < 47 || data.which > 57) {
+            return false;
+        }
+    });
     $("#form-edit").submit(function () {
         $.ajax({
             url: this.action,
@@ -92,7 +89,7 @@
                 if (result.success) {
                     alert("Data Successfully Saved");
                     $(".modal2").hide()
-                    GetListRoom(@ViewBag.officeId);
+                    GetListByOffice(@ViewBag.officeId);
                 }
                 else {
                     alert("Error!\n" + result.message);
@@ -101,7 +98,7 @@
         });
         return false;
     });
-    
+
     $(".btncancel").click(function () {
         $.ajax({
             url: this.action,

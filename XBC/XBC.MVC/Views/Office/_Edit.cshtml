@@ -1,71 +1,98 @@
 ﻿@model XBC.ViewModel.OfficeViewModel
 
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Edit", "Office", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
     @Html.AntiForgeryToken()
-
+    <input type="hidden" name="UserId" id="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
+        <table class="table table-striped" style="width:100%">
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="name" placeholder="Name" id="name" style="max-width:100%; height:3rem">@Model.name</textarea>
+                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="form-group">
+                        <textarea class="form-control" name="phone" placeholder="Phone" id="phone" style="max-width:91%; height:3rem">@Model.phone</textarea>
+                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="form-group">
+                        <textarea class="form-control" name="email" placeholder="Email" id="email" style="max-width:95%;height:3rem">@Model.email</textarea>
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            <tr>
+                <td colspan="3">
+                    <div class="form-group">
+                        <textarea class="form-control" name="address" placeholder="Address" id="address" style="max-width:95%; height:7rem">@Model.address</textarea>
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td colspan="3">
+                    <div class="form-group">
+                        <textarea class="form-control" name="notes" placeholder="Description" id="notes" style="max-width:95%; height:7rem">@Model.notes</textarea>
+                        @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div>
+                        <input id="btn-addroom2" type="button" value="+Room" class="btn btn-primary" style="float:right" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <div id="room-list" class="panel-body">
+                        <h4>Loading...</h4>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.notes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
     </div>
-    <div>
-        <button id="btn-create-room" type="button" class="btn btn-success">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true">Room2</span>
-        </button>
-    </div>
+
 }
 
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
+    function GetListByOffice(id) {
+        var officeId = id;
+        $.ajax({
+            url: '@Url.Action("ListByOffice", "Office")',
+            type: 'get',
+            data: { id: officeId },
+            success: function (result) {
+                $("#room-list").html(result);
+            }
+        })
+    };
+    $(document).ready(function () {
+        GetListByOffice($("#id").val());
+        $("#phone").keypress(function (data) {
+            if (data.which < 42 || data.which > 57) {
+                return false;
+            }
+        });
+    });
     $("#form-edit").submit(function () {
         $.ajax({
             url: this.action,
@@ -86,7 +113,7 @@
         return false;
     });
 
-    $("#btn-create-room").click(function () {
+    $("#btn-addroom2").click(function () {
         $.ajax({
             url: '@Url.Action("AddRoom","Office")',
             type: 'get',
@@ -94,7 +121,7 @@
             success: function (result) {
                 $(".body2").html(result);
                 $(".modal2").show();
-                GetListRoom(@ViewBag.officeId)
+                GetListByOffice(@ViewBag.officeId)
 
             }
         })
