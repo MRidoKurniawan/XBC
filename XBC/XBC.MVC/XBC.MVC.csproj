@@ -211,6 +211,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="loading.gif" />
     <Content Include="logo.png" />
     <Content Include="menu.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -419,6 +420,12 @@
     <Content Include="Views\Office\_EditRoom.cshtml" />
     <Content Include="Views\Office\_DeleteRoom.cshtml" />
     <Content Include="Views\Office\_AddRoom.cshtml" />
+    <Content Include="Views\Room\Index.cshtml" />
+    <Content Include="Views\Room\_Create.cshtml" />
+    <Content Include="Views\Room\_Delete.cshtml" />
+    <Content Include="Views\Room\_Edit.cshtml" />
+    <Content Include="Views\Room\_List.cshtml" />
+    <Content Include="Views\Room\_ListRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

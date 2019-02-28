@@ -206,5 +206,24 @@ namespace XBC.Repository
             }
             return result;
         }
+
+
+        // Validalsi Nama Test Tidak Boleh Sama
+        public static TestViewModel CheckName(string name)
+        {
+
+            TestViewModel result = new TestViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from t in db.t_test
+                          where t.name == name && t.is_delete == false
+                          select new TestViewModel
+                          {
+                              id = t.id,
+                              name = t.name
+                          }).FirstOrDefault();
+            }
+            return result == null ? new TestViewModel() : result;
+        }
     }
 }
