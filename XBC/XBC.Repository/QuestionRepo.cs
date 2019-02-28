@@ -76,7 +76,7 @@ namespace XBC.Repository
                         qs.question = entity.question;
                         qs.image_url = entity.imageUrl;
 
-                        qs.created_by = 1;
+                        qs.created_by = entity.UserId;
                         qs.created_on = DateTime.Now;
                         qs.is_deleted = false;
                         db.t_question.Add(qs);
@@ -87,7 +87,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "INSERT";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -151,7 +151,7 @@ namespace XBC.Repository
                         qs.image_d = entity.imageD;
                         qs.image_e = entity.imageE;
 
-                        qs.modified_by = 1;
+                        qs.modified_by = entity.UserId;
                         qs.modified_on = DateTime.Now;
                         db.SaveChanges();
 
@@ -174,7 +174,7 @@ namespace XBC.Repository
                         log.type = "MODIFY";
                         log.json_before = Serial.Serialize(dataBefore);
                         log.json_after = Serial.Serialize(dataAfter);
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -237,7 +237,7 @@ namespace XBC.Repository
                             qs.is_deleted
                         };
 
-                        qs.deleted_by = 1;
+                        qs.deleted_by = entity.UserId;
                         qs.deleted_on = DateTime.Now;
                         qs.is_deleted = true;
                         db.SaveChanges();
@@ -262,7 +262,7 @@ namespace XBC.Repository
                         log.type = "MODIFY";
                         log.json_before = Serial.Serialize(dataBefore);
                         log.json_after = Serial.Serialize(dataAfter);
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();

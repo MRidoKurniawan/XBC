@@ -69,6 +69,7 @@
     <Compile Include="TestimonyViewModel.cs" />
     <Compile Include="TestViewModel.cs" />
     <Compile Include="RoomViewModel.cs" />
+    <Compile Include="Test_TypeViewModel.cs" />
     <Compile Include="UserViewModel.cs" />
     <Compile Include="TechnologyViewModel.cs" />
     <Compile Include="TrainerViewModel.cs" />
