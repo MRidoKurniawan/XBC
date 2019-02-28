@@ -46,7 +46,7 @@ namespace XBC.Repository
                         tec.name = entity.name;
                         tec.notes = entity.notes;
                         tec.is_delete = entity.is_delete;
-                        tec.created_by = 1;
+                        tec.created_by = entity.UserId;
                         tec.created_on = DateTime.Now;
                         db.t_technology.Add(tec);
                         db.SaveChanges();
@@ -57,10 +57,10 @@ namespace XBC.Repository
                             t_technology_trainer ttr = new t_technology_trainer();
                             ttr.technology_id = entity.id;
                             ttr.trainer_id = item.id;
-                            ttr.created_by = 1;
+                            ttr.created_by = entity.UserId;
                             ttr.created_on = DateTime.Now;
                             db.t_technology_trainer.Add(ttr);
-
+                            db.SaveChanges();
                             object datattr = new
                             {
                                 ttr.id,
@@ -72,7 +72,7 @@ namespace XBC.Repository
                             t_audit_log logttr = new t_audit_log();
                             logttr.type = "Insert";
                             logttr.json_insert = jsonttr;
-                            logttr.created_by = 1;
+                            logttr.created_by = entity.UserId;
                             logttr.created_on = DateTime.Now;
 
                             db.t_audit_log.Add(logttr);
@@ -90,7 +90,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
 
@@ -118,12 +118,12 @@ namespace XBC.Repository
                             log.type = "Modify";
                             log.json_before = json;
 
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             tec.name = entity.name;
                             tec.notes = entity.notes;
-                            tec.modified_by = 1;
+                            tec.modified_by = entity.UserId;
                             tec.modified_on = DateTime.Now;
                             entity.id = tec.id;
                             if (entity.Details != null)
@@ -133,7 +133,7 @@ namespace XBC.Repository
                                     t_technology_trainer ttr = new t_technology_trainer();
                                     ttr.technology_id = entity.id;
                                     ttr.trainer_id = item.id;
-                                    ttr.created_by = 1;
+                                    ttr.created_by = entity.UserId;
                                     ttr.created_on = DateTime.Now;
                                     db.t_technology_trainer.Add(ttr);
 
@@ -148,7 +148,7 @@ namespace XBC.Repository
                                     t_audit_log logttr = new t_audit_log();
                                     logttr.type = "Insert";
                                     logttr.json_insert = jsonttr;
-                                    logttr.created_by = 1;
+                                    logttr.created_by = entity.UserId;
                                     logttr.created_on = DateTime.Now;
 
                                     db.t_audit_log.Add(logttr);
@@ -208,11 +208,11 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         tec.is_delete = true;
-                        tec.deleted_by = 1;
+                        tec.deleted_by = entity.UserId;
                         tec.deleted_on = DateTime.Now;
 
                         object data2 = new
@@ -257,8 +257,7 @@ namespace XBC.Repository
                               id = tec.id,
                               name = tec.name,
                               notes = tec.notes,
-                              created_by = tec.created_by,
-                              is_delete = tec.is_delete
+                              created_by = tec.created_by
                           }).FirstOrDefault();
                 if (result == null)
                     result = new TechnologyViewModel();
@@ -298,7 +297,7 @@ namespace XBC.Repository
                               trainer_id = ttr.trainer_id,
                               trainer_name = tra.name,
                               technology_id = ttr.technology_id,
-                              created_by = 1,
+                              created_by = ttr.created_by,
                               created_on = DateTime.Now
                           }).ToList();
                 if (result == null)
@@ -321,13 +320,15 @@ namespace XBC.Repository
                     {
                         object data = new
                         {
+                            ttr.id,
                             ttr.trainer_id,
+                            ttr.technology_id
                         };
                         var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
                         log.type = "Delete";
                         log.json_delete = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
 

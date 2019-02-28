@@ -26,7 +26,7 @@ namespace XBC.Repository
                               id = b.id,
                               technologyName = tc.name,
                               name = b.name,
-                              trainerName = tr.name                             
+                              trainerName = tr.name
                           }).ToList();
             }
 
@@ -88,7 +88,7 @@ namespace XBC.Repository
                         bt.period_from = entity.periodFrom;
                         bt.notes = entity.notes;
 
-                        bt.created_by = 1;
+                        bt.created_by = entity.UserId;
                         bt.created_on = DateTime.Now;
                         bt.is_delete = false;
                         db.t_batch.Add(bt);
@@ -99,7 +99,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "INSERT";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -134,7 +134,7 @@ namespace XBC.Repository
                             bt.period_from = entity.periodFrom;
                             bt.notes = entity.notes;
 
-                            bt.modified_by = 1;
+                            bt.modified_by = entity.UserId;
                             bt.modified_on = DateTime.Now;
                             db.SaveChanges();
 
@@ -155,7 +155,7 @@ namespace XBC.Repository
                             log.type = "MODIFY";
                             log.json_before = Serial.Serialize(dataBefore);
                             log.json_after = Serial.Serialize(dataAfter);
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
                             db.t_audit_log.Add(log);
                             db.SaveChanges();
@@ -186,8 +186,9 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from b in db.t_biodata
-                          join c in db.t_clazz on b.id equals c.biodata_id 
-                          into bc from c in bc.DefaultIfEmpty()
+                          join c in db.t_clazz on b.id equals c.biodata_id
+                          into bc
+                          from c in bc.DefaultIfEmpty()
                           where b.is_deleted == false && c.id.Equals(null)
                           select new BiodataViewModel
                           {
@@ -220,7 +221,7 @@ namespace XBC.Repository
                         cl.batch_id = entity.batchId;
                         cl.biodata_id = entity.biodataId;
 
-                        cl.created_by = 1;
+                        cl.created_by = entity.UserId;
                         cl.created_on = DateTime.Now;
 
                         db.t_clazz.Add(cl);
@@ -231,7 +232,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "INSERT";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -287,7 +288,7 @@ namespace XBC.Repository
                         bt.batch_id = entity.batch_id;
                         bt.test_id = entity.test_id;
 
-                        bt.created_by = 1;
+                        bt.created_by = entity.UserId;
                         bt.created_on = DateTime.Now;
 
                         db.t_batch_test.Add(bt);
@@ -298,7 +299,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "INSERT";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -340,11 +341,17 @@ namespace XBC.Repository
                         result.Entity = entity;
 
                         // Audit Log Delete
-                        var json = new JavaScriptSerializer().Serialize(bt);
+                        var Serial = new JavaScriptSerializer();
+                        object data = new //Mengambil Data Json
+                        {
+                            bt.batch_id,
+                            bt.test_id
+                        };
+                        //var json = new JavaScriptSerializer().Serialize(bt);
                         t_audit_log log = new t_audit_log();
                         log.type = "DELETE";
-                        log.json_delete = json;
-                        log.created_by = 1;
+                        log.json_delete = Serial.Serialize(data); ;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -364,6 +371,25 @@ namespace XBC.Repository
                 result.ErrorMessage = ex.Message;
             }
             return result;
+        }
+
+
+        // Validalsi Nama Batch Tidak Boleh Sama
+        public static BatchViewModel CheckName(string name)
+        {
+
+            BatchViewModel result = new BatchViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from b in db.t_batch
+                          where b.name == name && b.is_delete == false
+                          select new BatchViewModel
+                          {
+                              id = b.id,
+                              name = b.name
+                          }).FirstOrDefault();
+            }
+            return result == null ? new BatchViewModel() : result;
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿@model XBC.ViewModel.MenuViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Create", "Menu", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
 {
     @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
         <table class="table">
             <tr>
@@ -18,7 +21,7 @@
                     <div class="form-group">
 
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.image_url, new { htmlAttributes = new { @class = "form-control", @placeholder = "Image URL" } })
+                            @Html.EditorFor(model => model.image_url, new { htmlAttributes = new { @class = "form-control", @placeholder = "Image URL", @style = "display:inline;" } })
                             @Html.ValidationMessageFor(model => model.image_url, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -68,7 +71,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>

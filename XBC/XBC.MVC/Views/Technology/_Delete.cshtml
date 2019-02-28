@@ -1,14 +1,17 @@
 ﻿@model XBC.ViewModel.TechnologyViewModel
-
-<h3>Are you sure to delete this data?</h3>
+@{
+    ViewBag.id = Session["id"];
+}
+<h4>Are you sure to delete this data?</h4>
 <div>
     @using (Html.BeginForm("Delete", "Technology", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
     {
         @Html.AntiForgeryToken()
-        
         @Html.HiddenFor(Model => Model.id)
         @Html.HiddenFor(Model => Model.name)
+        @Html.HiddenFor(model => model.notes)
 
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
         <div class="form-actions no-color">
             <input type="button" value="No" class="btn btn-danger" data-dismiss="modal" />
             <input type="submit" value="Yes" class="btn btn-success" />
@@ -24,7 +27,8 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Delete Successfull\nName: " + result.entity.name);
+                    alert("Delete Successfull\nName: " + result.entity.name + "\nNotes: " +
+                    result.entity.notes);
                     $(".modal").modal("hide");
                     GetList();
                 } else {

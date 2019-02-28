@@ -12,15 +12,19 @@ namespace XBC.ViewModel
     {
         public long id { get; set; }
 
+        [Display(Name = "Test")]
         public long test_id { get; set; }
 
+        [Display(Name = "TestType")]
         public long test_type_id { get; set; }
 
         [Column(TypeName = "numeric")]
+        [Display(Name = "Version")]
         public decimal version { get; set; }
 
         [Required]
         [StringLength(10)]
+        [Display(Name = "Token")]
         public string token { get; set; }
 
         public string TestType { get; set; }
@@ -30,6 +34,8 @@ namespace XBC.ViewModel
         public List<Document_Test_DetailViewModel> Details { get; set; }
 
         public int noUrut { get; set; }
+
+        public long UserId { get; set; }
 
     }
 }

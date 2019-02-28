@@ -1,5 +1,7 @@
 ﻿@model XBC.ViewModel.BatchViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 
 @using (Html.BeginForm("Edit", "Batch", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
@@ -8,79 +10,102 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
 
         <table class="table">
             <tr>
                 <td>
                     <div class="form-group">
-                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
-                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name", @onchange = "CheckName()", @style = "width:283px" } })
+                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                            <span class="field-validation-valid text-danger" style="display:none;" id="valid-name">Nama Batch Sudah Terdaftar...!</span>
+                        </div>
                     </div>
                 </td>
-                <td>  </td>
+                <td></td>
                 <td>
                     <div class="form-group">
-                        @Html.DropDownListFor(model => model.roomId, (IEnumerable<SelectListItem>)ViewBag.roomList, "- Choose Room -", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.roomId, "", new { @class = "text-danger" })
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        @Html.DropDownListFor(model => model.technologyId, (IEnumerable<SelectListItem>)ViewBag.technologyList, "- Choose Technology -", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.technologyId, "", new { @class = "text-danger" })
-                    </div>
-                </td>
-                <td>  </td>
-                <td>
-                    <div class="form-group">
-                        @Html.DropDownListFor(model => model.trainerId, (IEnumerable<SelectListItem>)ViewBag.TerainerList, "- Choose Trainer -", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.trainerId, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.roomId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.roomId, (IEnumerable<SelectListItem>)ViewBag.roomList, "- Choose Room -", new { @class = "form-control", @style = "width:283px" })
+                            @Html.ValidationMessageFor(model => model.roomId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="form-group">
-                        @*@Html.EditorFor(model => model.periodFrom, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period from" } })*@
-                        <input type="date" name="periodFrom" placeholder="Period From" class="form-control" style="padding : 7px;" value="@ViewBag.tanggalmulai" />
-                        @Html.ValidationMessageFor(model => model.periodFrom, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.technologyId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.technologyId, (IEnumerable<SelectListItem>)ViewBag.technologyList, "- Choose Technology -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.technologyId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </td>
-                <td>  </td>
+                <td></td>
                 <td>
                     <div class="form-group">
-                        @*@Html.EditorFor(model => model.periodTo, new { htmlAttributes = new { @type = "date", @class = "form-control", @placeholder = "Period To", @value = Model.periodTo } })*@
-                        <input type="date" name="periodTo" placeholder="Period To" class="form-control" style="padding : 7px;" value="@ViewBag.tanggalselesai" />
-                        @Html.ValidationMessageFor(model => model.periodTo, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.trainerId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.trainerId, (IEnumerable<SelectListItem>)ViewBag.TerainerList, "- Choose Trainer -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.trainerId, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="form-group">
-                        @Html.DropDownListFor(model => model.bootcampTypeId, (IEnumerable<SelectListItem>)ViewBag.BootcampTypeList, "- Choose Bootcamp Type -", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.bootcampTypeId, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.periodFrom, htmlAttributes: new { @class = "control-label" })
+                            <input type="date" name="periodFrom" placeholder="Period From" class="form-control" style="padding : 7px;" value="@ViewBag.tanggalmulai" />
+                            @Html.ValidationMessageFor(model => model.periodFrom, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </td>
-                <td>  </td>
+                <td></td>
                 <td>
                     <div class="form-group">
-                        @*@Html.EditorFor(model => model.notes, new { htmlAttributes = new { @class = "form-control" } })*@
-                        <textarea class="form-control" name="notes" style="height:7rem; resize:none" placeholder="Notes">@Model.notes</textarea>
-                        @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.periodTo, htmlAttributes: new { @class = "control-label" })
+                            <input type="date" name="periodTo" placeholder="Period To" class="form-control" style="padding : 7px;" value="@ViewBag.tanggalselesai" />
+                            @Html.ValidationMessageFor(model => model.periodTo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.bootcampTypeId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.bootcampTypeId, (IEnumerable<SelectListItem>)ViewBag.BootcampTypeList, "- Choose Bootcamp Type -", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.bootcampTypeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.notes, htmlAttributes: new { @class = "control-label" })
+                            <textarea class="form-control" name="notes" style="height:7rem; resize:none" placeholder="Notes">@Model.notes</textarea>
+                            @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td>  </td>
+                <td></td>
                 <td align="right">
                     <div class="form-group">
-                        <div class="">
-                            <input type="submit" value="SAVE" class="btn btn-primary" />
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+                        <div class="col-md-12">
+                            <button style="width:100px" type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+                            <input style="width:100px" type="submit" value="SAVE" class="btn btn-primary" />
                         </div>
                     </div>
                 </td>
@@ -93,22 +118,45 @@
 
 
 <script type="text/javascript">
-    $("#form-edit").submit(function () {
+    function CheckName() {
         $.ajax({
-            url: this.action,
-            type: this.method,
-            data: $(this).serialize(),
+            url: '@Url.Action("CheckName","Batch")',
+            type: 'get',
+            data: { name: $("#name").val() },
             success: function (result) {
                 if (result.success) {
-                    alert("Save successful\nId: " + result.entity.Id + "Name: " + result.entity.Name);
-                    $(".modal").modal("hide");
-                    GetList();
+                    tersedia = true;
+                    $("#valid-name").hide();
                 }
                 else {
-                    alert("Error\nName: " + result.message);
+                    tersedia = false;
+                    $("#valid-name").show();
                 }
             }
-        })
+        });
+    }
+
+    $("#form-edit").submit(function () {
+        if (tersedia == true) {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+                        alert("Data Successfully Updated !");
+                        $(".modal").modal("hide");
+                        GetList();
+                    }
+                    else {
+                        alert("Error\nName: " + result.message);
+                    }
+                }
+            });
+        }
+        else {
+            alert("Check Name! Nama sudah terdaftar!");
+        }
         return false;
     });
 
@@ -122,5 +170,18 @@
                 $("#trainerId").html(result);
             }
         });
+    });
+
+    $("#periodTo").change(function () {
+        if ($("#periodTo").val() < $("#periodFrom").val()) {
+            alert("PeriodTo Kurang Dari PeriodFrom !");
+            $("#periodTo").val(null)
+        }
+    });
+
+    $("#periodFrom").change(function () {
+        if ($("#periodTo").val() < $("#periodFrom").val()) {
+            $("#periodTo").val(null)
+        }
     });
 </script>   

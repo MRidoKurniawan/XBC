@@ -72,6 +72,20 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Check(string name = "")
+        {
+            CategoryViewModel data = CategoryRepo.Check(name);
+            ResponseResult result = new ResponseResult();
+            if (data.name != null)
+            {
+                result.Success = false;
+            }
+            return Json(new
+            {
+                success = result.Success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         //public ActionResult GetToken()
         //{
         //    return Json(ra);

@@ -9,38 +9,41 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.role_id, htmlAttributes: new { @class = "col-md-2" })
+            
             <div class="col-md-10">
+                @Html.LabelFor(model => model.role_id, htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.role_id, (IEnumerable<SelectListItem>)ViewBag.RoleList, "Select Role", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.role_id, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @type = "email", @onchange = "cekEmail()" } })
+                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @type = "email", @onchange = "cekEmail()", @required = "required", @pattern = "[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                 <span class="field-validation-valid text-danger" style="display:none;" id="valid-email">Email Sudah Terdaftar</span>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "col-md-2" })
+            
             <div class="col-md-10">
+                @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label" })
                 @*@Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username", @pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" } })*@
-                <input type="text" class="username form-control" id="username" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}" data-bv-regexp-message="Username minimal 8 karakter dan terdiri dari huruf dan angka" />
+                <input type="text" class="username form-control" id="username" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[A-Za-z]).{8,}" data-bv-regexp-message="Username minimal 8 karakter dan terdiri dari huruf dan angka" onchange = "cekUName()" />
                 @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                <span class="field-validation-valid text-danger" style="display:none;" id="valid-uname">Username Sudah Terdaftar</span>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "col-md-2" })
+            
             <div class="col-md-10">
-                <input type="password" name="password" class="form-control" onchange="cekPassword()" placeholder="Password" id="pw-main" required pattern="(?=.*\d)(?=.*[A-Za-z]).{6,}"/>
+                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label" })
+                <input type="password" name="password" class="form-control" onchange="cekPassword()" placeholder="Password" id="pw-main" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-md-2"> </label>
             <div class="col-md-10">
                 <input type="password" name="password" class="form-control" placeholder="Re-type Password" id="pw-second" required onchange="cekPassword()" />
                 <span class="field-validation-valid text-danger" style="display:none;" id="valid-password">Password Tidak Sama</span>
@@ -56,8 +59,6 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
-    var cocok = false;
-    var tersedia = false;
     $(document).ready(function () {
         $("#form-create").removeAttr("novalidate");
     });
@@ -78,18 +79,38 @@
             data: {email : $("#email").val()},
             success: function (result) {
                 if (result.success) {
-                    tersedia = true;
+                    tersedia1 = true;
                     $("#valid-email").hide();
                 }
                 else {
-                    tersedia = false;
+                    tersedia1 = false;
                     $("#valid-email").show();
                 }
             }
         });
     }
+
+    function cekUName() {
+        console.log($("#username").val());
+        $.ajax({
+            url: '@Url.Action("CheckUName","User")',
+            type: 'get',
+            data: { uname: $("#username").val() },
+            success: function (result) {
+                if (result.success) {
+                    tersedia = true;
+                    $("#valid-uname").hide();
+                }
+                else {
+                    tersedia = false;
+                    $("#valid-uname").show();
+                }
+            }
+        });
+    }
+
     $("#form-create").submit(function () {
-        if (cocok && tersedia) {
+        if (cocok && tersedia && tersedia1) {
             $.ajax({
                 url: this.action,
                 type: this.method,
@@ -108,7 +129,7 @@
                 }
             });
         } else {
-            alert("check your email And password");
+            alert("check your email, Username And password");
         }
 
         return false;

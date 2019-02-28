@@ -5462,7 +5462,7 @@ a.list-group-item:focus {
 
 .panel-primary > .panel-heading {
   color: #ffffff;
-  background-color: #428bca;
+  background: rgb(75, 135, 185);
   border-color: #428bca;
 }
 

@@ -12,27 +12,35 @@ namespace XBC.ViewModel
     {
         public long id { get; set; }
 
+        [Display(Name = "Type")]
         [Required, StringLength(5)]
         public string questionType { get; set; }
 
+        [Display(Name = "Question")]
         [Required, StringLength(255)]
         public string question { get; set; }
 
+        [Display(Name = "- A -")]
         [StringLength(255)]
         public string optionA { get; set; }
 
+        [Display(Name = "- B -")]
         [StringLength(255)]
         public string optionB { get; set; }
 
+        [Display(Name = "- C -")]
         [StringLength(255)]
         public string optionC { get; set; }
 
+        [Display(Name = "- D -")]
         [StringLength(255)]
         public string optionD { get; set; }
 
+        [Display(Name = "- E -")]
         [StringLength(255)]
         public string optionE { get; set; }
 
+        [Display(Name = "Upload Image")]
         [StringLength(255)]
         public string imageUrl { get; set; }
 
@@ -50,6 +58,8 @@ namespace XBC.ViewModel
 
         [StringLength(255)]
         public string imageE { get; set; }
+
+        public long UserId { get; set; }
 
         public HttpPostedFileBase imgurl { get; set; }
         public HttpPostedFileBase imga { get; set; }

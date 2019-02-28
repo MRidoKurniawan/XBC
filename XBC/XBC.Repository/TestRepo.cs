@@ -18,6 +18,7 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from t in db.t_test
+                          join u in db.t_user on t.created_by equals u.id
                           where (t.is_delete == false && t.name.Contains(search))
                           select new TestViewModel
                           {
@@ -25,7 +26,8 @@ namespace XBC.Repository
                               name = t.name,
                               isBootcampTest = t.is_bootcamp_test,
                               notes = t.notes,
-                              createdBy = t.created_by
+                              createdBy = t.created_by,
+                              UserName = u.username
                           }).ToList();
             }
 
@@ -68,7 +70,7 @@ namespace XBC.Repository
                         ts.is_bootcamp_test = entity.isBootcampTest;
                         ts.notes = entity.notes;
 
-                        ts.created_by = 1;
+                        ts.created_by = entity.UserId;
                         ts.created_on = DateTime.Now;
                         ts.is_delete = false;
                         db.t_test.Add(ts); 
@@ -79,7 +81,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "INSERT";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -104,7 +106,7 @@ namespace XBC.Repository
                             ts.is_bootcamp_test = entity.isBootcampTest;
                             ts.notes = entity.notes;
 
-                            ts.modified_by = 1;
+                            ts.modified_by = entity.UserId;
                             ts.modified_on = DateTime.Now;
                             db.SaveChanges();
 
@@ -120,7 +122,7 @@ namespace XBC.Repository
                             log.type = "MODIFY";
                             log.json_before = Serial.Serialize(dataBefore);
                             log.json_after = Serial.Serialize(dataAfter);
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
                             db.t_audit_log.Add(log);
                             db.SaveChanges();
@@ -165,7 +167,7 @@ namespace XBC.Repository
                             ts.is_delete
                         };
 
-                        ts.deleted_by = 1;
+                        ts.deleted_by = entity.UserId;
                         ts.deleted_on = DateTime.Now;
                         ts.is_delete = true;
                         db.SaveChanges();
@@ -183,7 +185,7 @@ namespace XBC.Repository
                         log.type = "MODIFY";
                         log.json_before = Serial.Serialize(dataBefore);
                         log.json_after = Serial.Serialize(dataAfter);
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -203,6 +205,25 @@ namespace XBC.Repository
                 result.ErrorMessage = ex.Message;
             }
             return result;
+        }
+
+
+        // Validalsi Nama Test Tidak Boleh Sama
+        public static TestViewModel CheckName(string name)
+        {
+
+            TestViewModel result = new TestViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from t in db.t_test
+                          where t.name == name && t.is_delete == false
+                          select new TestViewModel
+                          {
+                              id = t.id,
+                              name = t.name
+                          }).FirstOrDefault();
+            }
+            return result == null ? new TestViewModel() : result;
         }
     }
 }

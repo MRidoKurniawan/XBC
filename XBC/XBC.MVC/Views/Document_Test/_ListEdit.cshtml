@@ -46,6 +46,7 @@
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
+                $(".title2").html("Delete");
                 $(".body2").html(result);
                 $('.modal2').show();
             }

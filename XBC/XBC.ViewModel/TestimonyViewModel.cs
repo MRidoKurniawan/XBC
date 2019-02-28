@@ -18,5 +18,6 @@ namespace XBC.ViewModel
         [StringLength(5000)]
         public string content { get; set; }
         public bool is_delete { get; set; }
+        public long UserId { get; set; }
     }
 }

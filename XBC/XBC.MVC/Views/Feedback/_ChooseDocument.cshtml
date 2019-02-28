@@ -13,7 +13,7 @@
                 FEEDBACK @ViewBag.nomer
             <td>
                 @*<submit type="button" class="btn btn-default btn-open" data-id="@item.id" title="Delete">*@
-                <a href="feedback/Add/@item.id" class="btn btn-default">
+                <a href="@Url.Action("Add/")@item.id" class="btn btn-primary" style="color:white">
                     OPEN
                 </a>
                 @*</submit>*@
