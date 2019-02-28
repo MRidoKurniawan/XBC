@@ -27,5 +27,6 @@ namespace XBC.ViewModel
         public long officeId { get; set; }
 
         public bool isDelete { get; set; }
+        public long UserId { get; set; }
     }
 }

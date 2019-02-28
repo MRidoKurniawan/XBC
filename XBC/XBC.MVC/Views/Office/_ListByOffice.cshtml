@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<XBC.ViewModel.RoomViewModel>
 
 
-<table class="table">
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
@@ -16,7 +16,7 @@
             <th>
                 @Html.DisplayName("#")
             </th>
-            <th></th>
+
         </tr>
     </thead>
     <tbody>
@@ -35,7 +35,7 @@
 
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
@@ -59,7 +59,7 @@
             success: function (result) {
                 $(".body2").html(result);
                 $(".modal2").show();
-                GetListRoom(@ViewBag.officeId)
+                GetListByOffice(@ViewBag.officeId)
 
             }
         })
@@ -73,7 +73,7 @@
             success: function (result) {
                 $(".body2").html(result);
                 $(".modal2").show();
-                GetListRoom(@ViewBag.officeId);
+                GetByOffice(@ViewBag.officeId);
 
             }
         });
@@ -87,7 +87,7 @@
                 console.log("1");
                 $(".body2").html(result);
                 $(".modal2").show();
-                GetListRoom(@ViewBag.officeId)
+                GetListByOffice(@ViewBag.officeId)
             }
         });
     });

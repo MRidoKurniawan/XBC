@@ -2,23 +2,23 @@
 @{
     ViewBag.id = Session["id"];
 }
-
-<h3>Are you sure to delete this data?</h3>
 <div>
     @using (Html.BeginForm("DeleteTrainer", "Technology", FormMethod.Post, new { id = "form-delete", name = "form-delete" })) {
 
         @Html.AntiForgeryToken()
         @Html.HiddenFor(Model => Model.id)
-        @Html.HiddenFor(Model => Model.trainer_name)
 
         <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
         <div class="form-actions no-color">
-            <input type="button" value="No" class="btn btn-danger" data-dismiss="modal" />
+            <input type="button" value="No" class="btn btn-danger btn-tutup"  />
             <input type="submit" value="Yes" class="btn btn-success" />
         </div>
     }
 </div>
 <script type="text/javascript">
+    $(".btn-tutup").click(function () {
+        $(".modal2").hide();
+    });
     $("#form-delete").submit(function () {
         $.ajax({
             url: this.action,

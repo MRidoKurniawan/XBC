@@ -16,5 +16,7 @@ namespace XBC.ViewModel
         public long biodataId { get; set; }
         public string BiodataName { get; set; }
         public long UserId { get; set; }
+
+
     }
 }

@@ -27,6 +27,7 @@ namespace XBC.ViewModel
         public string notes { get; set; }
         public bool isDelete { get; set; }
         public string contact { get; set; }
+        public long UserId { get; set; }
         public List<RoomViewModel> details { get; set; }
     }
 }

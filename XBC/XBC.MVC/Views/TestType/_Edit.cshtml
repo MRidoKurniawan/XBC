@@ -45,7 +45,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save Successful!\nName: " + result.entity.name);
+                    alert("Data successfully updated!");
                     $(".modal").modal("hide");
                     GetList();
                 }

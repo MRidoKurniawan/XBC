@@ -3,23 +3,23 @@
     ViewBag.Title = "Category";
 }
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading">
         <h3>@ViewBag.Title</h3>
     </div>
     <div >
-        <div class="btn-group col-lg-8">
-        <div class="col-lg-4">
-            <input type="text" id="txt-search" class="form-control" placeholder="Search..." />
-        </div>
-            <div class="col-lg-1">
-                <button type="button" id="btn-search" class="btn btn-success">
+        <div class="col-md-7" style="padding:3rem 0rem 3rem 0rem; display:inline">
+
+            <input type="text" id="txt-search" class="form-control-static col-md-9" placeholder="Search by code/name" style="padding : 5px;"/>
+
+
+                <button type="button" id="btn-search" class="form-control-static btn-primary" style="padding : 5px;">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>
-            </div>
+
         </div>
-        <div class="col-lg-1">
-            <button type="button" id="btn-Create" class="btn btn-success">
+        <div class="col-md-3" style="padding:3rem 0rem 3rem 0rem; display:inline; float :right;">
+            <button type="button" id="btn-Create" class="form-control-static btn-primary"style="padding : 5px">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
         </div>
@@ -36,9 +36,9 @@
 <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#2c3e50; color:white">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title ">Modal title</h4>
             </div>
             <div class="modal-body">
                 <p>One fine body&hellip;</p>

@@ -5,8 +5,8 @@
 
 </div>
 <div class="col-lg-9">
-    <button type="button" id="btn-search" class="btn btn-primary">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    <button type="button" id="btn-search" class="btn btn-primary" style="background-color:#000080">
+        <span class="glyphicon glyphicon-search" aria-hidden="true" style="color:#ffffff"></span>
     </button>
 </div>
 <p>
@@ -15,12 +15,11 @@
 <style>
     th {
         text-align: center;
-        color: #000000;
-        background-color:#00ffff;
+        color: #ffffff;
+        background-color:#000080;
         }
     td#dropdown{
         text-align: center;
-        color:#ff0000;
     }
     
 </style>
@@ -49,9 +48,9 @@
             </td>
             <td id="dropdown">
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn dropdown-toggle" style="background-color:#000080" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="icon-bar"></span>
-                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true" style="color:#ffffff"></span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
@@ -65,6 +64,17 @@
 <script type="text/javascript">
 
     $("#btn-search").click(function () {
+        $.ajax({
+            url: '@Url.Action("List", "Class")',
+            type: 'get',
+            data: { search: $("#txt-search").val() },
+            success: function (result) {
+                //console.log("1");
+                $("#data-list").html(result);
+            }
+        });
+    });
+    $("#txt-search").change(function () {
         $.ajax({
             url: '@Url.Action("List", "Class")',
             type: 'get',

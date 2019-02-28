@@ -1,10 +1,12 @@
 ﻿@model XBC.ViewModel.Document_TestViewModel
-
+@{
+    ViewBag.id = Session["id"];
+}
 
 @using (Html.BeginForm("Edit", "Document_Test", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
     @Html.AntiForgeryToken()
-
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -12,16 +14,16 @@
 
         <div>
             <div class="form-group col-lg-6">
-                @*@Html.LabelFor(model => model.test_id, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
+                    @Html.LabelFor(model => model.test_id, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.DropDownListFor(model => model.test_id, (IEnumerable<SelectListItem>)ViewBag.TestList, "Choose Test", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.test_id, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group col-lg-6">
-                @*@Html.LabelFor(model => model.test_type_id, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
+                    @Html.LabelFor(model => model.test_type_id, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.DropDownListFor(model => model.test_type_id, (IEnumerable<SelectListItem>)ViewBag.Test_TypeList, "Choose Test Type", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.test_type_id, "", new { @class = "text-danger" })
                 </div>
@@ -30,20 +32,22 @@
 
         <div>
             <div class="form-group col-lg-6">
-                @*@Html.LabelFor(model => model.version, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
+                    @Html.LabelFor(model => model.version, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.EditorFor(model => model.version, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     @*@Html.ValidationMessageFor(model => model.version, "", new { @class = "text-danger" })*@
                 </div>
             </div>
 
             <div class="form-group col-lg-6">
-                @*@Html.LabelFor(model => model.token, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.token, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    <button type="button" class="form-control-static" id="btn-token" style="padding : 7px;">
-                        GENERATE
-                    </button>
+                    @Html.LabelFor(model => model.token, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="form-group col-lg-12" style="display:block; float:left;">
+                        @Html.EditorFor(model => model.token, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @placeholder = "Token", @style = "width:60%; display:inline" } })
+                        <button type="button" class="btn btn-primary" id="btn-token" style="padding : 7px; display:inline; ">
+                            GENERATE
+                        </button>
+                    </div>
                     @*@Html.ValidationMessageFor(model => model.token, "", new { @class = "text-danger" })*@
                     @*<div class="col-md-2">
                             <button>generate</button>
@@ -54,17 +58,17 @@
         </div>
 
         <div>
-            <button id="btn-create-question" type="button" class="btn btn-success" data-id="@Model.id" style="float:right">+ Question</button>
-            <div id="list-question" class="panel-body" >
-                    <h4>Loading ......</h4>
-                </div>
+            <button id="btn-create-question" type="button" class="btn btn-primary" data-id="@Model.id" style="float:right">+ Question</button>
+            <div id="list-question" class="panel-body">
+                <h4>Loading ......</h4>
+            </div>
 
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
-                <input type="submit" value="Save Change" class="btn btn-warning" />
+                <input type="submit" value="Save Change" class="btn btn-primary" style="float:right; margin-right:7px" />
+                <input type="button" value="Cancel" class="btn btn-primary" data-dismiss="modal" style="float:right; margin-right:7px" />
             </div>
         </div>
     </div>
@@ -99,6 +103,7 @@
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
+                $(".title2").html("Add Question");
                 $(".body2").html(result);
                 $('.modal2').show();
                 //$('.modal').modal('hide');
@@ -114,7 +119,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Save Successful!\nId: " + result.entity.Id + "\nName: " + result.entity.Name);
+                    alert("Data Successfully Updated!!\nId: " + result.entity.id );
                     $(".modal").modal("hide");
                     GetList();
                 } else {
@@ -146,7 +151,10 @@
             type: 'get',
             data: { id: $(".modal-body #test_type_id").val() },
             success: function (result) {
-                $(".modal-body #version").val(result.generate);
+                if(@Model.test_type_id !=$(".modal-body #test_type_id").val())
+                    $(".modal-body #version").val(result.generate);
+                else
+                    $(".modal-body #version").val(@Model.version);
 
             }
 

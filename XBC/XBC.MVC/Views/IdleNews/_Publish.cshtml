@@ -33,7 +33,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Publish Successful!\nTitle: " + result.entity.title);
+                    alert("Data has been published!");
                     $(".modal").modal("hide");
                     GetList();
                 }

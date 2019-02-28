@@ -1,17 +1,33 @@
 ﻿@model XBC.ViewModel.BootcampTestTypeViewModel
 
-<h3>Are you sure to delete this data?</h3>
+@{ 
+    ViewBag.id = Session["id"];
+}
+<style>
+    .head {
+        text-align: center;
+    }
+
+    .no-color {
+        text-align: center;
+    }
+</style>
+<div class="head">
+    <h4>Are you sure to delete this data?</h4>
+</div>
 <div>
-   @using (Html.BeginForm("Delete", "BootcampTestType", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
+    @using (Html.BeginForm("Delete", "BootcampTestType", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
     {
         @Html.AntiForgeryToken()
+        <input type="hidden" name="UserId" id="UserId" value="@ViewBag.id" />
         @Html.HiddenFor(model => model.id)
         <div class="form-actions no-color">
-            <input type="button" value="Cancel" class="btn btn-default" data-dismiss="modal" />
-            <input type="submit" value="Delete" class="btn btn-danger" />
+            <input type="button" value="Cancel" class="btn btn-default btn-xs" data-dismiss="modal" />
+            <input type="submit" value="Delete" class="btn btn-danger btn-xs" />
         </div>
     }
 </div>
+
 <script type="text/javascript">
     $("#form-delete").submit(function () {
         $.ajax({
@@ -20,7 +36,7 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Delete successful!\n name: " + result.entity.name);
+                    alert("Data Successfully Delete");
                     $(".modal").modal("hide");
                     GetList();
                 }

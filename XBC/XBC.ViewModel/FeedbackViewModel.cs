@@ -20,6 +20,8 @@ namespace XBC.ViewModel
 
         public string Nama { get; set; }
 
+        public long UserId { get; set; }
+
         public List<JsonFeedbackViewModel> Feedback { get; set; }
 
     }

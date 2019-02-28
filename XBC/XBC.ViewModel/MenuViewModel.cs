@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace XBC.ViewModel
 {
@@ -36,6 +37,8 @@ namespace XBC.ViewModel
         public string menu_url { get; set; }
 
         public long UserId { get; set; }
+
+        public HttpPostedFileBase imgurl { get; set; }
 
     }
 }

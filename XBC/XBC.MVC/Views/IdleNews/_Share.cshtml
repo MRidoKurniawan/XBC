@@ -34,10 +34,10 @@
             type: this.method,
             data: $(this).serialize(),
             success: function (result) {
-                //alert("Berita Terkirim...!!");
-                $(".modal-title").html("Information..!");
-                $(".modal-body").html("Berita Berhasil Terkirim");
-                $('.modal').modal('show');
+                alert("Data successfully submited!");
+               // $(".modal-title").html("Information..!");
+               // $(".modal-body").html("Berita Berhasil Terkirim");
+                $('.modal').modal('hide');
             }
         })
         return false;

@@ -19,6 +19,10 @@ namespace XBC.MVC.Controllers
         {
             return PartialView("_List", OfficeRepo.OfficeAll(search));
         }
+        public ActionResult ListRoom()
+        {
+            return PartialView("_ListRoom",new List<RoomViewModel>());
+        }
         public ActionResult Create()
         {
             return PartialView("_Create");
@@ -41,6 +45,16 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult CreateRoom(long id=0)
         {
+            ViewBag.rdyes = null;
+            ViewBag.rdno = null;
+            if (OfficeRepo.anyProjector(id))
+            {
+                ViewBag.rdyes = "checked";
+            }
+            else
+            {
+                ViewBag.rdno = "checked";
+            }
             ViewBag.officeId = id;
             return PartialView("_CreateRoom");
         }
@@ -65,6 +79,16 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult AddRoom(long id)
         {
+            ViewBag.rdyes = null;
+            ViewBag.rdno = null;
+            if (OfficeRepo.anyProjector(id))
+            {
+                ViewBag.rdyes = "checked";
+            }
+            else
+            {
+                ViewBag.rdno = "checked";
+            }
             ViewBag.officeId = id;
             return PartialView("_AddRoom");
         }
@@ -81,6 +105,16 @@ namespace XBC.MVC.Controllers
         }
         public ActionResult EditRoom(long id = 0, long officeid = 0)
         {
+            ViewBag.rdyes = null;
+            ViewBag.rdno = null;
+            if (OfficeRepo.anyProjector(id))
+            {
+                ViewBag.rdyes = "checked";
+            }
+            else
+            {
+                ViewBag.rdno = "checked";
+            }
             ViewBag.officeId = officeid;
             return PartialView("_EditRoom", RoomRepo.ById(id));
         }

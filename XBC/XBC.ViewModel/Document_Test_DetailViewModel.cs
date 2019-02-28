@@ -56,5 +56,7 @@ namespace XBC.ViewModel
         [StringLength(255)]
         public string imageE { get; set; }
 
+        public long UserId { get; set; }
+
     }
 }

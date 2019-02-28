@@ -32,9 +32,10 @@
             data: $(this).serialize(),
             success: function (result) {
                 if (result.success) {
-                    alert("Delete Successful!\nName: " + result.entity.Name);
+                    alert("Data successfully deleted!");
                     $(".modal").modal("hide");
                     GetList();
+                    GetMenu();
                 }
                 else {
                     alert("Error!\n" + result.message);

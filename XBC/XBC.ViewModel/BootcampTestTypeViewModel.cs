@@ -18,5 +18,6 @@ namespace XBC.ViewModel
         public bool isDelete { get; set; }
         public long created_by { get; set; }
         public string UserName { get; set; }
+        public long UserId { get; set; }
     }
 }

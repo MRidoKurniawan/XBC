@@ -61,7 +61,6 @@
     <Compile Include="Document_TestViewModel.cs" />
     <Compile Include="BiodataViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseResult.cs" />
     <Compile Include="RoleViewModel.cs" />
     <Compile Include="TestTypeViewModel.cs" />
     <Compile Include="QuestionViewModel.cs" />

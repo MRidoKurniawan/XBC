@@ -317,7 +317,7 @@ namespace XBC.Repository
                         menu.is_delete = true;
 
                         menu.deleted_by = entity.UserId;
-                        menu.modified_on = DateTime.Now;
+                        menu.deleted_on = DateTime.Now;
                         db.SaveChanges();
 
                         result.Entity = entity;

@@ -84,9 +84,9 @@ namespace XBC.MVC.Controllers
         public ActionResult LogOut()
         {
 
-            Session["Username"] = "";
-            Session["id"] = "";
-            Session["roleid"] = "";
+            Session["Username"] = null;
+            Session["id"] = null;
+            Session["roleid"] = null;
             return RedirectToAction("Index", "Home");
         }
 
