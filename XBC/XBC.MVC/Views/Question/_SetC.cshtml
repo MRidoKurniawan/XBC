@@ -1,5 +1,7 @@
 ﻿@model XBC.ViewModel.QuestionViewModel
-
+@{ 
+    ViewBag.id = Session["id"];
+}
 
 @using (Html.BeginForm("SetC", "Question", FormMethod.Post, new { id = "form-set", name = "form-set" }))
 {
@@ -8,56 +10,107 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
 
         <div class="form-group">
-            @Html.LabelFor(model => model.optionA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.optionA, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.optionA, new { htmlAttributes = new { @class = "form-control", @placeholder = "A" } })
                 @Html.ValidationMessageFor(model => model.optionA, "", new { @class = "text-danger" })
-                <input type="file" id="imga" name="imga" class="img-url" value="Browse..." />
+                @if (Model.imageA != null)
+                {
+                    <input type="hidden" class="form-control" id="imageA" name="imageA" value=@Model.imageA />
+                    <label class="lbl-img-a">@Model.imageA</label>
+                    <button type="button" class="btn-remove-a btn-danger">Remove</button>
+                    <input type="file" id="imga" name="imga" class="img-url hidden" />
+                }
+                else
+                {
+                    <input type="file" id="imga" name="imga" class="img-url" />
+                }
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.optionB, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.optionB, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.optionB, new { htmlAttributes = new { @class = "form-control", @placeholder = "B" } })
                 @Html.ValidationMessageFor(model => model.optionB, "", new { @class = "text-danger" })
-                <input type="file" id="imgb" name="imgb" class="img-url" value="Browse..." />
+                @if (Model.imageB != null)
+                {
+                    <input type="hidden" class="form-control" id="imageB" name="imageB" value=@Model.imageB />
+                    <label class="lbl-img-b">@Model.imageB</label>
+                    <button type="button" class="btn-remove-b btn-danger">Remove</button>
+                    <input type="file" id="imgb" name="imgb" class="img-url hidden" />
+                }
+                else
+                {
+                    <input type="file" id="imgb" name="imgb" class="img-url" />
+                }
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.optionC, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.optionC, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.optionC, new { htmlAttributes = new { @class = "form-control", @placeholder = "C" } })
                 @Html.ValidationMessageFor(model => model.optionC, "", new { @class = "text-danger" })
-                <input type="file" id="imgc" name="imgc" class="img-url" value="Browse..." />
+                @if (Model.imageC != null)
+                {
+                    <input type="hidden" class="form-control" id="imageC" name="imageC" value=@Model.imageC />
+                    <label class="lbl-img-c">@Model.imageC</label>
+                    <button type="button" class="btn-remove-c btn-danger">Remove</button>
+                    <input type="file" id="imgc" name="imgc" class="img-url hidden" />
+                }
+                else
+                {
+                    <input type="file" id="imgc" name="imgc" class="img-url" />
+                }
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.optionD, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.optionD, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.optionD, new { htmlAttributes = new { @class = "form-control", @placeholder = "D" } })
                 @Html.ValidationMessageFor(model => model.optionD, "", new { @class = "text-danger" })
-                <input type="file" id="imgd" name="imgd" class="img-url" value="Browse..." />
+                @if (Model.imageD != null)
+                {
+                    <input type="hidden" class="form-control" id="imageD" name="imageD" value=@Model.imageD />
+                    <label class="lbl-img-d">@Model.imageD</label>
+                    <button type="button" class="btn-remove-d btn-danger">Remove</button>
+                    <input type="file" id="imgd" name="imgd" class="img-url hidden" />
+                }
+                else
+                {
+                    <input type="file" id="imgd" name="imgd" class="img-url" />
+                }
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.optionE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
+                @Html.LabelFor(model => model.optionE, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.optionE, new { htmlAttributes = new { @class = "form-control", @placeholder = "E" } })
                 @Html.ValidationMessageFor(model => model.optionE, "", new { @class = "text-danger" })
-                <input type="file" id="imge" name="imge" class="img-url" value="Browse..." />
+                @if (Model.imageE != null)
+                {
+                    <input type="hidden" class="form-control" id="imageE" name="imageE" value=@Model.imageE />
+                    <label class="lbl-img-e">@Model.imageE</label>
+                    <button type="button" class="btn-remove-e btn-danger">Remove</button>
+                    <input type="file" id="imge" name="imge" class="img-url hidden" />
+                }
+                else
+                {
+                    <input type="file" id="imge" name="imge" class="img-url" />
+                }
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
-                <input type="submit" value="SAVE" class="btn btn-primary" />
+            <div class="col-md-offset-7 col-md-5">
+                <button style="width:100px" type="button" class="btn btn-primary" data-dismiss="modal">CANCEL</button>
+                <input style="width:100px" type="submit" value="SAVE" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -79,7 +132,7 @@
             timeout: 600000,
             success: function (result) {
                 if (result.success) {
-                    alert("Save successful\nId: " + result.entity.Id + "Name: " + result.entity.Name);
+                    alert("Data Successfully Updated !");
                     $(".modal").modal("hide");
                     GetList();
                 }
@@ -89,5 +142,40 @@
             }
         })
         return false;
+    });
+
+    $(".btn-remove-a").click(function () {
+        $(".lbl-img-a").addClass("hidden");
+        $(this).addClass("hidden");
+        $("#imga").removeClass("hidden");
+        $("#imageA").val(null);
+    });
+
+    $(".btn-remove-b").click(function () {
+        $(".lbl-img-b").addClass("hidden");
+        $(this).addClass("hidden");
+        $("#imgb").removeClass("hidden");
+        $("#imageB").val(null);
+    });
+
+    $(".btn-remove-c").click(function () {
+        $(".lbl-img-c").addClass("hidden");
+        $(this).addClass("hidden");
+        $("#imgc").removeClass("hidden");
+        $("#imageC").val(null);
+    });
+
+    $(".btn-remove-d").click(function () {
+        $(".lbl-img-d").addClass("hidden");
+        $(this).addClass("hidden");
+        $("#imgd").removeClass("hidden");
+        $("#imageD").val(null);
+    });
+
+    $(".btn-remove-e").click(function () {
+        $(".lbl-img-e").addClass("hidden");
+        $(this).addClass("hidden");
+        $("#imge").removeClass("hidden");
+        $("#imageE").val(null);
     });
 </script>   
