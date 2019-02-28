@@ -117,7 +117,7 @@ namespace XBC.Repository
                         //}
                         fed.json_feedback = json;
 
-                        fed.created_by = 1;
+                        fed.created_by = entity.UserId;
                         fed.created_on = DateTime.Now;
 
                         db.t_feedback.Add(fed);
@@ -128,7 +128,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json1;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -180,7 +180,7 @@ namespace XBC.Repository
                         }
                         fed.json_feedback = json;
 
-                        fed.created_by = 1;
+                        fed.created_by = entity.UserId;
                         fed.created_on = DateTime.Now;
 
                         db.t_feedback.Add(fed);
@@ -190,7 +190,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);

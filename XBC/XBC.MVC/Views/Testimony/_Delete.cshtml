@@ -1,20 +1,24 @@
 ﻿@model XBC.ViewModel.TestimonyViewModel
-<h3>Are you sure to delete this data?</h3>
+@{
+    ViewBag.id = Session["id"];
+}
+<h4>Are you sure to delete this data?</h4>
 <div>
     @using (Html.BeginForm("Delete", "Testimony", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
     {
         @Html.AntiForgeryToken()
-        
+
         @Html.HiddenFor(model => model.id)
         @Html.HiddenFor(model => model.title)
         @Html.HiddenFor(model => model.content)
-                <div class="form-actions no-color">
-                <input type="button" value="No" class="btn btn-danger" data-dismiss="modal" />
-                <input type="submit" value="Yes" class="btn btn-success" />
-            </div>
-    }
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
+        <div class="form-actions no-color">
+            <input type="button" value="No" class="btn btn-danger" data-dismiss="modal" />
+            <input type="submit" value="Yes" class="btn btn-success" />
         </div>
-        <script type="text/javascript">
+    }
+</div>
+<script type="text/javascript">
     $("#form-delete").submit(function () {
         $.ajax({
             url: this.action,
@@ -33,4 +37,4 @@
         });
         return false;
     });
-        </script>
+</script>

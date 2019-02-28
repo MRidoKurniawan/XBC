@@ -185,6 +185,7 @@
     <Compile Include="Controllers\MonitoringController.cs" />
     <Compile Include="Controllers\OfficeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Controllers\TestTypeController.cs" />
     <Compile Include="Controllers\TestimonyController.cs" />
@@ -202,6 +203,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="background.png" />
+    <Content Include="bg.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\style2.css" />
@@ -209,6 +212,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="loading.gif" />
+    <Content Include="logo-xsis.png" />
     <Content Include="logo.png" />
     <Content Include="menu.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -417,6 +422,12 @@
     <Content Include="Views\Office\_EditRoom.cshtml" />
     <Content Include="Views\Office\_DeleteRoom.cshtml" />
     <Content Include="Views\Office\_AddRoom.cshtml" />
+    <Content Include="Views\Room\Index.cshtml" />
+    <Content Include="Views\Room\_Create.cshtml" />
+    <Content Include="Views\Room\_Delete.cshtml" />
+    <Content Include="Views\Room\_Edit.cshtml" />
+    <Content Include="Views\Room\_List.cshtml" />
+    <Content Include="Views\Room\_ListRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -45,7 +45,7 @@ namespace XBC.Repository
                 result = (from u in db.t_user
                           join
                           r in db.t_role on u.role_id equals r.id
-                          where u.username.Contains(cari) || u.email.Contains(cari)
+                          where u.is_delete == false && (u.username.Contains(cari) || u.email.Contains(cari))
                           select new UserViewModel
                           {
                               id = u.id,
@@ -72,6 +72,32 @@ namespace XBC.Repository
                           join
                           r in db.t_role on u.role_id equals r.id
                           where u.is_delete == false && u.email == email
+                          select new UserViewModel
+                          {
+                              id = u.id,
+                              username = u.username,
+                              email = u.email,
+                              role_id = u.role_id,
+                              role_name = r.name,
+                              password = u.password,
+                              mobile_flag = u.mobile_flag,
+                              mobile_token = u.mobile_token
+
+                          }).FirstOrDefault();
+            }
+            return result == null ? new UserViewModel() : result;
+        }
+
+        public static UserViewModel CheckUName(string uname)
+        {
+
+            UserViewModel result = new UserViewModel();
+            using (var db = new XBC_Context())
+            {
+                result = (from u in db.t_user
+                          join
+                          r in db.t_role on u.role_id equals r.id
+                          where u.is_delete == false && u.username == uname
                           select new UserViewModel
                           {
                               id = u.id,
@@ -117,7 +143,7 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from u in db.t_user
-                          where u.username == model.username
+                          where u.username == model.username && u.is_delete == false
                           select new UserViewModel
                           {
                               id = u.id,
@@ -176,7 +202,7 @@ namespace XBC.Repository
                         var json = new JavaScriptSerializer().Serialize(user);
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Insert";
+                        log.type = "INSERT";
                         log.json_insert = json;
 
                         log.created_by = entity.UserId;
@@ -228,7 +254,7 @@ namespace XBC.Repository
                             };
 
                             t_audit_log log = new t_audit_log();
-                            log.type = "Edit";
+                            log.type = "MODIFY";
                             log.json_before = json;
                             json = Serial.Serialize(data2);
                             log.json_after = json;
@@ -290,7 +316,7 @@ namespace XBC.Repository
                         };
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Edit";
+                        log.type = "MODIFY";
                         log.json_before = json;
                         json = Serial.Serialize(data2);
                         log.json_after = json;
@@ -343,7 +369,7 @@ namespace XBC.Repository
                         user.is_delete = true;
                         
                         user.deleted_by = entity.UserId;
-                        user.modified_on = DateTime.Now;
+                        user.deleted_on = DateTime.Now;
                         db.SaveChanges();
 
                         result.Entity = entity;
@@ -351,7 +377,7 @@ namespace XBC.Repository
 
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Edit";
+                        log.type = "MODIFY";
                         log.json_delete = json;
 
                         log.created_by = entity.UserId;

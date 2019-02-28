@@ -1,48 +1,105 @@
 ﻿@model IEnumerable<XBC.ViewModel.Document_Test_DetailViewModel>
-
+@{
+    ViewBag.Title = "Test";
+}
 @{
     ViewBag.nomer = 1;
 }
-@foreach (var item in Model)
-{
-    if (item.questionType == "MC")
-    {
-        <div class="form-horizontal">
-            <div class="form-group">
-                Soal @ViewBag.nomer @Html.DisplayFor(modelItem => item.question)
-            </div>
-            <div class="form-group">
-                <div class="form-group col-lg-2">
-                    A. @Html.DisplayFor(modelItem => item.optionA)
-                </div>
-                <div class="form-group col-lg-2">
-                    B. @Html.DisplayFor(modelItem => item.optionB)
-                </div>
-                <div class="form-group col-lg-2">
-                    C. @Html.DisplayFor(modelItem => item.optionC)
-                </div>
-                <div class="form-group col-lg-2">
-                    D. @Html.DisplayFor(modelItem => item.optionD)
-                </div>
-                <div class="form-group col-lg-2">
-                    E. @Html.DisplayFor(modelItem => item.optionE)
-                </div>
-            </div>
-        </div>
-    }
 
-    else
-    {
-        <div class="form-horizontal">
-            <div class="form-group">
-                Soal @ViewBag.nomer @Html.DisplayFor(modelItem => item.question)
-            </div>
-            <div class="form-group">
-            </div>
-        </div>
-    }
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3>@ViewBag.Title</h3>
+    </div>
+    <div class="panel-body">
+        @foreach (var item in Model)
+        {
+            if (item.questionType == "MC")
+            {
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        Soal @ViewBag.nomer @Html.DisplayFor(modelItem => item.question)
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @if (item.imageUrl != null)
+                    {
+                                <img src="~/Images/@Url.Content(item.imageUrl)" width="540" height="290" />
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group col-lg-2" style="word-wrap:break-word;">
+                            A).
+                            @if (item.imageA != null)
+                    {
+                                <img src="~/Images/@Url.Content(item.imageA)" width="120" height="120" />
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.optionA)
+                            }
+                        </div>
+                        <div class="form-group col-lg-2" style="word-wrap:break-word;">
+                            B).
+                            @if (item.imageB != null)
+                    {
+                                <img src="~/Images/@Url.Content(item.imageB)" width="120s" height="120" />
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.optionB)
+                            }
+                        </div>
+                        <div class="form-group col-lg-2" style="word-wrap:break-word;">
+                            C).
+                            @if (item.imageC != null)
+                    {
+                                <img src="~/Images/@Url.Content(item.imageC)" width="120" height="120" />
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.optionC)
+                            }
+                        </div>
+                        <div class="form-group col-lg-2" style="word-wrap:break-word;">
+                            D).
+                            @if (item.imageD != null)
+                    {
+                                <img src="~/Images/@Url.Content(item.imageD)" width="120" height="120" />
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.optionD)
+                            }
+                        </div>
+                        <div class="form-group col-lg-2" style="word-wrap:break-word;">
+                            E).
+                            @if (item.imageE != null)
+                    {
+                                <img src="~/Images/@Url.Content(item.imageE)" width="120" height="120" />
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.optionE)
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
 
-    ViewBag.nomer++;
-}
+            else
+            {
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        Soal @ViewBag.nomer @Html.DisplayFor(modelItem => item.question)
+                    </div>
+                    <div class="form-group">
+                    </div>
+                </div>
+            }
 
-
+            ViewBag.nomer++;
+        }
+        <a href="javascript:history.go(-1)" class="btn btn-primary ">Back</a>
+    </div>
+</div>

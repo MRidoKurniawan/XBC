@@ -20,16 +20,16 @@ namespace XBC.Repository
                 result = (from m in db.t_monitoring
                           join b in db.t_biodata
                           on m.biodata_id equals b.id
-                              where m.is_delete == false
-                              select new MonitoringViewModel
-                              {
-                                  id = m.id,
-                                  biodata_id = b.id,
-                                  name = b.name,
-                                  idle_date = m.idle_date,
-                                  placement_date = m.placement_date,
-                                  is_delete = m.is_delete
-                              }).ToList();
+                          where m.is_delete == false
+                          select new MonitoringViewModel
+                          {
+                              id = m.id,
+                              biodata_id = b.id,
+                              name = b.name,
+                              idle_date = m.idle_date,
+                              placement_date = m.placement_date,
+                              is_delete = m.is_delete
+                          }).ToList();
 
                 if (result == null)
                 {
@@ -54,8 +54,12 @@ namespace XBC.Repository
                               id = m.id,
                               biodata_id = b.id,
                               name = b.name,
+                              last_project = m.last_project,
+                              idle_reason = m.idle_reason,
                               idle_date = m.idle_date,
                               placement_date = m.placement_date,
+                              placement_at = m.placement_at,
+                              notes = m.notes,
                               is_delete = m.is_delete
                           }).FirstOrDefault();
 
@@ -119,7 +123,7 @@ namespace XBC.Repository
                             .Where(o => o.id == entity.id)
                             .FirstOrDefault();
 
-                        if(mon != null)
+                        if (mon != null)
                         {
                             object data = new
                             {
@@ -141,6 +145,9 @@ namespace XBC.Repository
                             mon.idle_date = entity.idle_date;
                             mon.last_project = entity.last_project;
                             mon.idle_reason = entity.idle_reason;
+                            //mon.placement_at = entity.placement_at;
+                            //mon.placement_date = entity.placement_date;
+                            //mon.notes = entity.notes;
 
                             mon.modified_by = 1;
                             mon.modified_on = DateTime.Now;
@@ -151,7 +158,10 @@ namespace XBC.Repository
                                 mon.biodata_id,
                                 mon.idle_date,
                                 mon.last_project,
-                                mon.idle_reason
+                                mon.idle_reason,
+                                mon.placement_at,
+                                mon.placement_date,
+                                mon.notes
                             };
                             var json2 = new JavaScriptSerializer().Serialize(data2);
                             log.json_after = json2;
@@ -176,6 +186,83 @@ namespace XBC.Repository
             }
             return result;
         }
+
+        //PLACEMENT
+        public static ResponseResult Placement(MonitoringViewModel entity)
+        {
+            ResponseResult result = new ResponseResult();
+            try
+            {
+                using (var db = new XBC_Context())
+                {
+                    t_monitoring mon = db.t_monitoring
+                        .Where(o => o.id == entity.id)
+                        .FirstOrDefault();
+
+                    if (mon != null)
+                    {
+                        object data = new
+                        {
+                            mon.id,
+                            mon.biodata_id,
+                            mon.idle_date,
+                            mon.last_project,
+                            mon.idle_reason
+                        };
+                        var json = new JavaScriptSerializer().Serialize(data);
+                        t_audit_log log = new t_audit_log();
+                        log.type = "Modify";
+                        log.json_before = json;
+
+                        log.created_by = 1;
+                        log.created_on = DateTime.Now;
+
+                        //mon.biodata_id = entity.biodata_id;
+                        //mon.idle_date = entity.idle_date;
+                        //mon.last_project = entity.last_project;
+                        //mon.idle_reason = entity.idle_reason;
+                        mon.placement_date = entity.placement_date;
+                        mon.placement_at = entity.placement_at;
+                        mon.notes = entity.notes;
+
+                        mon.modified_by = 1;
+                        mon.modified_on = DateTime.Now;
+
+                        object data2 = new
+                        {
+                            mon.id,
+                            mon.biodata_id,
+                            mon.idle_date,
+                            mon.last_project,
+                            mon.idle_reason,
+                            mon.placement_at,
+                            mon.placement_date,
+                            mon.notes
+                        };
+                        var json2 = new JavaScriptSerializer().Serialize(data2);
+                        log.json_after = json2;
+                        db.t_audit_log.Add(log);
+
+                        db.SaveChanges();
+                        entity.name = mon.t_biodata.name; //untuk menampilkan name (t_biodata) di pesan success Placement (monitoring),
+                        //karena monitoring tidak punya name
+                        result.Entity = entity;
+                    }
+                    else
+                    {
+                        result.Success = false;
+                        result.ErrorMessage = "Monitoring not found!";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+
 
         //DELETE
         public static ResponseResult Delete(MonitoringViewModel entity)
@@ -275,18 +362,14 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from b in db.t_biodata
-                          join m in db.t_monitoring on b.id equals m.biodata_id into ps
-                          from m in ps.DefaultIfEmpty()
-                          where /*(b.is_deleted == false && m.id == null) || */(m.is_delete == true && b.is_deleted == false)
+                          //join m in db.t_monitoring on b.id equals m.biodata_id into ps
+                          //from m in ps.DefaultIfEmpty()
+                          where (b.is_deleted == false && !(db.t_monitoring.Any(f => f.biodata_id == b.id && f.is_delete == false)))
                           select new BiodataViewModel
                           {
                               id = b.id,
-                              name = b.name,
-                              majors = b.majors,
-                              gpa = b.gpa,
-                              is_deleted = b.is_deleted
-                          }).ToList();
-
+                              name = b.name
+                          }).Distinct().ToList();
                 if (result == null)
                 {
                     result = new List<BiodataViewModel>();
@@ -294,5 +377,28 @@ namespace XBC.Repository
             }
             return result;
         }
+
+        public static List<BiodataViewModel> ByNameBiodataforEdit(long id)
+        {
+            List<BiodataViewModel> result = new List<BiodataViewModel>();
+            using (var db = new XBC_Context())
+            {
+                result = (from b in db.t_biodata
+                          //join m in db.t_monitoring on b.id equals m.biodata_id into ps
+                          //from m in ps.DefaultIfEmpty()
+                          where (b.is_deleted == false && !(db.t_monitoring.Any(f => f.biodata_id == b.id && f.is_delete == false)) || b.id==id)
+                          select new BiodataViewModel
+                          {
+                              id = b.id,
+                              name = b.name
+                          }).Distinct().ToList();
+                if (result == null)
+                {
+                    result = new List<BiodataViewModel>();
+                }
+            }
+            return result;
+        }
+
     }
 }

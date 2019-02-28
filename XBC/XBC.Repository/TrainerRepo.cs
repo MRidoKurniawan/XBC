@@ -22,9 +22,7 @@ namespace XBC.Repository
                           select new TrainerViewModel
                           {
                               id = tra.id,
-                              name = tra.name,
-                              notes = tra.notes,
-                              is_delete = tra.is_delete
+                              name = tra.name
                           }).ToList();
 
                 if (result == null)
@@ -45,8 +43,7 @@ namespace XBC.Repository
                           {
                               id = tra.id,
                               name = tra.name,
-                              notes = tra.notes,
-                              is_delete = tra.is_delete
+                              notes = tra.notes
                           }).FirstOrDefault();
                 if (result == null)
                     result = new TrainerViewModel();
@@ -66,8 +63,7 @@ namespace XBC.Repository
                         t_trainer tra = new t_trainer();
                         tra.name = entity.name;
                         tra.notes = entity.notes;
-                        tra.is_delete = entity.is_delete;
-                        tra.created_by = 1;
+                        tra.created_by = entity.UserId;
                         tra.created_on = DateTime.Now;
                         db.t_trainer.Add(tra);
                         db.SaveChanges();
@@ -82,7 +78,7 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
                         db.t_audit_log.Add(log);
                         db.SaveChanges();
@@ -109,12 +105,12 @@ namespace XBC.Repository
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             tra.name = entity.name;
                             tra.notes = entity.notes;
-                            tra.modified_by = 1;
+                            tra.modified_by = entity.UserId;
                             tra.modified_on = DateTime.Now;
 
                             object data2 = new
@@ -170,11 +166,11 @@ namespace XBC.Repository
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         tra.is_delete = true;
-                        tra.deleted_by = 1;
+                        tra.deleted_by = entity.UserId;
                         tra.deleted_on = DateTime.Now;
 
                         object data2 = new

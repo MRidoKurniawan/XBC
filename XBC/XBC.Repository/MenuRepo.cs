@@ -188,7 +188,7 @@ namespace XBC.Repository
                         var json = new JavaScriptSerializer().Serialize(menu);
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Insert";
+                        log.type = "INSERT";
                         log.json_insert = json;
 
                         log.created_by = entity.UserId;
@@ -242,7 +242,7 @@ namespace XBC.Repository
                             };
 
                             t_audit_log log = new t_audit_log();
-                            log.type = "Edit";
+                            log.type = "MODIFY";
                             log.json_before = json;
                             json = Serial.Serialize(data2);
                             log.json_after = json;
@@ -317,7 +317,7 @@ namespace XBC.Repository
                         menu.is_delete = true;
 
                         menu.deleted_by = entity.UserId;
-                        menu.modified_on = DateTime.Now;
+                        menu.deleted_on = DateTime.Now;
                         db.SaveChanges();
 
                         result.Entity = entity;
@@ -325,7 +325,7 @@ namespace XBC.Repository
 
 
                         t_audit_log log = new t_audit_log();
-                        log.type = "Delete";
+                        log.type = "MODIFY";
                         log.json_delete = json;
 
                         log.created_by = entity.UserId;

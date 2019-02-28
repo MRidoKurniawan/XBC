@@ -11,13 +11,16 @@
 
         <div class="form-group">
             <div class="col-md-10">
-                @Html.EditorFor(model => model.placement_date, new { htmlAttributes = new { @class = "form-control", @type = "date", @placeholder = "Placement Date" } })
+                @Html.LabelFor(model => model.placement_date, htmlAttributes: new { @class = "control-label col-md-1" })
+                <input type="date" name="placement_date" class="form-control" style="padding:7px" value="@ViewBag.placement_date" /> @*(BIAR PAS NGEDIT ADA TANGGAL LAMANYA)*@
+                @*@Html.EditorFor(model => model.placement_date, new { htmlAttributes = new { @class = "form-control", @type = "date", @placeholder = "Placement Date" } })*@
                 @Html.ValidationMessageFor(model => model.placement_date, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-10">
+                @Html.LabelFor(model => model.placement_at, htmlAttributes: new { @class = "control-label col-md-1" })
                 @Html.EditorFor(model => model.placement_at, new { htmlAttributes = new { @class = "form-control", @placeholder = "Placement At" } })
                 @Html.ValidationMessageFor(model => model.placement_at, "", new { @class = "text-danger" })
             </div>
@@ -25,6 +28,7 @@
 
         <div class="form-group">
             <div class="col-md-10">
+                @Html.LabelFor(model => model.notes, htmlAttributes: new { @class = "control-label col-md-1" })
                 @Html.EditorFor(model => model.notes, new { htmlAttributes = new { @class = "form-control", @placeholder = "Notes" } })
                 @Html.ValidationMessageFor(model => model.notes, "", new { @class = "text-danger" })
             </div>
