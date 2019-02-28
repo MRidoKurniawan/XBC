@@ -90,19 +90,40 @@ namespace XBC.Repository
                         bio.gpa = entity.gpa;
                         bio.is_deleted = entity.is_deleted;
 
-                        bio.created_by = 1;
+                        bio.created_by = entity.UserId;
                         bio.created_on = DateTime.Now;
 
                         db.t_biodata.Add(bio);
                         db.SaveChanges();
 
-                        var json = new JavaScriptSerializer().Serialize(bio);
+                        object data = new
+                        {
+                            bio.id,
+                            bio.name,
+                            bio.gender,
+                            bio.last_education,
+                            bio.graduation_year,
+                            bio.educational_level,
+                            bio.majors,
+                            bio.gpa,
+                            bio.bootcamp_test_type,
+                            bio.iq,
+                            bio.du,
+                            bio.arithmetic,
+                            bio.nested_logic,
+                            bio.join_table,
+                            bio.tro,
+                            bio.notes,
+                            bio.interviewer
+                        };
+
+                        var json = new JavaScriptSerializer().Serialize(data);
 
                         t_audit_log log = new t_audit_log();
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -144,7 +165,7 @@ namespace XBC.Repository
                             t_audit_log log = new t_audit_log();
                             log.type = "Modify";
                             log.json_before = json;
-                            log.created_by = 1;
+                            log.created_by = entity.UserId;
                             log.created_on = DateTime.Now;
 
                             bio.name = entity.name;
@@ -164,7 +185,7 @@ namespace XBC.Repository
                             bio.notes = entity.notes;
                             bio.interviewer = entity.interviewer;
 
-                            bio.modified_by = 1;
+                            bio.modified_by = entity.UserId;
                             bio.modified_on = DateTime.Now;
 
                             object data2 = new
@@ -254,18 +275,62 @@ namespace XBC.Repository
 
                     if (bio != null)
                     {
-                        var json = new JavaScriptSerializer().Serialize(bio);
+                        object data = new
+                        {
+                            bio.id,
+                            bio.name,
+                            bio.gender,
+                            bio.last_education,
+                            bio.graduation_year,
+                            bio.educational_level,
+                            bio.majors,
+                            bio.gpa,
+                            bio.bootcamp_test_type,
+                            bio.iq,
+                            bio.du,
+                            bio.arithmetic,
+                            bio.nested_logic,
+                            bio.join_table,
+                            bio.tro,
+                            bio.notes,
+                            bio.interviewer,
+                            bio.is_deleted
+                        };
+
+                        var json = new JavaScriptSerializer().Serialize(data);
                         t_audit_log log = new t_audit_log();
                         log.type = "Modify";
                         log.json_before = json;
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         bio.is_deleted = true;
-                        bio.deleted_by = 1;
+                        bio.deleted_by = entity.UserId;
                         bio.deleted_on = DateTime.Now;
 
-                        var json2 = new JavaScriptSerializer().Serialize(bio);
+                        object data2 = new
+                        {
+                            bio.id,
+                            bio.name,
+                            bio.gender,
+                            bio.last_education,
+                            bio.graduation_year,
+                            bio.educational_level,
+                            bio.majors,
+                            bio.gpa,
+                            bio.bootcamp_test_type,
+                            bio.iq,
+                            bio.du,
+                            bio.arithmetic,
+                            bio.nested_logic,
+                            bio.join_table,
+                            bio.tro,
+                            bio.notes,
+                            bio.interviewer,
+                            bio.is_deleted
+                        };
+
+                        var json2 = new JavaScriptSerializer().Serialize(data2);
                         log.json_after = json2;
                         db.t_audit_log.Add(log);
 
@@ -320,8 +385,8 @@ namespace XBC.Repository
             using (var db = new XBC_Context())
             {
                 result = (from btt in db.t_bootcamp_test_type
-                          join b in db.t_biodata on btt.id equals b.bootcamp_test_type into ps
-                          from m in ps.DefaultIfEmpty()
+                          ////join b in db.t_biodata on btt.id equals b.bootcamp_test_type into ps
+                          ////from m in ps.DefaultIfEmpty()
                           where btt.is_delete == false
                           select new BootcampTestTypeViewModel
                           {

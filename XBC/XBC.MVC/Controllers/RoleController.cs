@@ -75,5 +75,19 @@ namespace XBC.MVC.Controllers
         {
             return PartialView("_Search", RoleRepo.GetBySearch(search));
         }
+
+        public ActionResult CheckName(string name="")
+        {
+            RoleViewModel data = RoleRepo.CheckName(name);
+            ResponseResult result = new ResponseResult();
+            if (data.name != null)
+            {
+                result.Success = false;
+            }
+            return Json(new
+            {
+                success = result.Success
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

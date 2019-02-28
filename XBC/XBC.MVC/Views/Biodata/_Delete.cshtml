@@ -1,4 +1,7 @@
 ﻿@model XBC.ViewModel.BiodataViewModel
+@{
+    ViewBag.id = Session["id"]; //(untuk User LOGIN ID)
+}
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -6,7 +9,7 @@
     @using (Html.BeginForm("Delete", "Biodata", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
     {
         @Html.AntiForgeryToken()
-
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" /> //(untuk User LOGIN ID)
     @Html.HiddenFor(model => model.id)
     @Html.HiddenFor(model => model.name)
 
@@ -26,7 +29,7 @@
             success: function (result) {
                 if (result.success) {
                     alert("Delete successful!\nName: " + result.entity.name);
-                    $(".modal").modal("hide");
+                    $(".modal-umum").modal("hide");
                     GetList();
                 } else {
                     alert("Error!\n" + result.message);

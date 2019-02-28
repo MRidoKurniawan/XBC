@@ -16,7 +16,6 @@ namespace XBC.ViewModel
 
         public string name { get; set; } //t_biodata
 
-        [Display(Name = "Idle_Date")]
         public DateTime idle_date { get; set; }
 
         [StringLength(50)]
@@ -27,16 +26,21 @@ namespace XBC.ViewModel
         [Display(Name = "Idle_Reason")]
         public string idle_reason { get; set; }
 
-        [Display(Name = "Placement_Date")]
         public DateTime? placement_date { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Placement_At")]
         public string placement_at { get; set; }
+        [Display(Name = "Placement_Date")]
+        public string date_placement { get; set; }
+
+        [Display(Name = "Idle_Date")]
+        public string date_idle { get; set; }
 
         [StringLength(255)]
         [Display(Name = "Notes")]
         public string notes { get; set; }
+        public long UserId { get; set; }
         public bool is_delete { get; set; }
 
     }

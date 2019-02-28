@@ -1,4 +1,7 @@
 ﻿@model XBC.ViewModel.RoleViewModel
+@{
+    ViewBag.id = Session["id"];
+}
 
 <h3>Are you sure to delete this data?</h3>
 <div>
@@ -6,7 +9,7 @@
     @using (Html.BeginForm("Delete", "Role", FormMethod.Post, new { id = "form-delete", name = "form-delete" }))
     {
         @Html.AntiForgeryToken()
-        
+        <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
         @Html.HiddenFor(model => model.id)
         @Html.HiddenFor(model => model.name)
 
