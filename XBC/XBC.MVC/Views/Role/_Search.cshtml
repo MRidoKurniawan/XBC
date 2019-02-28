@@ -41,7 +41,6 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item btn-edit" href="#" data-id="@item.id"><div class="col-lg-12">Edit</div></a>
-                        <a class="dropdown-item btn-reset" href="#" data-id="@item.id"><div class="col-lg-12">Reset Password</div></a>
                         <a class="dropdown-item btn-delete" href="#" data-id="@item.id"><div class="col-lg-12">Delete</div></a>
                     </div>
                 </div>
@@ -59,6 +58,7 @@
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Edit Data");
                 $('.modal').modal('show');
             }
         });
@@ -84,6 +84,7 @@
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Delete Data");
                 $('.modal').modal('show');
             }
         });
@@ -97,6 +98,7 @@
             type: 'get',
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Add Data");
                 $('.modal').modal('show');
             }
         });

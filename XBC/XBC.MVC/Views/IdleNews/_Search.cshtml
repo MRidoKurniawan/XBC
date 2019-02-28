@@ -4,7 +4,7 @@
     <input type="text" id="txt-search" class="form-control" placeholder="Search by Title" />
 </div>
 <div class="col-lg-1">
-    <button type="button" id="btn-search" class="btn btn-success">
+    <button type="button" id="btn-search" class="btn btn-primary">
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
     </button>
 </div>
@@ -12,7 +12,7 @@
 
     </div>*@
 <div class="col-lg-6">
-    <button type="button" id="btn-Create" class="btn btn-success">
+    <button type="button" id="btn-Create" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
 </div>
@@ -27,15 +27,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.categoryName)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.content)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.isPublish)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.isDelete)
-                </th>*@
             <th>#</th>
         </tr>
     </thead>
@@ -50,18 +41,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.categoryName)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.content)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.isPublish)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.isDelete)
-                    </td>*@
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-align-justify"></span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -75,7 +57,6 @@
             </tr>
         </tbody>
     }
-
 </table>
 
 

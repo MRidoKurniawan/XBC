@@ -31,7 +31,7 @@ namespace XBC.MVC.Controllers
         public ActionResult Create()
         {
             
-            ViewBag.BiodataList = new SelectList(BiodataRepo.All(), "id", "name");
+            ViewBag.BiodataList = new SelectList(MonitoringRepo.ByNameBiodata(), "id", "name");
             return PartialView("_Create");
         }
 
@@ -69,7 +69,7 @@ namespace XBC.MVC.Controllers
             assignment = AssignmentRepo.ById(id);
             ViewBag.tanggalmulai = assignment.start_date.ToString("yyyy'-'MM'-'dd");
             ViewBag.tanggalselesai = assignment.end_date.ToString("yyyy'-'MM'-'dd");
-            ViewBag.BiodataList = new SelectList(BiodataRepo.All(), "id", "name");
+            ViewBag.BiodataList = new SelectList(MonitoringRepo.ByNameBiodataforEdit(assignment.biodata_id), "id", "name");
             return PartialView("_Edit", assignment);
         }
 

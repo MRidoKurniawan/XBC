@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<XBC.ViewModel.MenuAccessViewModel>
-
-
+@{
+    ViewBag.id = Session["id"];
+}
 @using (Html.BeginForm("Create", "MenuAccess", FormMethod.Post, new { id = "form-create", name = "form-create", validate = "validate" }))
 {
     @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
     <div class="row">
         <div class="col-lg-4">
             <select class="form-control" name="role_id" id="role_id"></select>
@@ -25,7 +27,7 @@
         <select class="form-control" name="role_id" id="role_id1"></select>
     </div>
     <div class="col-lg-1">
-        <button type="button" id="btn-search" class="btn btn-success">
+        <button type="button" id="btn-search" class="btn btn-primary">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
         </button>
     </div>

@@ -4,7 +4,7 @@
     <input type="text" id="txt-search" class="form-control" placeholder="Search by name" />
 </div>
 <div class="col-lg-1">
-    <button type="button" id="btn-search" class="btn btn-success">
+    <button type="button" id="btn-search" class="btn btn-primary">
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
     </button>
 </div>
@@ -12,7 +12,7 @@
 
     </div>*@
 <div class="col-lg-6">
-    <button type="button" id="btn-Create" class="btn btn-success">
+    <button type="button" id="btn-Create" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
 </div>
@@ -24,12 +24,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.notes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.typeofanswer)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.createdBy)
             </th>
@@ -44,18 +38,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.name)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.notes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.typeofanswer)
-                    </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.createdBy)
+                    @Html.DisplayFor(modelItem => item.CreatedByName)
                 </td>
                 <td>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-align-justify"></span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -64,25 +52,12 @@
                         </div>
                     </div>
                 </td>
-                <td>
-                    @*<button type="button" class="btn btn-warning btn-edit" data-id="@item.Id" title="Edit">
-                            <span class="glyphicon glyphicon-edit" aria--hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger btn-delete" data-id="@item.Id" title="Delete">
-                            <span class="glyphicon glyphicon-trash" aria--hidden="true"></span>
-                        </button>*@
-                    @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
-                </td>
             </tr>
         </tbody>
     }
-
 </table>
 
 <script type="text/javascript">
-    //$(".table").DataTable();
     $("#btn-Create").click(function () {
         $.ajax({
             url: '@Url.Action("Create", "TestType")',

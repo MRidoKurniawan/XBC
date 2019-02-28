@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<XBC.ViewModel.RoleViewModel>
 <option value="">Choose Role</option>
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <option value="@item.id">@item.name</option>
 }

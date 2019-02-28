@@ -67,6 +67,7 @@
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Edit Data");
                 $('.modal').modal('show');
             }
         });
@@ -92,6 +93,7 @@
             data: { id: $(this).attr("data-id") },
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Delete Data");
                 $('.modal').modal('show');
             }
         });
@@ -105,6 +107,7 @@
             type: 'get',
             success: function (result) {
                 $(".modal-body").html(result);
+                $(".modal-title").html("Add Data");
                 $('.modal').modal('show');
             }
         });

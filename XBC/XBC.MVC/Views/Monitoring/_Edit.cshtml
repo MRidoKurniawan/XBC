@@ -12,6 +12,7 @@
 
         <div class="form-group">
             <div class="col-md-10">
+                @Html.LabelFor(model => model.biodata_id, htmlAttributes: new { @class = "control-label col-md-1" })
                 @Html.DropDownListFor(model => model.biodata_id,
          (IEnumerable<SelectListItem>)ViewBag.BiodataList, "- Choose Biodata Name -", new { @class = "form-control" })
                 @*@Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control"} })*@
@@ -21,13 +22,15 @@
 
         <div class="form-group">
             <div class="col-md-10">
-                @Html.EditorFor(model => model.idle_date, new { htmlAttributes = new { @class = "form-control", @type = "date", @placeholder = "Idle Date" } })
-                @Html.ValidationMessageFor(model => model.idle_date, "", new { @class = "text-danger" })
-            </div>
+                @Html.LabelFor(model => model.idle_date, htmlAttributes: new { @class = "control-label col-md-1" })
+                <input type="date" name="idle_date" class="form-control" style="padding:7px" value="@ViewBag.idle_date" /> @*(BIAR PAS NGEDIT ADA TANGGAL LAMANYA)*@
+                       @*@Html.EditorFor(model => model.idle_date, new { htmlAttributes = new { @class = "form-control", @type = "date", @placeholder = "Idle Date" } })*@
+                       @Html.ValidationMessageFor(model => model.idle_date, "", new { @class = "text-danger" })</div>
         </div>
 
         <div class="form-group">
             <div class="col-md-10">
+                @Html.LabelFor(model => model.last_project, htmlAttributes: new { @class = "control-label col-md-1" })
                 @Html.EditorFor(model => model.last_project, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Project" } })
                 @Html.ValidationMessageFor(model => model.last_project, "", new { @class = "text-danger" })
             </div>
@@ -35,6 +38,7 @@
 
         <div class="form-group">
             <div class="col-md-10">
+                @Html.LabelFor(model => model.idle_reason, htmlAttributes: new { @class = "control-label col-md-1" })
                 @Html.EditorFor(model => model.idle_reason, new { htmlAttributes = new { @class = "form-control", @placeholder = "Idle Reason" } })
                 @Html.ValidationMessageFor(model => model.idle_reason, "", new { @class = "text-danger" })
             </div>

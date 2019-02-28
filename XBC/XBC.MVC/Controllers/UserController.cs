@@ -116,5 +116,19 @@ namespace XBC.MVC.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult CheckUName(string uname = "")
+        {
+            UserViewModel data = UserRepo.CheckUName(uname);
+            ResponseResult result = new ResponseResult();
+            if (data.username != null)
+            {
+                result.Success = false;
+            }
+            return Json(new
+            {
+                success = result.Success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
