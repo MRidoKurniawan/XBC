@@ -2,8 +2,6 @@
 @{
     ViewBag.id = Session["id"];
 }
-
-<h3>Are you sure to delete this data?</h3>
 <div>
     @using (Html.BeginForm("DeleteTrainer", "Technology", FormMethod.Post, new { id = "form-delete", name = "form-delete" })) {
 

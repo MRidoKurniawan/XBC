@@ -257,8 +257,7 @@ namespace XBC.Repository
                               id = tec.id,
                               name = tec.name,
                               notes = tec.notes,
-                              created_by = tec.created_by,
-                              is_delete = tec.is_delete
+                              created_by = tec.created_by
                           }).FirstOrDefault();
                 if (result == null)
                     result = new TechnologyViewModel();
