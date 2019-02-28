@@ -1,30 +1,33 @@
 ﻿@model XBC.ViewModel.BiodataViewModel
+@{
+    ViewBag.id = Session["id"];
+}
 
 @using (Html.BeginForm("Edit", "Biodata", FormMethod.Post, new { id = "form-edit", name = "form-edit" }))
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal" style="width:55rem">
-        <table class="table" style="width:100%">
+    <input type="hidden" id="UserId" name="UserId" value="@ViewBag.id" />
+    <div class="form-horizontal">
+        <table class="table">
             <tr>
-                <td style="width:20rem;">
+                <td style="width:35rem;">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.id)
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-1" })
-                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @pattern = "[A-Za-z]+[A-Za-z ]{0,}", @title = "Hanya huruf!" } })
                             @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </td>
-                <td colspan="4" style="width:35rem;">
+                <td colspan="4" style="width:45rem;">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label" })
                             <div class="checkbox">
-                                <input type="radio" name="gender" value="M" id="rd-yes" @ViewBag.rdyes /> M
-                                <input type="radio" name="gender" value="F" id="rd-no" @ViewBag.rdno /> F
+                                <input type="radio" name="gender" value="M" id="rd-yes" @ViewBag.rdyes /> Male
+                                <input type="radio" name="gender" value="F" id="rd-no" @ViewBag.rdno /> Female
                                 @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -35,7 +38,7 @@
             <tr>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.last_education, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.last_education, new { htmlAttributes = new { @class = "form-control", @placeholder = "Last Education" } })
                             @Html.ValidationMessageFor(model => model.last_education, "", new { @class = "text-danger" })
@@ -44,10 +47,9 @@
                 </td>
                 <td colspan="4">
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.bootcamp_test_type, htmlAttributes: new { @class = "control-label col-md-1" })
-                            @Html.DropDownListFor(model => model.bootcamp_test_type,
-(IEnumerable<SelectListItem>)ViewBag.BootcampTestTypeList, "Select Bootcamp Test Type", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.bootcamp_test_type, (IEnumerable<SelectListItem>)ViewBag.BootcampTestTypeList, "Select Bootcamp Test Type", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.bootcamp_test_type, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -57,7 +59,7 @@
             <tr>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.educational_level, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.educational_level, new { htmlAttributes = new { @class = "form-control", @placeholder = "Education Level" } })
                             @Html.ValidationMessageFor(model => model.educational_level, "", new { @class = "text-danger" })
@@ -66,7 +68,7 @@
                 </td>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.iq, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.iq, new { htmlAttributes = new { @class = "form-control", @placeholder = "IQ" } })
                             @Html.ValidationMessageFor(model => model.iq, "", new { @class = "text-danger" })
@@ -75,16 +77,16 @@
                 </td>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.du, htmlAttributes: new { @class = "control-label col-md-1" })
-                            @Html.EditorFor(model => model.du, new { htmlAttributes = new { @class = "form-control", @placeholder = "DU" } })
+                            @Html.EditorFor(model => model.du, new { htmlAttributes = new { @class = "form-control", @placeholder = "DU", @pattern = "[0-9]+", @title = "Hanya angka!" } })
                             @Html.ValidationMessageFor(model => model.du, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </td>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.nested_logic, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.nested_logic, new { htmlAttributes = new { @class = "form-control", @placeholder = "NL" } })
                             @Html.ValidationMessageFor(model => model.nested_logic, "", new { @class = "text-danger" })
@@ -93,7 +95,7 @@
                 </td>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.join_table, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.join_table, new { htmlAttributes = new { @class = "form-control", @placeholder = "JT" } })
                             @Html.ValidationMessageFor(model => model.join_table, "", new { @class = "text-danger" })
@@ -105,16 +107,16 @@
             <tr>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.graduation_year, htmlAttributes: new { @class = "control-label col-md-1" })
-                            @Html.EditorFor(model => model.graduation_year, new { htmlAttributes = new { @class = "form-control", @placeholder = "Graduation Year" } })
+                            @Html.EditorFor(model => model.graduation_year, new { htmlAttributes = new { @class = "form-control", @placeholder = "Graduation Year", @pattern = "[0-9]{4,4}", @title = "Harus angka dan 4 digit tanpa spasi!" } })
                             @Html.ValidationMessageFor(model => model.graduation_year, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </td>
                 <td colspan="4">
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.arithmetic, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.arithmetic, new { htmlAttributes = new { @class = "form-control", @placeholder = "Arithmetic" } })
                             @Html.ValidationMessageFor(model => model.arithmetic, "", new { @class = "text-danger" })
@@ -126,7 +128,7 @@
             <tr>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.majors, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.majors, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.majors, "", new { @class = "text-danger" })
@@ -135,9 +137,9 @@
                 </td>
                 <td colspan="4">
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.tro, htmlAttributes: new { @class = "control-label col-md-1" })
-                            @Html.EditorFor(model => model.tro, new { htmlAttributes = new { @class = "form-control", @placeholder = "TRO" } })
+                            @Html.EditorFor(model => model.tro, new { htmlAttributes = new { @class = "form-control", @placeholder = "TRO", @pattern = "[A-Za-z][A-Za-z ]+", @title = "Hanya huruf!" } })
                             @Html.ValidationMessageFor(model => model.tro, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -147,16 +149,16 @@
             <tr>
                 <td>
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.gpa, htmlAttributes: new { @class = "control-label col-md-1" })
-                            @Html.EditorFor(model => model.gpa, new { htmlAttributes = new { @class = "form-control gpa" } })
+                            @Html.EditorFor(model => model.gpa, new { htmlAttributes = new { @class = "form-control gpa", @pattern = "[0-4]+[.]+[0-9]{2,2}", @title = "GPA minimal 0 maksimal 4! Gunakan 3 digit!" } })
                             @Html.ValidationMessageFor(model => model.gpa, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </td>
                 <td colspan="4">
                     <div class="form-group">
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             @Html.LabelFor(model => model.interviewer, htmlAttributes: new { @class = "control-label col-md-1" })
                             @Html.EditorFor(model => model.interviewer, new { htmlAttributes = new { @class = "form-control", @placeholder = "Interview" } })
                             @Html.ValidationMessageFor(model => model.interviewer, "", new { @class = "text-danger" })
@@ -190,6 +192,10 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <script type="text/javascript">
+    $(document).ready(function () { //.
+        $("#form-edit").removeAttr("novalidate") //.untuk VALIDASI pattern
+    });
+
     $("#form-edit").submit(function () {
         if (parseFloat($(".gpa").val()) <= 4 && parseFloat($(".gpa").val()) >= 0) {
             $.ajax({
@@ -199,7 +205,7 @@
                 success: function (result) {
                     if (result.success) {
                         alert("Save successful!\nNama: " + result.entity.name);
-                        $(".modal").modal("hide");
+                        $(".modal-edit").modal("hide");
                         GetList();
                     } else {
                         alert("Error!\n" + result.message);

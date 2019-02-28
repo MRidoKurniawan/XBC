@@ -64,9 +64,9 @@
             url: '@Url.Action("Create", "Biodata")',
             type: 'get',
             success: function (result) {
-                $(".modal-body").html(result);
-                $(".modal-title").html("Add Data");
-                $('.modal').modal('show');
+                $(".modal-umum-body").html(result);
+                $(".modal-umum-title").html("Add Data");
+                $('.modal-umum').modal('show');
             }
         });
     });
@@ -79,9 +79,9 @@
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
-                $(".modal-body").html(result);
-                $(".modal-title").html("Delete Data");
-                $('.modal').modal('show');
+                $(".modal-umum-body").html(result);
+                $(".modal-umum-title").html("Delete Data");
+                $('.modal-umum').modal('show');
             }
         });
     });
@@ -107,9 +107,9 @@
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
-                $(".modal-body").html(result);
-                $(".modal-title").html("Edit Data");
-                $('.modal').modal('show');
+                $(".modal-edit-body").html(result);
+                $(".modal-edit-title").html("Edit Data");
+                $('.modal-edit').modal('show');
             }
         });
     });
