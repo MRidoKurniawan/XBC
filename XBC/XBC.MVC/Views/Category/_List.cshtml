@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<XBC.ViewModel.CategoryViewModel>
 
-<table class="table" id="table1">
+<table class="table table-bordered table-striped"  >
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.code)
@@ -44,6 +44,7 @@
             data: { search: $("#txt-search").val() },
             success: function (result) {
                 $("#data-list").html(result);
+                $("#txt-search").val("");
             }
         });
     });
@@ -67,7 +68,7 @@
             type: 'get',
             data: { id: $(this).attr("data-id") },
             success: function (result) {
-                $(".modal-title").html("Delete Category");
+                $(".modal-title").html("Delete");
                 $(".modal-body").html(result);
                 $('.modal').modal('show');
             }

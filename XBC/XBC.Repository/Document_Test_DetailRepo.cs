@@ -90,7 +90,7 @@ namespace XBC.Repository
                         dtd.question_id = entity.question_id;
                         dtd.document_test_id = entity.document_test_id;
 
-                        dtd.created_by = 1;
+                        dtd.created_by = entity.UserId;
                         dtd.created_on = DateTime.Now;
 
                         db.t_document_test_detail.Add(dtd);
@@ -102,7 +102,7 @@ namespace XBC.Repository
                         log.type = "Insert";
                         log.json_insert = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
@@ -214,7 +214,7 @@ namespace XBC.Repository
                         log.type = "Delete";
                         log.json_delete = json;
 
-                        log.created_by = 1;
+                        log.created_by = entity.UserId;
                         log.created_on = DateTime.Now;
 
                         db.t_audit_log.Add(log);
