@@ -60,7 +60,7 @@ namespace XBC.Repository
                             ttr.created_by = entity.UserId;
                             ttr.created_on = DateTime.Now;
                             db.t_technology_trainer.Add(ttr);
-
+                            db.SaveChanges();
                             object datattr = new
                             {
                                 ttr.id,
