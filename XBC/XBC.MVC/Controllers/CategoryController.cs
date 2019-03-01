@@ -33,7 +33,7 @@ namespace XBC.MVC.Controllers
             return Json(new
             {
                 success = result.Success,
-                messgae = result.ErrorMessage,
+                message = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
@@ -50,7 +50,7 @@ namespace XBC.MVC.Controllers
             return Json(new
             {
                 success = result.Success,
-                messgae = result.ErrorMessage,
+                message = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }
@@ -67,7 +67,7 @@ namespace XBC.MVC.Controllers
             return Json(new
             {
                 success = result.Success,
-                messgae = result.ErrorMessage,
+                message = result.ErrorMessage,
                 entity = result.Entity
             }, JsonRequestBehavior.AllowGet);
         }

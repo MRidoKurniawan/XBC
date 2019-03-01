@@ -117,8 +117,24 @@ namespace XBC.Repository
 
                                 db.SaveChanges();
 
-                                var json = new JavaScriptSerializer().Serialize(doct1);
+                                var Serial = new JavaScriptSerializer();
+                                object data2 = new
+                                {
+                                    doct1.id,
+                                    doct1.created_by,
+                                    doct1.created_on,
+                                    doct1.deleted_by,
+                                    doct1.deleted_on,
+                                    doct1.is_delete,
+                                    doct1.modified_by,
+                                    doct1.modified_on,
+                                    doct1.test_id,
+                                    doct1.test_type_id,
+                                    doct1.token,
+                                    doct.version
+                                };
                                 t_audit_log log = new t_audit_log();
+                                var json = Serial.Serialize(data2);
                                 log.type = "Insert";
                                 log.json_insert = json;
 
@@ -128,6 +144,19 @@ namespace XBC.Repository
                                 db.t_audit_log.Add(log);
 
                                 db.SaveChanges();
+
+
+                                //var json = new JavaScriptSerializer().Serialize(doct1);
+                                //t_audit_log log = new t_audit_log();
+                                //log.type = "Insert";
+                                //log.json_insert = json;
+
+                                //log.created_by = entity.UserId;
+                                //log.created_on = DateTime.Now;
+
+                                //db.t_audit_log.Add(log);
+
+                                //db.SaveChanges();
 
                                 List<t_document_test_detail> results = (from dtd in db.t_document_test_detail
                                                                         where dtd.document_test_id == entity.id
@@ -144,7 +173,7 @@ namespace XBC.Repository
                                     db.t_document_test_detail.Add(od);
                                     db.SaveChanges();
 
-                                    var Serial = new JavaScriptSerializer();
+                                    Serial = new JavaScriptSerializer();
                                     object data = new
                                     {
                                         od.id,
