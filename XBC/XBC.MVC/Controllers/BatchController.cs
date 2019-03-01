@@ -105,7 +105,6 @@ namespace XBC.MVC.Controllers
         {
             ViewBag.IdBatch = id; // mengirim bath id
 
-
             List<TestViewModel> data = TestRepo.All("");
             foreach (var item in data)
             {
